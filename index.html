@@ -3,6 +3,10 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <meta name="google-signin-clientid" content="247812372074-s6v0cjlf12q04cm7gbajipmfv1ee9iu8.apps.googleusercontent.com" />
+        <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+        <meta name="google-signin-callback" content="handleAuthResult" />
+        <meta name="google-signin-scope" content="https://www.googleapis.com/auth/games" />
         <title> Placeholder </title>
         
         <style>
@@ -15,6 +19,11 @@
         <script type="text/javascript" src = "Jscript/View.js" charset="utf-8" defer></script>
         <script type="text/javascript" src = "Jscript/PlayerController.js" charset="utf-8" defer></script>
         <script type="text/javascript" src = "Jscript/GameController.js" charset="utf-8" defer></script>
+        
+        <!--NETWORKING STUFF-->
+        <script tyoe="text/havascript" src="Jscript/NetworkController.js" charset="utf-8" defer></script>
+        <script src="https://apis.google.com/js/client.js"></script>
+        <!--NETWORKING STUFF-->
     </head>
     <body>
         <canvas id="Placeholder" width="900" height="675"></canvas>
