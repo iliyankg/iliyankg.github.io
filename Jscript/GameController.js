@@ -420,7 +420,7 @@ function click(e)
             }
             else if(rect.t == "google")
             {
-                //Iliyan, put the pop um from Google Play here.
+                handleClientLoad();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         } 
