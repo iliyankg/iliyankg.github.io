@@ -24,17 +24,6 @@ handleClientLoad = function()
     //window.setTimeout(checkAuth, 1);
 }
 
+console.log(gapi.client);
 
 
-
-////HIDE AND UNHIDE BUTTON
-//_hideButton()
-//{
-//    
-//}
-//
-//
-//_showButton()
-//{
-//    
-//}
