@@ -9,6 +9,7 @@ var rightPlatoon = new Array(3);
 var platoonLength = 3;
 
 document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("click", click, false);
 view.update();
 
 
@@ -16,6 +17,8 @@ view.update();
 function GameController() 
 //Public
 {
+    this.gameState = "menu"
+    
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
     this._iTurnNum = 0;//Number of turns so far
@@ -334,6 +337,22 @@ function GameController()
         var timerInt = setInterval(this._timer_ChangeTime, 1000);
         //var timerTime = setTimeout(gameController._timer_TimeoutFunc, 5000, timerInt);
     }
+    
+    this.startGame = function()
+    {
+        this.gameState = "game";
+        for(i = 0; i < platoonLength; i++)
+        {
+            leftPlatoon[i] = null;
+            rightPlatoon[i] = null; 
+        }
+        playerController._left = new Player();
+        playerController._left.createPlayer(10,10,"Local_Player", 0);
+        playerController._right = new Player();
+        playerController._right.createPlayer(10,10,"Remote_Player", 1);
+        
+        gameController._timer();
+    }
 }
 
 function keyDownHandler(e)
@@ -384,6 +403,31 @@ function keyDownHandler(e)
         
         //gameController._advance();
         //gameController._iTurnNum++;
+    }
+}
+
+function click(e)
+{
+    if(gameController.gameState == "menu")
+    {
+        console.log('click: ' + e.offsetX + '/' + e.offsetY);
+        var rect = view._collides(view._rects, e.offsetX, e.offsetY);
+        if (rect) 
+        {
+            if(rect.t == "play")
+            {
+                gameController.startGame();
+            }
+            else if(rect.t == "google")
+            {
+                //Iliyan, put the pop um from Google Play here.
+            }
+            console.log('collision: ' + rect.x + '/' + rect.y);
+        } 
+        else
+        {
+            //console.log('no collision');
+        }
     }
 }
 
