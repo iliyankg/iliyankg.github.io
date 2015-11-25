@@ -420,8 +420,7 @@ function click(e)
             }
             else if(rect.t == "google")
             {
-                console.log("WTF");
-                handleClientLoad();
+                gapi.auth.signIn();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         } 
