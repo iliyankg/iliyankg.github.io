@@ -420,6 +420,7 @@ function click(e)
             }
             else if(rect.t == "google")
             {
+                console.log("WTF");
                 handleClientLoad();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
