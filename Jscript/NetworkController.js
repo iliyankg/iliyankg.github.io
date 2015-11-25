@@ -7,7 +7,7 @@ function _checkAuth()
     gapi.auth.authorize((client_id: clientID, scope: scope, immediate: true), handleAuthResult);
 }
 
-function _handleAuthResult(authResult)
+function handleAuthResult(authResult)
 {
     if(authResult && !authResult.error)
     {

@@ -11,7 +11,7 @@ var canvasContext = canvas.getContext("2d");
 function View()
 {
     this._rects = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t:"play"},//Play game
-                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t:"credits"}];//Credits
+                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t:"google"}];//Google
     
     
     this._Minion =  function()
