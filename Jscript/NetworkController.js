@@ -23,7 +23,7 @@ handleAuthResult = function(auth)
             
             request.execute(function(resp)
                            {
-                console.log("something");
+                console.log(resp);
             })
         });
         
