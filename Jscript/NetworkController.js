@@ -2,6 +2,8 @@ var clientID = '247812372074-s6v0cjlf12q04cm7gbajipmfv1ee9iu8';
 var apiKey = 'AIzaSyCCaQb_poHUrGjOjX34w7uZKhpuY_NZOqc';
 var scope = 'https://www.googleapis.com/auth/games'; //Unused
 
+var localPlayer;
+
 handleAuthResult = function(auth)
 {
     if(auth && !auth.error)
@@ -10,10 +12,10 @@ handleAuthResult = function(auth)
     }
     else
     {
-       // gapi.client.load('games', 'v1', function(response)
-       //                 {
-            
-       // });
+        gapi.client.load('games', 'v1', function(response)
+        {
+            console.log("LoginSuccess");
+        });
     }
 }
 
