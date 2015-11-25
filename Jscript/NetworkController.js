@@ -16,8 +16,8 @@ handleAuthResult = function(auth)
         {
             var request = gapi.client.plus.people.list(
             {
-                `userId` : `me`,
-                `collection` : `visible`
+                'userId' : 'me',
+                'collection' : 'visible'
                 
             });
             
