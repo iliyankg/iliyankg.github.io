@@ -10,10 +10,10 @@ handleAuthResult = function(auth)
     }
     else
     {
-        //gapi.client.load('games', 'v1', function(response)
-        //{
-        //    console.log("LoginSuccess");
-        //});
+        gapi.client.load('games', 'v1', function(response)
+        {
+            console.log("LoginSuccess");
+        });
     }
 }
 
@@ -26,14 +26,14 @@ handleClientLoad = function()
 
 
 
-//HIDE AND UNHIDE BUTTON
-_hideButton()
-{
-    
-}
-
-
-_showButton()
-{
-    
-}
+////HIDE AND UNHIDE BUTTON
+//_hideButton()
+//{
+//    
+//}
+//
+//
+//_showButton()
+//{
+//    
+//}
