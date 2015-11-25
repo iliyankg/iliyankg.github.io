@@ -6,14 +6,15 @@ handleAuthResult = function(auth)
 {
     if(auth && !auth.error)
     {
-        console.log("LoginError");
-    }
-    else
-    {
         gapi.client.load('games', 'v1', function(response)
         {
             console.log("LoginSuccess");
         });
+        
+    }
+    else
+    {
+        console.log("LoginError");
     }
 }
 
