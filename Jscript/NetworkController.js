@@ -6,12 +6,19 @@ handleAuthResult = function(auth)
 {
     if(auth && !auth.error)
     {
+        console.log("LoginSuccess");
         gapi.client.load('games', 'v1', function(response)
         {
-            console.log("LoginSuccess");
-            console.log(gapi.client);
+            console.log("Games Loaded");
+            
+        });
+        gapi.client.load('plus', 'v1', function(response)
+        {
+            console.log("Plus loaded");
         });
         
+        
+        console.log(gapi.client);
     }
     else
     {
