@@ -9,6 +9,7 @@ handleAuthResult = function(auth)
         gapi.client.load('games', 'v1', function(response)
         {
             console.log("LoginSuccess");
+            console.log(gapi.client);
         });
         
     }
@@ -24,6 +25,6 @@ handleClientLoad = function()
     //window.setTimeout(checkAuth, 1);
 }
 
-console.log(gapi.client);
+
 
 
