@@ -63,16 +63,16 @@ createJoinGame = function()
         var request = gapi.client.games.turnBasedMatches.create(
         {
             "kind" : "games#turnBasedMatchCreateRequest",
-            "variant" : 0,
+            /*"variant" : 0,*/
             /*"invitedPlayerIds": [],*/
             "autoMatchingCriteria" :
             {
                 "kind" : "games#turnBasedAutoMatchingCriteria",
-                "minAutoMatchingPlaers" : 1,
+                "minAutoMatchingPlaers" : 2,
                 "maxAutoMatchingPlayers" : 2,
-                "exclusiveBitmask" : 0
+                /*"exclusiveBitmask" : 0*/
             },
-            "requestId" : ((Math.random() * 1e6) | 0)
+            "requestId" : 1
         });
         
         request.execute(function(resp)
