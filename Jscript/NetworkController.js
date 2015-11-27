@@ -22,7 +22,7 @@ handleAuthResult = function(auth)
 //                
 //            });
             
-            console.log(gapi.client.plus.name);
+            console.log(gapi.client.plus);
             
             request.execute(function(resp)
                            {
