@@ -57,7 +57,7 @@ _getLocalPlayerName = function()
         request.execute(function(resp)
         {
             console.log(resp.displayName);
-            _toReturn = resp.displayName;
+            _toReturn = String(resp.displayName);
         })
     });
     
