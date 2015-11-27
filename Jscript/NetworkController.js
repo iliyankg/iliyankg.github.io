@@ -71,6 +71,11 @@ getLocalPlayerName = function()
     return "Loading...";
 }
 
+createJoinGame = function()
+{
+    
+}
+
 
 
 

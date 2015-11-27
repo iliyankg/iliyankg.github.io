@@ -416,7 +416,6 @@ function click(e)
         {
             if(rect.t == "play")
             {
-                playerController._recievePlayer();
                 gameController.startGame();
             }
             else if(rect.t == "google")
