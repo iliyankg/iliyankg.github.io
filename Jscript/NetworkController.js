@@ -43,7 +43,7 @@ handleClientLoad = function()
     //window.setTimeout(checkAuth, 1);
 }
 
-_getLocalPlayerName = function()
+getLocalPlayerName = function()
 {
     var _toReturn;
     var _requestIsDone = false;
@@ -57,15 +57,10 @@ _getLocalPlayerName = function()
                     
         request.execute(function(resp)
         {
-            console.log(resp.displayName);
-            _toReturn = String(resp.displayName);
-            
             playerController._left._sName = resp.displayName;
-            
-            _requestIsDone = true;
         })
     });
-    return _toReturn;
+    return "Loading...";
 }
 
 
