@@ -16,7 +16,7 @@ handleAuthResult = function(auth)
             console.log("Games Loaded");
         });
 
-        console.log(gapi.client.games.turnBasedMatches);
+        console.log(gapi.client.games.turnbasedmatches);
     }
     //Bad login
     else
