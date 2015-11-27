@@ -421,6 +421,7 @@ function click(e)
             else if(rect.t == "google")
             {
                 gapi.auth.signIn();
+                playerController._recievePlayer();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         } 

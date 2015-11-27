@@ -43,6 +43,23 @@ handleClientLoad = function()
     //window.setTimeout(checkAuth, 1);
 }
 
+_getLocalPlayerName = function()
+{
+    
+        gapi.client.load('plus', 'v1', function(response)
+        {
+            var request = gapi.client.plus.people.get(
+            {
+                'userId' : 'me'                
+            });
+                        
+            request.execute(function(resp)
+            {
+                return resp.displayName;
+            })
+        });
+}
+
 
 
 
