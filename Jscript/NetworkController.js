@@ -52,7 +52,8 @@ getLocalPlayerName = function()
         })
     });
     
-    createJoinGame();
+    //createJoinGame();
+    getActiveGames();
     return "Loading...";
 }
 
@@ -79,6 +80,15 @@ createJoinGame = function()
     });
 }
 
+getActiveGames = function()
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        console.log(resp);
+    });
+}
 
 
 
