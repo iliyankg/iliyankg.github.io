@@ -37,11 +37,11 @@ handleAuthResult = function(auth)
     }
 }
 
-handleClientLoad = function()
-{
-    gapi.client.setApiKey(apiKey);
-    //window.setTimeout(checkAuth, 1);
-}
+//handleClientLoad = function()
+//{
+//    gapi.client.setApiKey(apiKey);
+//    //window.setTimeout(checkAuth, 1);
+//}
 
 getLocalPlayerName = function()
 {
