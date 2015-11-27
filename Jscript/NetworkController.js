@@ -16,13 +16,14 @@ handleAuthResult = function(auth)
         
         gapi.client.load('plus', 'v1', function(response)
         {
-            var request = gapi.client.plus.people.people.get(
+            var request = gapi.client.plus.people.get(
             {
                 'userId' : 'me'                
             });
                         
             request.execute(function(resp)
                            {
+                console.log("Display Name: \n")
                 console.log(resp.displayName);
             })
         });
