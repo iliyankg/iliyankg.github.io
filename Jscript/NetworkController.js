@@ -13,20 +13,17 @@ handleAuthResult = function(auth)
             console.log("Games Loaded");
             
         });
+        
         gapi.client.load('plus', 'v1', function(response)
         {
-//            var request = gapi.client.plus.people.list(
-//            {
-//                'userId' : 'me',
-//                'collection' : 'visible'
-//                
-//            });
-            
-            console.log(gapi.client.plus);
-            
+            var request = gapi.client.plus.people.people.get(
+            {
+                'userId' : 'me'                
+            });
+                        
             request.execute(function(resp)
                            {
-                console.log(resp);
+                console.log(resp.displayName);
             })
         });
         
