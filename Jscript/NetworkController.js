@@ -64,14 +64,14 @@ createJoinGame = function()
         {
             "kind" : "games#turnBasedMatchCreateRequest",
             /*"variant" : 0,*/
-            /*"invitedPlayerIds": [],*/
-            /*"autoMatchingCriteria" :
+            "invitedPlayerIds": [],
+            "autoMatchingCriteria" :
             {
                 "kind" : "games#turnBasedAutoMatchingCriteria",
                 "minAutoMatchingPlaers" : 2,
                 "maxAutoMatchingPlayers" : 2,
-                "exclusiveBitmask" : 0
-            },*/
+                /*"exclusiveBitmask" : 0*/
+            },
             "requestId" : 1
         });
         
