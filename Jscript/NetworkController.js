@@ -64,7 +64,7 @@ createJoinGame = function()
         {
             "kind" : "games#turnBasedMatchCreateRequest",
             /*"variant" : 0,*/
-            "invitedPlayerIds": [],
+            "invitedPlayerIds": ["me"],
             "autoMatchingCriteria" :
             {
                 "kind" : "games#turnBasedAutoMatchingCriteria",
