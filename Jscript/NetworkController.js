@@ -68,7 +68,7 @@ createJoinGame = function()
             "autoMatchingCriteria" :
             {
                 "kind" : "games#turnBasedAutoMatchingCriteria",
-                "minAutoMatchingPlaers" : 0,
+                "minAutoMatchingPlaers" : 2,
                 "maxAutoMatchingPlayers" : 2,
                 /*"exclusiveBitmask" : 0*/
             },
