@@ -45,19 +45,23 @@ handleClientLoad = function()
 
 _getLocalPlayerName = function()
 {
-        gapi.client.load('plus', 'v1', function(response)
+    var _toReturn;
+    
+    gapi.client.load('plus', 'v1', function(response)
+    {
+        var request = gapi.client.plus.people.get(
         {
-            var request = gapi.client.plus.people.get(
-            {
-                'userId' : 'me'                
-            });
-                        
-            request.execute(function(resp)
-            {
-                console.log(resp.displayName);
-                return resp.displayName;
-            })
+            'userId' : 'me'                
         });
+                    
+        request.execute(function(resp)
+        {
+            console.log(resp.displayName);
+            _toReturn = resp.displayName;
+        })
+    });
+    
+    return _toReturn;
 }
 
 
