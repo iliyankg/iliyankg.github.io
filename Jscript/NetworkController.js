@@ -87,6 +87,7 @@ getActiveGames = function()
     request.execute(function(resp)
     {
         console.log(resp);
+        console.log(resp.items[0]);
         gapi.client.games.turnBasedMatches.cancel(resp.items[0].matchId);
     });
 }
