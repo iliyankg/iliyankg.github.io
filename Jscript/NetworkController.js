@@ -58,27 +58,24 @@ getLocalPlayerName = function()
 
 createJoinGame = function()
 {
-    gapi.client.load('games', 'v1', function(response)
+    var request = gapi.client.games.turnBasedMatches.create(
     {
-        var request = gapi.client.games.turnBasedMatches.create(
+        "kind" : "games#turnBasedMatchCreateRequest",
+        /*"variant" : 0,*/
+        /*"invitedPlayerIds": [],*/
+        "autoMatchingCriteria" :
         {
-            "kind" : "games#turnBasedMatchCreateRequest",
-            /*"variant" : 0,*/
-            /*"invitedPlayerIds": [],*/
-            "autoMatchingCriteria" :
-            {
-                "kind" : "games#turnBasedAutoMatchingCriteria",
-                "minAutoMatchingPlaers" : 2,
-                "maxAutoMatchingPlayers" : 2,
-                /*"exclusiveBitmask" : 0*/
-            },
-            "requestId" : 1
-        });
-        
-        request.execute(function(resp)
-        {
-            console.log(resp);
-        });
+            "kind" : "games#turnBasedAutoMatchingCriteria",
+            "minAutoMatchingPlayers" : 2,
+            "maxAutoMatchingPlayers" : 2
+            /*"exclusiveBitmask" : 0*/
+        },
+        "requestId" : 1
+    });
+     
+    request.execute(function(resp)
+    {
+        console.log(resp);
     });
 }
 
