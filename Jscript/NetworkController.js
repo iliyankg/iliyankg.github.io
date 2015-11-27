@@ -7,6 +7,7 @@ handleAuthResult = function(auth)
     if(auth && !auth.error)
     {
         console.log("LoginSuccess");
+        console.log(auth);
         gapi.client.load('games', 'v1', function(response)
         {
             console.log("Games Loaded");
