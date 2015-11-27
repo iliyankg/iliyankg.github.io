@@ -46,6 +46,7 @@ handleClientLoad = function()
 _getLocalPlayerName = function()
 {
     var _toReturn;
+    var _requestIsDone = false;
     
     gapi.client.load('plus', 'v1', function(response)
     {
@@ -58,9 +59,12 @@ _getLocalPlayerName = function()
         {
             console.log(resp.displayName);
             _toReturn = String(resp.displayName);
+            
+            playerController._left._sName = resp.displayName;
+            
+            _requestIsDone = true;
         })
     });
-    
     return _toReturn;
 }
 
