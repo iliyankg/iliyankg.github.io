@@ -417,11 +417,11 @@ function click(e)
             if(rect.t == "play")
             {
                 gameController.startGame();
+                playerController._recievePlayer();
             }
             else if(rect.t == "google")
             {
                 gapi.auth.signIn();
-                playerController._recievePlayer();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         } 
