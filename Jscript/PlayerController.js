@@ -16,7 +16,7 @@ function PlayerController()
     /** Gets the local player info from the server
     *@function
     */
-    this._recievePlayer = function(){_left.setName(_getLocalPlayerName())} 
+    this._recievePlayer = function(){this._left.setName(_getLocalPlayerName())} 
     
     /** Sends the local player choice to the server
     *@function
