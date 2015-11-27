@@ -14,7 +14,7 @@ handleAuthResult = function(auth)
         gapi.client.load('games', 'v1', function(response)
         {
             console.log("Games Loaded");
-            console.log(gapi.client.games.turnbasedmatches);
+            console.log(gapi.client.games.turnBasedMatches);
         });
 
         
