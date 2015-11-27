@@ -15,12 +15,14 @@ handleAuthResult = function(auth)
         });
         gapi.client.load('plus', 'v1', function(response)
         {
-            var request = gapi.client.plus.people.list(
-            {
-                'userId' : 'me',
-                'collection' : 'visible'
-                
-            });
+//            var request = gapi.client.plus.people.list(
+//            {
+//                'userId' : 'me',
+//                'collection' : 'visible'
+//                
+//            });
+            
+            console.log(gapi.client.plus.name);
             
             request.execute(function(resp)
                            {
