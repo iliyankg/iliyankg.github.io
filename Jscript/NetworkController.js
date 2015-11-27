@@ -2,8 +2,11 @@ var clientID = '247812372074-s6v0cjlf12q04cm7gbajipmfv1ee9iu8';
 var apiKey = 'AIzaSyCCaQb_poHUrGjOjX34w7uZKhpuY_NZOqc';
 var scope = 'https://www.googleapis.com/auth/games'; //Unused
 
+/** Callback function; Handles what happens uppon login; Is called upon load and after pressing sign in.
+*/
 handleAuthResult = function(auth)
 {
+    //Successfull login
     if(auth && !auth.error)
     {
         console.log("LoginSuccess");
@@ -31,6 +34,7 @@ handleAuthResult = function(auth)
         
         console.log(gapi.client);
     }
+    //Bad login
     else
     {
         console.log("LoginError");
@@ -43,21 +47,25 @@ handleAuthResult = function(auth)
 //    //window.setTimeout(checkAuth, 1);
 //}
 
+/**Gets the name of the logged in user and sets it. 
+*/
 getLocalPlayerName = function()
 {
     var _toReturn;
-    var _requestIsDone = false;
     
+    //Load Google.Plus
     gapi.client.load('plus', 'v1', function(response)
     {
+        //Compile a JSON request to the Google+ api
         var request = gapi.client.plus.people.get(
         {
             'userId' : 'me'                
         });
-                    
+        
+        //Execute the request
         request.execute(function(resp)
         {
-            playerController._left._sName = resp.displayName;
+            playerController._left.setName(resp.displayName);
         })
     });
     return "Loading...";
