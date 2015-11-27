@@ -347,7 +347,7 @@ function GameController()
             rightPlatoon[i] = null; 
         }
         playerController._left = new Player();
-        playerController._left.createPlayer(10,10,_getLocalPlayerName(), 0);
+        playerController._left.createPlayer(10,10, getLocalPlayerName(), 0);
         playerController._right = new Player();
         playerController._right.createPlayer(10,10,"Remote_Player", 1);
         
