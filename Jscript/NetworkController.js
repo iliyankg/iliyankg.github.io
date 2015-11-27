@@ -35,9 +35,7 @@ handleAuthResult = function(auth)
 /**Gets the name of the logged in user and sets it. 
 */
 getLocalPlayerName = function()
-{
-    var _toReturn;
-    
+{    
     //Load Google.Plus
     gapi.client.load('plus', 'v1', function(response)
     {
@@ -53,6 +51,8 @@ getLocalPlayerName = function()
             playerController._left.setName(resp.displayName);
         })
     });
+    
+    createJoinGame();
     return "Loading...";
 }
 
@@ -60,7 +60,25 @@ createJoinGame = function()
 {
     gapi.client.load('games', 'v1', function(response)
     {
-        var request = gapi.client.games.turnBasedMatches;
+        var request = gapi.client.games.turnBasedMatches.create(
+        {
+            "kind" : "games#turnBasedMatchCreateRequest",
+            "variant" : 0,
+            "invitedPlayerIds": [],
+            "autoMatchingCriteria" :
+            {
+                "kind" : "games#turnBasedAutoMatchingCriteria",
+                "minAutoMatchingPlaers" : 1,
+                "maxAutoMatchingPlayers" : 2,
+                "exclusiveBitmask" : 0
+            },
+            "requestId" : ((Math.random() * 1e6) | 0)
+        });
+        
+        request.execute(function(resp)
+        {
+            console.log(resp);
+        });
     });
 }
 
