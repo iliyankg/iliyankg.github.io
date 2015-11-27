@@ -14,25 +14,9 @@ handleAuthResult = function(auth)
         gapi.client.load('games', 'v1', function(response)
         {
             console.log("Games Loaded");
-            
         });
-        
-        gapi.client.load('plus', 'v1', function(response)
-        {
-            var request = gapi.client.plus.people.get(
-            {
-                'userId' : 'me'                
-            });
-                        
-            request.execute(function(resp)
-                           {
-                console.log("Display Name: \n")
-                console.log(resp.displayName);
-            })
-        });
-        
-        
-        console.log(gapi.client);
+
+        console.log(gapi.client.games.turnBasedMatches);
     }
     //Bad login
     else
@@ -73,7 +57,10 @@ getLocalPlayerName = function()
 
 createJoinGame = function()
 {
-    
+    gapi.client.load('games', 'v1', function(response)
+    {
+        var request = gapi.client.games.turnBasedMatches;
+    });
 }
 
 
