@@ -52,10 +52,9 @@ getLocalPlayerName = function()
         })
     });
     
-    //createJoinGame();
+    createJoinGame();
     getActiveGames();
-    cancelGame(0);
-    getActiveGames();
+    //cancelGame(0);
     return "Loading...";
 }
 
@@ -73,7 +72,7 @@ createJoinGame = function()
             "maxAutoMatchingPlayers" : 2
             /*"exclusiveBitmask" : 0*/
         },
-        "requestId" : 1
+        "requestId" : Math.floor(Math.random() * 1000000000);
     });
      
     request.execute(function(resp)
