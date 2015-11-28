@@ -59,9 +59,9 @@ getLocalPlayerName = function()
     
     //listRooms(); - NOT WORK
     //createJoinGame();
-    joinGame();
+    //joinGame();
     //getActiveGames();
-    //cancelGame(0);
+    cancelGame(0);
     return "Loading...";
 }
 
