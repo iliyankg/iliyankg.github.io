@@ -90,7 +90,10 @@ createJoinGame = function()
 
 joinGame = function()
 {
-    var request = gapi.client.games.turnBasedMatches.list();
+    var request = gapi.client.games.turnBasedMatches.join(
+    {
+        "matchId" : "ChoKCQjq7JKWmwcQAhACGAEg____________ARDCw4iF9_Xxv4gB"
+    });
      
     request.execute(function(resp)
     {
