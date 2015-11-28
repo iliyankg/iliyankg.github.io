@@ -53,8 +53,9 @@ getLocalPlayerName = function()
     });
     
     //createJoinGame();
-    getActiveGames();
-    cancelGame(0);
+    //getActiveGames();
+    getPlayers();
+    //cancelGame(0);
     return "Loading...";
 }
 
@@ -106,6 +107,33 @@ cancelGame = function(index)
         {
             console.log("game deleted");                           
         });
+    });
+}
+
+getPlayers = function()
+{
+    var request = gapi.client.plus.people.list(
+    {
+        "userId" : "me",
+        "collection" : "visible"
+    });
+    
+    request.execute(function(resp)
+    {
+        console.log("ALL");
+        console.log(resp);
+    });
+    
+    var request2 = gapi.client.plus.people.list(
+    {
+        "userId" : "me",
+        "collection" : "visible"
+    });
+    
+    request2.execute(function(resp)
+    {
+        console.log("CONNECTED");
+        console.log(resp);
     });
 }
 
