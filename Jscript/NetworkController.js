@@ -57,8 +57,8 @@ getLocalPlayerName = function()
         })
     });
     
-    listRooms();
-    //createJoinGame();
+    //listRooms(); - NOT WORK
+    createJoinGame();
     //getActiveGames();
     //cancelGame(0);
     return "Loading...";
@@ -75,10 +75,29 @@ createJoinGame = function()
         {
             "kind" : "games#turnBasedAutoMatchingCriteria",
             "minAutoMatchingPlayers" : 1,
-            "maxAutoMatchingPlayers" : 2
-            /*"exclusiveBitmask" : 0*/
+            "maxAutoMatchingPlayers" : 2,
+            //"exclusiveBitmask" : 0
         },
         "requestId" : Math.floor(Math.random() * 1000000000)
+    });
+     
+    request.execute(function(resp)
+    {
+        console.log(resp);
+    });
+}
+
+joinGame = function()
+{
+    var request = gapi.client.games.turnBasedMatches.create(
+    {
+        "autoMatchingCriteria" :
+        {
+            "kind" : "games#turnBasedAutoMatchingCriteria",
+            "minAutoMatchingPlayers" : 1,
+            "maxAutoMatchingPlayers" : 2,
+            //"exclusiveBitmask" : 0
+        }
     });
      
     request.execute(function(resp)
