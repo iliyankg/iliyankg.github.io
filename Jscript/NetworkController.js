@@ -52,13 +52,13 @@ getLocalPlayerName = function()
         })
     });
     
-    //createJoinGame();
+    createGame();
     getActiveGames();
     cancelGame(0);
     return "Loading...";
 }
 
-createJoinGame = function()
+createGame = function()
 {
     var request = gapi.client.games.turnBasedMatches.create(
     {
@@ -73,6 +73,29 @@ createJoinGame = function()
             /*"exclusiveBitmask" : 0*/
         },
         "requestId" : Math.floor(Math.random() * 1000000000)
+    });
+     
+    request.execute(function(resp)
+    {
+        console.log(resp);
+    });
+}
+
+joinGame = function()
+{
+    var request = gapi.client.games.turnBasedMatches.create(
+    {
+        //"kind" : "games#turnBasedMatchCreateRequest",
+        /*"variant" : 0,*/
+        /*"invitedPlayerIds": [],*/
+        "autoMatchingCriteria" :
+        {
+            "kind" : "games#turnBasedAutoMatchingCriteria",
+            "minAutoMatchingPlayers" : 1,
+            "maxAutoMatchingPlayers" : 2
+            /*"exclusiveBitmask" : 0*/
+        },
+        //"requestId" : Math.floor(Math.random() * 1000000000)
     });
      
     request.execute(function(resp)
@@ -109,5 +132,9 @@ cancelGame = function(index)
     });
 }
 
+getRooms = function()
+{
+    
+}
 
 
