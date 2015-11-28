@@ -52,7 +52,7 @@ getLocalPlayerName = function()
         })
     });
     
-    //createJoinGame();
+    createJoinGame();
     getActiveGames();
     return "Loading...";
 }
@@ -67,7 +67,7 @@ createJoinGame = function()
         "autoMatchingCriteria" :
         {
             "kind" : "games#turnBasedAutoMatchingCriteria",
-            "minAutoMatchingPlayers" : 2,
+            "minAutoMatchingPlayers" : 1,
             "maxAutoMatchingPlayers" : 2
             /*"exclusiveBitmask" : 0*/
         },
@@ -87,16 +87,24 @@ getActiveGames = function()
     request.execute(function(resp)
     {
         console.log(resp);
-//        console.log(resp.items[0].matchId);
-//        var newRequest = gapi.client.games.turnBasedMatches.cancel(
-//        {
-//            "matchId" : resp.items[0].matchId
-//        });
-//        
-//        newRequest.execute(function(respp)
-//        {
-//            console.log("game deleted");                           
-//        });
+    });
+}
+
+cancelGAme = function(index)
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.cancel(
+        {
+            "matchId" : resp.items[0].matchId
+        });
+        
+        newRequest.execute(function(respp)
+        {
+            console.log("game deleted");                           
+        });
     });
 }
 
