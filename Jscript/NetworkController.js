@@ -91,7 +91,7 @@ joinGame = function()
 {
     var request = gapi.client.games.turnBasedMatches.join(
     {
-        "matchId" : "ChoKCQjq7JKWmwcQAhACGAEg____________ARC777Sl65b9lmI"
+        "matchId" : "107373363902631863467"
     });
      
     request.execute(function(resp)
