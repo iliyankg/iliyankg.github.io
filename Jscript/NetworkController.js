@@ -57,9 +57,9 @@ getLocalPlayerName = function()
         })
     });
     
+    listRooms();
     //createJoinGame();
     //getActiveGames();
-    getPlayers();
     //cancelGame(0);
     return "Loading...";
 }
@@ -115,29 +115,12 @@ cancelGame = function(index)
     });
 }
 
-getPlayers = function()
+listRooms = function()
 {
-    var request = gapi.client.plus.people.list(
-    {
-        "userId" : "me",
-        "collection" : "visible"
-    });
+    var request = gapi.client.games.rooms.list();
     
     request.execute(function(resp)
     {
-        console.log("ALL");
-        console.log(resp);
-    });
-    
-    var request2 = gapi.client.plus.people.list(
-    {
-        "userId" : "me",
-        "collection" : "connected"
-    });
-    
-    request2.execute(function(resp)
-    {
-        console.log("CONNECTED");
         console.log(resp);
     });
 }
