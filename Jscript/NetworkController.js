@@ -87,11 +87,16 @@ getActiveGames = function()
     request.execute(function(resp)
     {
         console.log(resp);
-//        console.log(resp.items[0].matchId);
-//        gapi.client.games.turnBasedMatches.cancel(
-//        {
-//            "matchId" : resp.items[0].matchId
-//        });
+        console.log(resp.items[0].matchId);
+        var newRequest gapi.client.games.turnBasedMatches.cancel(
+        {
+            "matchId" : resp.items[0].matchId
+        });
+        
+        newRequest.execute(function(respp)
+        {
+            console.log("game deleted");                           
+        });
     });
 }
 
