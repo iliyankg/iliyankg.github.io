@@ -52,9 +52,10 @@ getLocalPlayerName = function()
         })
     });
     
-    //createJoinGame();
+    createJoinGame();
     getActiveGames();
-    cancelGame(0);
+    getRooms();
+    //cancelGame(0);
     return "Loading...";
 }
 
@@ -111,7 +112,12 @@ cancelGame = function(index)
 
 getRooms = function()
 {
+    var request = gapi.client.games.rooms.list();
     
+    request.execute(function(resp)
+    {
+        console.log(resp);
+    });
 }
 
 
