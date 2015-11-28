@@ -58,9 +58,9 @@ getLocalPlayerName = function()
     });
     
     //listRooms(); - NOT WORK
-    //createJoinGame();
+    createJoinGame();
     //getActiveGames();
-    cancelGame(0);
+    //cancelGame(0);
     return "Loading...";
 }
 
@@ -91,13 +91,7 @@ joinGame = function()
 {
     var request = gapi.client.games.turnBasedMatches.join(
     {
-        "autoMatchingCriteria" :
-        {
-            "kind" : "games#turnBasedAutoMatchingCriteria",
-            "minAutoMatchingPlayers" : 1,
-            "maxAutoMatchingPlayers" : 2,
-            //"exclusiveBitmask" : 0
-        }
+        "matchId" : "asd"
     });
      
     request.execute(function(resp)
