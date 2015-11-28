@@ -88,7 +88,7 @@ getActiveGames = function()
     {
         console.log(resp);
         console.log(resp.items[0].matchId);
-        var newRequest gapi.client.games.turnBasedMatches.cancel(
+        var newRequest = gapi.client.games.turnBasedMatches.cancel(
         {
             "matchId" : resp.items[0].matchId
         });
