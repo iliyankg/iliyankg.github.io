@@ -16,6 +16,11 @@ handleAuthResult = function(auth)
             console.log("Games Loaded");
             console.log(gapi.client.games.turnBasedMatches);
         });
+        
+        gapi.client.load('plus', 'v1', function(response)
+        {
+            console.log("Plus loaded");
+        });
 
         
     }
