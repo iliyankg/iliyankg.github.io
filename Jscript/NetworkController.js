@@ -58,9 +58,9 @@ getLocalPlayerName = function()
     });
     
     //listRooms(); - NOT WORK
-    createJoinGame();
+    //createJoinGame();
     //getActiveGames();
-    //cancelGame(0);
+    cancelGame(0);
     return "Loading...";
 }
 
@@ -89,7 +89,7 @@ createJoinGame = function()
 
 joinGame = function()
 {
-    var request = gapi.client.games.turnBasedMatches.create(
+    var request = gapi.client.games.turnBasedMatches.join(
     {
         "autoMatchingCriteria" :
         {
