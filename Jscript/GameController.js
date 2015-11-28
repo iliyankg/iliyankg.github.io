@@ -420,8 +420,8 @@ function click(e)
             }
             else if(rect.t == "google")
             {
-                //gapi.auth.signIn();
-                joinGame();
+                gapi.auth.signIn();
+                //joinGame();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         } 
