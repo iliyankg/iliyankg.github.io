@@ -52,9 +52,9 @@ getLocalPlayerName = function()
         })
     });
     
-    createJoinGame();
+    //createJoinGame();
     getActiveGames();
-    //cancelGame(0);
+    cancelGame(0);
     return "Loading...";
 }
 
