@@ -97,7 +97,7 @@ getActiveGames = function()
 //        {
 //            console.log("game deleted");                           
 //        });
-//    });
+    });
 }
 
 
