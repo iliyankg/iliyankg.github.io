@@ -364,15 +364,16 @@ function keyDownHandler(e)
     
     if(e.keyCode == 37)//left arrow
     {
-        for(i = 0; i < platoonLength; i++)
-        {
-            leftPlatoon[i] = null;
-            rightPlatoon[i] = null; 
-        }
-        playerController._left = new Player();
-        playerController._left.createPlayer(10,10,"Local_Player", 0);
-        playerController._right = new Player();
-        playerController._right.createPlayer(10,10,"Remote_Player", 1);
+        takeTurn();
+//        for(i = 0; i < platoonLength; i++)
+//        {
+//            leftPlatoon[i] = null;
+//            rightPlatoon[i] = null; 
+//        }
+//        playerController._left = new Player();
+//        playerController._left.createPlayer(10,10,"Local_Player", 0);
+//        playerController._right = new Player();
+//        playerController._right.createPlayer(10,10,"Remote_Player", 1);
     }
     
     if(e.keyCode == 38)//up arrow
