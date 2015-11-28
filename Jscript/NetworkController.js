@@ -132,7 +132,7 @@ getPlayers = function()
     var request2 = gapi.client.plus.people.list(
     {
         "userId" : "me",
-        "collection" : "visible"
+        "collection" : "connected"
     });
     
     request2.execute(function(resp)
