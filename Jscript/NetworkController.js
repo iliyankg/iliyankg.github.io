@@ -57,7 +57,10 @@ getLocalPlayerName = function()
         });
     });
     
-    var request = gapi.client.games.players.get("me");
+    var request = gapi.client.games.players.get(
+        {
+            "playerId" : "me"
+        });
     
     request.execute(function(resp)
     {
