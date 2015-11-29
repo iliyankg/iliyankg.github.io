@@ -159,3 +159,29 @@ initiateData = function()
     });
 }
 
+takeTurn = function()
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
+            {"matchId" : resp.items[0].matchId},
+            {
+                "kind": "games#turnBasedMatchTurn",
+                "data": 
+                {
+                        "kind": "games#turnBasedMatchDataRequest",
+                        "data": btoa("111")
+                },
+                //"pendingParticipantId": "p_1",
+                "matchVersion": resp.matchVersion + 1,
+            });
+        
+        newRequest.execute(function(respp)
+                          {
+            console.log(respp);
+        });
+    });
+}
+

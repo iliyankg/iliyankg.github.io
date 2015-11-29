@@ -407,6 +407,10 @@ function keyDownHandler(e)
         //gameController._advance();
         //gameController._iTurnNum++;
     }
+    if(e.keyCode == 40)//Down arrow
+    {
+        takeTurn();            
+    }
 }
 
 function click(e)
