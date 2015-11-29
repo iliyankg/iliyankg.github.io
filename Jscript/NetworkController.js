@@ -145,7 +145,7 @@ takeTurn = function()
         newRequest.execute(function(resp)
                           {
             console.log(resp);
-        })
-    }
+        });
+    });
 }
 
