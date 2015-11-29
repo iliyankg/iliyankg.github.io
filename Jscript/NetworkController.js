@@ -141,5 +141,11 @@ takeTurn = function()
     {
         var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
         resp.items[0].matchId);
+        
+        newRequest.execute(function(resp)
+                          {
+            console.log(resp);
+        })
+    }
 }
 
