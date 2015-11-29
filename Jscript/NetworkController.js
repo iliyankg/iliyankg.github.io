@@ -63,7 +63,7 @@ createJoinGame = function()
     var request = gapi.client.games.turnBasedMatches.create(
     {
         "kind" : "games#turnBasedMatchCreateRequest",
-        "variant" : 1,
+        "variant" : 0,
         "invitedPlayerIds": [
             "107373363902631863467"],
         "autoMatchingCriteria" :
