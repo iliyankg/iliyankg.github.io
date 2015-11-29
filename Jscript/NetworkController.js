@@ -41,31 +41,15 @@ handleAuthResult = function(auth)
 */
 getLocalPlayerName = function()
 {    
-    //Load Google.Plus
-    gapi.client.load('plus', 'v1', function(response)
-    {
-        //Compile a JSON request to the Google+ api
-        var request = gapi.client.plus.people.get(
-        {
-            'userId' : 'me'                
-        });
-        
-        //Execute the request
-        request.execute(function(resp)
-        {
-            playerController._left.setName(resp.displayName);
-        });
-    });
-    
     var request = gapi.client.games.players.get(
-        {
+    {
             "playerId" : "me"
-        });
+    });
     
     request.execute(function(resp)
     {
         console.log("PLAYER_MAYBE");
-        console.log(resp);
+        playerController._left.setName(resp.displayName);
     });
     
     //listRooms(); - NOT WORK
