@@ -359,7 +359,7 @@ function keyDownHandler(e)
 {
     if(e.keyCode == 39)//right arrow
     {
-        gameController._newSpawn();
+        cancelGame(0);
     }
     
     if(e.keyCode == 37)//left arrow
@@ -378,29 +378,30 @@ function keyDownHandler(e)
     
     if(e.keyCode == 38)//up arrow
     {
-        if(gameController._iTurnNum == 10)
-        {
-            gameController._iTurnNum = 0;
-        }
-        
-        if(gameController._iTurnNum == 0)
-        {
-            
-            gameController._timer();
-            //gameController._newSpawn();    
-        }
-        else if(gameController._iTurnNum == 5)
-        {
-            gameController._newBattle();
-        }
-        else if(gameController._iTurnNum > 5)
-        {
-            gameController._newRetreat();
-        }
-        else
-        {
-            gameController._newAdvance();
-        }
+        joinGame();
+//        if(gameController._iTurnNum == 10)
+//        {
+//            gameController._iTurnNum = 0;
+//        }
+//        
+//        if(gameController._iTurnNum == 0)
+//        {
+//            
+//            gameController._timer();
+//            //gameController._newSpawn();    
+//        }
+//        else if(gameController._iTurnNum == 5)
+//        {
+//            gameController._newBattle();
+//        }
+//        else if(gameController._iTurnNum > 5)
+//        {
+//            gameController._newRetreat();
+//        }
+//        else
+//        {
+//            gameController._newAdvance();
+//        }
         
         //gameController._advance();
         //gameController._iTurnNum++;

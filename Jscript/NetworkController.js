@@ -53,10 +53,8 @@ getLocalPlayerName = function()
     });
     
     //listRooms(); - NOT WORK
-    //createJoinGame();
-    //joinGame();
-    //getActiveGames();
-    cancelGame(0);
+    createJoinGame();
+    getActiveGames();
     return "Loading...";
 }
 
