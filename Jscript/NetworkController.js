@@ -174,7 +174,7 @@ takeTurn = function()
                         "kind": "games#turnBasedMatchDataRequest",
                         "data": btoa("111")
                 },
-                //"pendingParticipantId": "p_1",
+                "pendingParticipantId": "p_2",
                 "matchVersion": resp.matchVersion,
             });
         
