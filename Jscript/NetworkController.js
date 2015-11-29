@@ -140,18 +140,6 @@ takeTurn = function()
     request.execute(function(resp)
     {
         var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
-        {
-            "matchId" : resp.items[0].matchId,
-            "kind" : "games#turnBasedMatchTurn",
-            "pendingParticipantId" : "p_2"
-            
-        });
-        
-        newRequest.execute(function(respp)
-        {
-            console.log("Other Player Turn");
-            console.log(respp);
-        });
-    });
+        resp.items[0].matchId);
 }
 
