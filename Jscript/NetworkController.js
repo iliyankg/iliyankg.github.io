@@ -146,7 +146,7 @@ initiateData = function()
                 "data": 
                 {
                         "kind": "games#turnBasedMatchDataRequest",
-                        "data": btoa("111");
+                        "data": btoa("111")
                 },
                 "pendingParticipantId": "p_1",
                 "matchVersion": 0,
