@@ -54,7 +54,15 @@ getLocalPlayerName = function()
         request.execute(function(resp)
         {
             playerController._left.setName(resp.displayName);
-        })
+        });
+    });
+    
+    var request = gapi.client.games.players.get("me");
+    
+    request.execute(function(resp)
+    {
+        console.log("PLAYER_MAYBE");
+        console.log(resp);
     });
     
     //listRooms(); - NOT WORK
