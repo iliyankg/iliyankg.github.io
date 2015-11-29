@@ -175,7 +175,7 @@ takeTurn = function()
                         "data": btoa("111")
                 },
                 //"pendingParticipantId": "p_2",
-                "matchVersion": 1,
+                "matchVersion": 2,
             });
         
         newRequest.execute(function(respp)
