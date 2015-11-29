@@ -364,7 +364,8 @@ function keyDownHandler(e)
     
     if(e.keyCode == 37)//left arrow
     {
-        takeTurn();
+        initiateData();
+        //takeTurn();
 //        for(i = 0; i < platoonLength; i++)
 //        {
 //            leftPlatoon[i] = null;

@@ -133,7 +133,7 @@ listRooms = function()
     });
 }
 
-takeTurn = function()
+initiateData = function()
 {
     var request = gapi.client.games.turnBasedMatches.list();
     
@@ -142,7 +142,14 @@ takeTurn = function()
         var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
             {"matchId" : resp.items[0].matchId},
             {
-                "kind": "games#turnBasedMatchTurn"
+                "kind": "games#turnBasedMatchTurn",
+                "data": 
+                {
+                        "kind": "games#turnBasedMatchDataRequest",
+                        "data": btoa("111");
+                },
+                "pendingParticipantId": "p_1",
+                "matchVersion": 0,
             });
         
         newRequest.execute(function(resp)
