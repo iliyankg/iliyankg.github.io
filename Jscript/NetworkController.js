@@ -149,7 +149,7 @@ initiateData = function()
                         "data": btoa("111")
                 },
                 "pendingParticipantId": "p_1",
-                "matchVersion": 0,
+                "matchVersion": 1,
             });
         
         newRequest.execute(function(resp)
