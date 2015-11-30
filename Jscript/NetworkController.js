@@ -173,6 +173,11 @@ joinGame = function(index)
         {
             "matchId" : resp.items[index].matchId
         });
+        
+        newRequest.execute(function(respp)
+        {
+           console.log(respp); 
+        });
     });
 }
 
