@@ -3,10 +3,12 @@ var battlefield = new Array(20);//Array to be filled with minions; Can change th
 var playerController = new PlayerController();//Instance of the PlayerController
 var view = new View();
 var gameController = new GameController();
+var minion = new Minion();
 
 var leftPlatoon = new Array(3);
 var rightPlatoon = new Array(3);
 var platoonLength = 3;
+var bIsLogged = false;
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("click", click, false);
@@ -18,11 +20,13 @@ function GameController()
 //Public
 {
     this.gameState = "menu"
+    this.iMinionSelection = 0;
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
-    this._iTurnNum = 0;//Number of turns so far
+    this._iTurnNum = 1;//Number of turns so far
     this._iBlueFirst = 0;
+    this._fFirstTimer = 0;
     
     /*this._turn = function(leftType, rightType)
     {
@@ -115,6 +119,8 @@ function GameController()
         }
         
         this._checkWinner();
+        
+        this._clearPlatoons();
     }
     
     /** Checks for winners and reset the win counter if necessary
@@ -138,6 +144,16 @@ function GameController()
             playerController._left.resetWins();
             playerController._right.resetWins();
         }
+    }
+    
+    this._clearPlatoons = function()
+    {
+        for(var i = 0; i < 3; i++)
+        {
+            view._rectsMinionsLocal[i].m = null;
+            view._rectsMinionsRemote[i].m = null;
+        }
+        this.iMinionSelection = 0;
     }
     
     /** Runs through the battlefield array for minions and makes them advance or battle
@@ -270,13 +286,25 @@ function GameController()
     {
         for(var i = 0; i < platoonLength; i++)
         {
-            leftPlatoon[i] = new Minion();  
-            leftPlatoon[i].createMinion((Math.floor((Math.random() * (2 - 0 + 1)) + 0)), true,170 - i * 35, 240);
+            if(view._rectsMinionsLocal[i].m == null)
+            {
+                leftPlatoon[i] = new Minion();
+                var iMinionType = (Math.floor((Math.random() * (2 - 0 + 1)) + 0));
+                leftPlatoon[i].createMinion(iMinionType, true,170 - i * 35, 240);
+                view._rectsMinionsLocal[i].m = iMinionType;
+            }
+            else
+            {
+                leftPlatoon[i] = new Minion();
+                leftPlatoon[i].createMinion(view._rectsMinionsLocal[i].m, true,170 - i * 35, 240);
+            }
         }
         for(var i = 0; i < platoonLength; i++)
         {
             rightPlatoon[i] = new Minion();  
-            rightPlatoon[i].createMinion((Math.floor((Math.random() * (2 - 0 + 1)) + 0)), false, canvasContext.canvas.width - 205 + i * 35, 240);
+            var iMinionType = (Math.floor((Math.random() * (2 - 0 + 1)) + 0));
+            rightPlatoon[i].createMinion(iMinionType, false, canvasContext.canvas.width - 205 + i * 35, 240);
+            view._rectsMinionsRemote[i].m = iMinionType + 3;
         }
     }
     
@@ -330,16 +358,27 @@ function GameController()
         clearInterval(timer);
         gameController._newSpawn();
     }
-    this._timer_TimeoutRetreat
     
     this._timer = function()
     {
         var timerInt = setInterval(this._timer_ChangeTime, 1000);
-        //var timerTime = setTimeout(gameController._timer_TimeoutFunc, 5000, timerInt);
+    }
+    
+    this._firstTurn = function()
+    {
+        if(gameController._iTurnNum == 10)
+        {
+            gameController._iTurnNum = 0;
+            gameController._newSpawn();
+            clearInterval(gameController._fFirstTimer);
+            gameController._timer();
+        }
+        gameController._iTurnNum++;
     }
     
     this.startGame = function()
     {
+        minion.loadMinions();
         this.gameState = "game";
         for(i = 0; i < platoonLength; i++)
         {
@@ -347,11 +386,13 @@ function GameController()
             rightPlatoon[i] = null; 
         }
         playerController._left = new Player();
-        playerController._left.createPlayer(10,10, getLocalPlayerName(), 0);
+        playerController._left.createPlayer(10,10,"Local_Player", 0);
         playerController._right = new Player();
         playerController._right.createPlayer(10,10,"Remote_Player", 1);
         
-        gameController._timer();
+        //gameController._timer();
+        gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
+        
     }
 }
 
@@ -359,57 +400,50 @@ function keyDownHandler(e)
 {
     if(e.keyCode == 39)//right arrow
     {
-        cancelGame(0);
+        gameController._newSpawn();
     }
     
     if(e.keyCode == 37)//left arrow
     {
-        initiateData();
-        //takeTurn();
-//        for(i = 0; i < platoonLength; i++)
-//        {
-//            leftPlatoon[i] = null;
-//            rightPlatoon[i] = null; 
-//        }
-//        playerController._left = new Player();
-//        playerController._left.createPlayer(10,10,"Local_Player", 0);
-//        playerController._right = new Player();
-//        playerController._right.createPlayer(10,10,"Remote_Player", 1);
+        for(i = 0; i < platoonLength; i++)
+        {
+            leftPlatoon[i] = null;
+            rightPlatoon[i] = null; 
+        }
+        playerController._left = new Player();
+        playerController._left.createPlayer(10,10,"Local_Player", 0);
+        playerController._right = new Player();
+        playerController._right.createPlayer(10,10,"Remote_Player", 1);
     }
     
     if(e.keyCode == 38)//up arrow
     {
-        joinGame();
-//        if(gameController._iTurnNum == 10)
-//        {
-//            gameController._iTurnNum = 0;
-//        }
-//        
-//        if(gameController._iTurnNum == 0)
-//        {
-//            
-//            gameController._timer();
-//            //gameController._newSpawn();    
-//        }
-//        else if(gameController._iTurnNum == 5)
-//        {
-//            gameController._newBattle();
-//        }
-//        else if(gameController._iTurnNum > 5)
-//        {
-//            gameController._newRetreat();
-//        }
-//        else
-//        {
-//            gameController._newAdvance();
-//        }
+        if(gameController._iTurnNum == 10)
+        {
+            gameController._iTurnNum = 0;
+        }
+        
+        if(gameController._iTurnNum == 0)
+        {
+            
+            gameController._timer();
+            //gameController._newSpawn();    
+        }
+        else if(gameController._iTurnNum == 5)
+        {
+            gameController._newBattle();
+        }
+        else if(gameController._iTurnNum > 5)
+        {
+            gameController._newRetreat();
+        }
+        else
+        {
+            gameController._newAdvance();
+        }
         
         //gameController._advance();
         //gameController._iTurnNum++;
-    }
-    if(e.keyCode == 40)//Down arrow
-    {
-        takeTurn();            
     }
 }
 
@@ -418,23 +452,78 @@ function click(e)
     if(gameController.gameState == "menu")
     {
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
-        var rect = view._collides(view._rects, e.offsetX, e.offsetY);
+        var rect = view._collides(view._rectsMenu, e.offsetX, e.offsetY);
         if (rect) 
         {
-            if(rect.t == "play")
+            if(rect.t == "play" && bIsLogged)
             {
                 gameController.startGame();
             }
             else if(rect.t == "google")
             {
-                //gapi.auth.signIn();
-                //joinGame();
+               //Google play services
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
-        } 
-        else
+        }
+    }
+    else if(gameController.gameState == "game")
+    {
+        console.log('click: ' + e.offsetX + '/' + e.offsetY);
+        var rectM = view._collides(view._rectsMinionSelection, e.offsetX, e.offsetY);
+        var rectL = view._collides(view._rectsMinionsLocal, e.offsetX, e.offsetY);
+        
+        if(rectM && gameController.iMinionSelection < 3)
         {
-            //console.log('no collision');
+            if(rectM.t == "firstM")
+            {
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = 0;
+            }
+            else if(rectM.t == "secondM")
+            {
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = 1;
+            }
+            else if(rectM.t == "thirdM")
+            {
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = 2;
+            }
+            do
+            {
+                if(gameController.iMinionSelection < 2)
+                    gameController.iMinionSelection++;
+            }while(view._rectsMinionsLocal[gameController.iMinionSelection].m != null && gameController.iMinionSelection != 2)
+        }
+        else if(rectL)
+        {
+            if(rectL.t == "firstLS")
+            {
+                if(view._rectsMinionsLocal[0].m != null)
+                {
+                    gameController.iMinionSelection = 0;
+                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
+                }
+            }
+            else if(rectL.t == "secondLS")
+            {
+                if(view._rectsMinionsLocal[1].m != null)
+                {
+                    gameController.iMinionSelection = 1;
+                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
+                }
+            }
+            else if(rectL.t == "thirdLS")
+            {
+                if(view._rectsMinionsLocal[2].m != null)
+                {
+                    gameController.iMinionSelection = 2;
+                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
+                }
+            }
+            
+            for(var i = gameController.iMinionSelection; i > 0; i--)
+            {
+                if(view._rectsMinionsLocal[gameController.iMinionSelection - 1].m == null)
+                    gameController.iMinionSelection--;
+            }
         }
     }
 }
@@ -448,3 +537,4 @@ function click(e)
         
     
 
+ 

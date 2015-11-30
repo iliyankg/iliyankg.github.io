@@ -47,7 +47,8 @@ function PlayerController()
     */
     this.resolvePlayers = function()
     {
-
+        _left.setName("Test Local"); //Get from UI
+        _right.setName("Test Remote"); //Change
     }
     /** Calls _reccordPlayerChoice(), _sendChoice() and _recieveChoice() for multiplayer
     *@function

@@ -1,9 +1,6 @@
 var clientID = '247812372074-s6v0cjlf12q04cm7gbajipmfv1ee9iu8';
 var apiKey = 'AIzaSyCCaQb_poHUrGjOjX34w7uZKhpuY_NZOqc';
-var scope = 'https://www.googleapis.com/auth/games'; //Unused
 
-/** Callback function; Handles what happens uppon login; Is called upon load and after pressing sign in.
-*/
 handleAuthResult = function(auth)
 {
     //Successfull login
@@ -21,167 +18,11 @@ handleAuthResult = function(auth)
         {
             console.log("Plus loaded");
         });
-
-        
+        bIsLogged = true;
     }
     //Bad login
     else
     {
-        console.log("LoginError");
+        
     }
 }
-
-//handleClientLoad = function()
-//{
-//    gapi.client.setApiKey(apiKey);
-//    //window.setTimeout(checkAuth, 1);
-//}
-
-/**Gets the name of the logged in user and sets it. 
-*/
-getLocalPlayerName = function()
-{    
-    var request = gapi.client.games.players.get(
-    {
-            "playerId" : "me"
-    });
-    
-    request.execute(function(resp)
-    {
-        console.log("PLAYER_MAYBE");
-        playerController._left.setName(resp.displayName);
-    });
-    
-    //listRooms(); - NOT WORK
-    //createJoinGame();
-    getActiveGames();
-    return "Loading...";
-}
-
-createJoinGame = function()
-{
-    var request = gapi.client.games.turnBasedMatches.create(
-    {
-        "kind" : "games#turnBasedMatchCreateRequest",
-        "variant" : 0,
-        "invitedPlayerIds": [
-            "107373363902631863467"],
-        "autoMatchingCriteria" :
-        {
-            "kind" : "games#turnBasedAutoMatchingCriteria",
-            "minAutoMatchingPlayers" : 1,
-            "maxAutoMatchingPlayers" : 2,
-            //"exclusiveBitmask" : 0
-        },
-        "requestId" : Math.floor(Math.random() * 1000000000)
-    });
-     
-    request.execute(function(resp)
-    {
-        console.log(resp);
-    });
-}
-
-joinGame = function()
-{
-    var request = gapi.client.games.turnBasedMatches.join(
-    {
-        "matchId" : "ChoKCQjq7JKWmwcQAhACGAAg____________ARDMmNXR_o6Vpb8B"
-    });
-     
-    request.execute(function(resp)
-    {
-        console.log(resp);
-    });
-}
-
-getActiveGames = function()
-{
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
-    {
-        console.log(resp);
-    });
-}
-
-cancelGame = function(index)
-{
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
-    {
-        var newRequest = gapi.client.games.turnBasedMatches.cancel(
-        {
-            "matchId" : resp.items[0].matchId
-        });
-        
-        newRequest.execute(function(respp)
-        {
-            console.log("game deleted");                           
-        });
-    });
-}
-
-listRooms = function()
-{
-    var request = gapi.client.games.rooms.list();
-    
-    request.execute(function(resp)
-    {
-        console.log(resp);
-    });
-}
-
-initiateData = function()
-{
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
-    {
-        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
-            {"matchId" : resp.items[0].matchId},
-            {
-                "kind": "games#turnBasedMatchTurn",
-                "data": 
-                {
-                        "kind": "games#turnBasedMatchDataRequest",
-                        "data": btoa("111")
-                },
-                "pendingParticipantId": "p_1",
-                "matchVersion": 1,
-            });
-        
-        newRequest.execute(function(resp)
-                          {
-            console.log(resp);
-        });
-    });
-}
-
-takeTurn = function()
-{
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
-    {
-        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
-            {"matchId" : resp.items[0].matchId},
-            {
-                "kind": "games#turnBasedMatchTurn",
-                "data": 
-                {
-                        "kind": "games#turnBasedMatchDataRequest",
-                        "data": btoa("111")
-                },
-                "pendingParticipantId": "p_2",
-                "matchVersion": 2,
-            });
-        
-        newRequest.execute(function(respp)
-                          {
-            console.log(respp);
-        });
-    });
-}
-

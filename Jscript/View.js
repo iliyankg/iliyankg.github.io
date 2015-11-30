@@ -10,8 +10,17 @@ var canvasContext = canvas.getContext("2d");
 
 function View()
 {
-    this._rects = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t:"play"},//Play game
-                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t:"google"}];//Google
+    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
+                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
+    this._rectsMinionsLocal = [{x: 200, y: canvas.height - 200, w: 50, h: 50, t: "firstLS", m: null},
+                              {x: 150, y: canvas.height - 200, w: 50, h: 50, t: "secondLS", m: null},
+                              {x: 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdLS", m: null}];
+    this._rectsMinionsRemote = [{x: canvas.width - 200, y: canvas.height - 200, w: 50, h: 50, t: "firstRS", m: null},
+                               {x: canvas.width - 150, y: canvas.height - 200, w: 50, h: 50, t: "secondRS", m: null},
+                               {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
+    this._rectsMinionSelection = [{x: canvas.width/2 - 55, y: canvas.height - 100, w: 35, h: 35, t: "firstM", m: 0},
+                                 {x: canvas.width/2 - 17, y: canvas.height - 100, w: 35, h: 35, t: "secondM", m: 1},
+                                 {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
     
     
     this._Minion =  function()
@@ -48,14 +57,50 @@ function View()
         
     }
 
-    this._drawPlayerNames = function()
+    this._drawUI = function()
     {
+        //Player names
         canvasContext.font = "20px Arial";
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "blue";
         canvasContext.fillText(playerController._left.getName(), 100, 180);
         canvasContext.fillStyle = "red";
         canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
+        
+        //Timer
+        canvasContext.fillStyle = "black";
+        canvasContext.fillText(10 - gameController._iTurnNum, canvas.width/2, 400);
+        
+        //Minion selection
+        for (var i = 0, len = this._rectsMinionSelection.length; i < len; i++) 
+        {
+            canvasContext.drawImage(minionViews[this._rectsMinionSelection[i].m], this._rectsMinionSelection[i].x, this._rectsMinionSelection[i].y);
+        }
+        
+        //Local selection boxes
+        for (var i = 0, len = this._rectsMinionsLocal.length; i < len; i++) 
+        {
+            var local = this._rectsMinionsLocal[i];
+            canvasContext.strokeRect(local.x, local.y, local.w, local.h);
+            
+            if(local.m != null)
+            {
+                canvasContext.drawImage(minionViews[local.m], local.x + 7, local.y + 7);
+            }
+        }
+        
+        //Remote selection boxes
+        for (var i = 0, len = this._rectsMinionsRemote.length; i < len; i++) 
+        {
+            var remote = this._rectsMinionsRemote[i];
+            canvasContext.strokeRect(this._rectsMinionsRemote[i].x, this._rectsMinionsRemote[i].y, this._rectsMinionsRemote[i].w, this._rectsMinionsRemote[i].h);
+            
+            if(remote.m != null)
+            {
+                canvasContext.drawImage(minionViews[remote.m], remote.x + 7, remote.y + 7);
+            }
+        }
+        
     }
 
     this._drawMinions = function()
@@ -120,16 +165,18 @@ function View()
     this._drawMenuScrren = function()
     {
         canvasContext.fillStyle = "black";
-        for (var i = 0, len = this._rects.length; i < len; i++) 
+        for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
         {
-            canvasContext.fillRect(this._rects[i].x, this._rects[i].y, this._rects[i].w, this._rects[i].h);
+            canvasContext.fillRect(this._rectsMenu[i].x, this._rectsMenu[i].y, this._rectsMenu[i].w, this._rectsMenu[i].h);
         }
         
         canvasContext.font = "20px Arial";
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "white";
-        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
         canvasContext.fillText("Sign In", canvas.width/2 + 125, canvas.height/2 + 130, 150);
+        if(!bIsLogged)
+            canvasContext.fillStyle = "gray";
+        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
         
         canvasContext.font = "50px Arial";
         canvasContext.fillStyle = "blue";
@@ -149,7 +196,7 @@ function View()
         else if(gameController.gameState == "game")
         {
             view._newDrawMinions();
-            view._drawPlayerNames();
+            view._drawUI();
         }
         else if(gameController.gameState == "over")
         {
