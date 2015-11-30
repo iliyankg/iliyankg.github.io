@@ -21,6 +21,7 @@ function View()
     this._rectsMinionSelection = [{x: canvas.width/2 - 55, y: canvas.height - 100, w: 35, h: 35, t: "firstM", m: 0},
                                  {x: canvas.width/2 - 17, y: canvas.height - 100, w: 35, h: 35, t: "secondM", m: 1},
                                  {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
+    this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
     this._rectsFriendsList;
     
     this.createRectsFriends = function(lenght)
@@ -28,7 +29,7 @@ function View()
         this._rectsFriendsList = new Array(lenght);
         for(var i = 0; i < lenght; i++)
         {
-            this._rectsFriendsList[i] = {x: canvas.width - 100, y: 50 + i * 50, w: 100, h:50, t: "friend" + i, f: friends[i]};
+            this._rectsFriendsList[i] = {x: canvas.width - 150, y: 50 + i * 50, w: 100, h:50, t: "friend", f: friends[i]};
         }
     }
     
@@ -196,19 +197,30 @@ function View()
     
     this._drawFriendsList = function()
     {
-        if(friends != null)
+        for(var i = 0; i < friends.length; i++)
         {
-            for(var i = 0; i < friends.length; i++)
-            {
-                var rect = this._rectsFriendsList[i];
-                canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
-
-                canvasContext.font = "20px Arial";
-                canvasContext.textAlign = "center";
-                canvasContext.fillStyle = "black";
-                canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 25, 100);
-            }
+            var rect = this._rectsFriendsList[i];
+            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 25, 100);
         }
+    }
+    
+    this._drawLobby = function()
+    {
+        canvasContext.fillStyle = "black";
+        var rect = this._rectsLobby;
+        canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+        
+        canvasContext.font = "20px Arial";
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "white";
+        if(gameController.playerToInvite == null)
+            canvasContext.fillStyle = "gray";
+        canvasContext.fillText("Create game", rect + 75, rect + 25, 150);
     }
     
     this.update = function()
@@ -218,10 +230,11 @@ function View()
         if(gameController.gameState == "menu")
         {
             view._drawMenuScrren();
-            if(bIsLogged)
-            {
-                view._drawFriendsList();
-            }
+        }
+        else if(gameController.gameState == "lobby")
+        {
+            view._drawFriendsList();
+            view._drawLobby();
         }
         else if(gameController.gameState == "game")
         {

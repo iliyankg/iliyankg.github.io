@@ -21,6 +21,7 @@ function GameController()
 {
     this.gameState = "menu";
     this.iMinionSelection = 0;
+    this.playerToInvite = null;
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
@@ -394,6 +395,11 @@ function GameController()
         gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
         
     }
+    
+    this.goToLobby = function()
+    {
+        this.gameState = "lobby";
+    }
 }
 
 function keyDownHandler(e)
@@ -457,11 +463,30 @@ function click(e)
         {
             if(rect.t == "play" && bIsLogged)
             {
-                gameController.startGame();
+                gameController.goToLobby();
             }
             else if(rect.t == "google")
             {
                gapi.auth.signIn();
+            }
+            console.log('collision: ' + rect.x + '/' + rect.y);
+        }
+    }
+    else if(gameController.gameState == "lobby")
+    {
+        var rect = view._collides(view._rectsMenu, e.offsetX, e.offsetY);
+        if (rect) 
+        {
+            if(rect.t == "create" && gameController.playerToInvite != null)
+            {
+                //Ivite player
+                console.log("Player ID: " + gameController.playerToInvite);
+                gameController.startGame();
+            }
+            else if(rect.t == "friend")
+            {
+                console.log(rect.f.displayName);
+                gameController.playerToInvite = rect.f.id;
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         }
