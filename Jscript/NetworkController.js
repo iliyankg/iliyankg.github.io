@@ -153,7 +153,7 @@ takeTurn = function(index)
                         "data": btoa("111")
                 },
                 "pendingParticipantId": nextPlayer,
-                "matchVersion": 1,
+                "matchVersion": resp.items[index].matchVersion
             });
         
         newRequest.execute(function(respp)
