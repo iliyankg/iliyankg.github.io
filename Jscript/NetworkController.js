@@ -132,14 +132,19 @@ initiateData = function()
     });
 }
 
-takeTurn = function()
+takeTurn = function(index)
 {
     var request = gapi.client.games.turnBasedMatches.list();
     
     request.execute(function(resp)
     {
+        var nextPlayer = "p_2";
+        
+        if(resp.items[index].pendingParticipantId == "p_2")
+            nextPlayer = "p_1"
+            
         var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
-            {"matchId" : resp.items[0].matchId},
+            {"matchId" : resp.items[index].matchId},
             {
                 "kind": "games#turnBasedMatchTurn",
                 "data": 
@@ -147,8 +152,8 @@ takeTurn = function()
                         "kind": "games#turnBasedMatchDataRequest",
                         "data": btoa("111")
                 },
-                "pendingParticipantId": "p_2",
-                "matchVersion": 2,
+                "pendingParticipantId": nextPlayer,
+                "matchVersion": 1,
             });
         
         newRequest.execute(function(respp)
@@ -158,7 +163,28 @@ takeTurn = function()
     });
 }
 
-joinGame = function()
+joinGame = function(index)
 {
+    var request = gapi.client.games.turnBasedMatches.list();
     
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.join(
+        {
+            "matchId" : resp.items[indexd].matchId
+        });
+    });
+}
+
+declineGame = function(index)
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.decline(
+        {
+            "matchId" : resp.items[indexd].matchId
+        });
+    });
 }
