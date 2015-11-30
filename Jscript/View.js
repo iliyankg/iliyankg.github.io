@@ -196,15 +196,18 @@ function View()
     
     this._drawFriendsList = function()
     {
-        for(var i = 0; i < friends.length; i++)
+        if(friends != null)
         {
-            var rect = this._rectsFriendsList[i];
-            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
-            
-            canvasContext.font = "20px Arial";
-            canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
-            canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 25, 100);
+            for(var i = 0; i < friends.length; i++)
+            {
+                var rect = this._rectsFriendsList[i];
+                canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+
+                canvasContext.font = "20px Arial";
+                canvasContext.textAlign = "center";
+                canvasContext.fillStyle = "black";
+                canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 25, 100);
+            }
         }
     }
     
