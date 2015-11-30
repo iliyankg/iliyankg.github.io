@@ -29,7 +29,7 @@ function View()
         this._rectsFriendsList = new Array(lenght);
         for(var i = 0; i < lenght; i++)
         {
-            this._rectsFriendsList[i] = {x: canvas.width - 150, y: 50 + i * 50, w: 100, h:50, t: "friend", f: friends[i]};
+            this._rectsFriendsList[i] = {x: canvas.width - 200, y: 50 + i * 50, w: 150, h:50, t: "friend", f: friends[i]};
         }
     }
     
@@ -205,14 +205,14 @@ function View()
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
             canvasContext.fillStyle = "black";
-            canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 25, 100);
+            canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 30, 150);
         }
     }
     
     this._drawLobby = function()
     {
         canvasContext.fillStyle = "black";
-        var rect = this._rectsLobby;
+        var rect = this._rectsLobby[0];
         canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
         
         canvasContext.font = "20px Arial";
@@ -220,7 +220,7 @@ function View()
         canvasContext.fillStyle = "white";
         if(gameController.playerToInvite == null)
             canvasContext.fillStyle = "gray";
-        canvasContext.fillText("Create game", rect + 75, rect + 25, 150);
+        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
     }
     
     this.update = function()
@@ -235,7 +235,7 @@ function View()
         {
             
             view._drawLobby();
-            view._drawFriendsList();
+            //view._drawFriendsList();
         }
         else if(gameController.gameState == "game")
         {
