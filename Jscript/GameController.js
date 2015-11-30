@@ -424,6 +424,10 @@ function keyDownHandler(e)
         joinGame(0);
         listActiveGames();
     }
+    if(e.keyCode == 32) //spacebar
+    {
+        getGame(0);
+    }
 }
 
 function click(e)
