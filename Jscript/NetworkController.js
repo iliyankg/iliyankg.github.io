@@ -14,7 +14,7 @@ handleAuthResult = function(auth)
         
         gapi.client.load('plus', 'v1', function(response)
         {
-            var request = gapi.client.plus.list(
+            var request = gapi.client.plus.people.list(
             {
                 "userId" : "me",
                 "collection" "visible"
