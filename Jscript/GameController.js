@@ -421,7 +421,7 @@ function keyDownHandler(e)
     }
     if(e.keyCode == 40) //down arrow
     {
-        joinGame();
+        joinGame(0);
         listActiveGames();
     }
 }
