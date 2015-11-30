@@ -61,7 +61,7 @@ createJoinGame = function()
         "kind" : "games#turnBasedMatchCreateRequest",
         "variant" : 0,
         "invitedPlayerIds": [
-            "107373363902631863467"],
+            toString(gameController.playerToInvite)],
         "autoMatchingCriteria" :
         {
             "kind" : "games#turnBasedAutoMatchingCriteria",
@@ -75,5 +75,33 @@ createJoinGame = function()
     request.execute(function(resp)
     {
         console.log(resp);
+    });
+}
+
+listActiveGames = function()
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        console.log(resp);
+    });
+}
+
+cancelGame = function(index)
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.cancel(
+        {
+            "matchId" : resp.items[0].matchId
+        });
+        
+        newRequest.execute(function(respp)
+        {
+            console.log("game deleted");                           
+        });
     });
 }

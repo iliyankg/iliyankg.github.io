@@ -406,50 +406,21 @@ function keyDownHandler(e)
 {
     if(e.keyCode == 39)//right arrow
     {
-        gameController._newSpawn();
+        listActiveGames();
     }
     
     if(e.keyCode == 37)//left arrow
     {
-        for(i = 0; i < platoonLength; i++)
-        {
-            leftPlatoon[i] = null;
-            rightPlatoon[i] = null; 
-        }
-        playerController._left = new Player();
-        playerController._left.createPlayer(10,10, getLocalPlayerName(), 0);
-        playerController._right = new Player();
-        playerController._right.createPlayer(10,10,"Remote_Player", 1);
+        cancelGame(0);
     }
     
     if(e.keyCode == 38)//up arrow
     {
-        if(gameController._iTurnNum == 10)
-        {
-            gameController._iTurnNum = 0;
-        }
-        
-        if(gameController._iTurnNum == 0)
-        {
+
+    }
+    if(e.keyCode == 40) //down arrow
+    {
             
-            gameController._timer();
-            //gameController._newSpawn();    
-        }
-        else if(gameController._iTurnNum == 5)
-        {
-            gameController._newBattle();
-        }
-        else if(gameController._iTurnNum > 5)
-        {
-            gameController._newRetreat();
-        }
-        else
-        {
-            gameController._newAdvance();
-        }
-        
-        //gameController._advance();
-        //gameController._iTurnNum++;
     }
 }
 
@@ -479,9 +450,9 @@ function click(e)
         {
             if(rect.t == "create" && gameController.playerToInvite != null)
             {
-                //Ivite player
+                createJoinGame();
                 console.log("Player ID: " + gameController.playerToInvite);
-                gameController.startGame();
+                //gameController.startGame();
             }
             else if(rect.t == "friend")
             {
