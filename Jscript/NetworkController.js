@@ -171,7 +171,7 @@ joinGame = function(index)
     {
         var newRequest = gapi.client.games.turnBasedMatches.join(
         {
-            "matchId" : resp.items[indexd].matchId
+            "matchId" : resp.items[index].matchId
         });
     });
 }
