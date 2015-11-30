@@ -23,7 +23,7 @@ function View()
                                  {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsFriendsList;
     
-    this.createRectsFriends = function(var lenght)
+    this.createRectsFriends = function(lenght)
     {
         this._rectsFriendsList = new Array(lenght);
         for(var i = 0; i < lenght; i++)

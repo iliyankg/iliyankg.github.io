@@ -19,7 +19,7 @@ view.update();
 function GameController() 
 //Public
 {
-    this.gameState = "menu"
+    this.gameState = "menu";
     this.iMinionSelection = 0;
     
     //PRIVATE
