@@ -449,6 +449,7 @@ function click(e)
     {
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
         var rect = view._collides(view._rectsFriendsList, e.offsetX, e.offsetY);
+        rect += view._collides(view._rectsLobby, e.offsetX, e.offsetY);
         if (rect) 
         {
             if(rect.t == "create" && gameController.playerToInvite != null)
