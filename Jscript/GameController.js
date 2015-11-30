@@ -459,6 +459,7 @@ function click(e)
             else if(rect.t == "friend")
             {
                 console.log(rect.f.displayName);
+                console.log(rect.f.id);
                 gameController.playerToInvite = rect.f.id;
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
