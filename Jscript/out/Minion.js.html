@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Minion.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Minion.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** Minion Model
+*@constructor
+*@property {double} _dPosX position X of the minion
+*@property {double} _dPosY position Y of the minion
+*@property {int} _iType minion type
+*@property {int} _iHealth health value of the minion
+*@property {int} _iAttack attack value of the minion
+*@property {int} _iHeight height of the minion sprite
+*@property {int} _iWidth width of the minion sprite
+*@property {bool} _bTeam if the minion belongs to the local or remote player
+*@property {bool} _bDead if the minion is dead or not
+*@property {view} _view stores the minion sprite
+*/
+var bIsReadyToDraw = false;
+var minionViews = [];
+var loadedSoFar = 0;
+
+function Minion()
+{
+    this._dPosX;
+    this._dPoxY;
+    this._iType;
+    this._iHealth = 20;
+    this._iAttack = 10;
+    this._iHeight = 35;
+    this._iWidth = 35;
+    this._bTeam;
+    this._bDead;
+    this._view = new Image();
+    
+    this.createMinion = function(iType, bTeam, dPosX, dPosY)
+    {
+        this._iType = iType;
+        this._bTeam = bTeam;
+        this._dPosX = dPosX;
+        this._dPosY = dPosY;
+        this._bDead = false;
+    }
+    
+    this.getViewIndex = function()
+    {
+        var index;
+        if(this._bTeam)
+        {
+            index = this._iType;
+        }
+        else
+        {
+            index = this._iType + 3;//Add 3 to the index to get the enemy sprites   
+        }
+        
+        if(gameController._iTurnNum > 6)
+        {
+            return index + 6;//Units are retreating
+        }
+        return index;
+    }
+    
+    this.loadMinions = function()
+    {
+        for(var k=0; k &lt;=1; k++)
+        { 
+            for(var i=0; i &lt;= 1; i++)
+             {
+                for(var j=0; j &lt;=2; j++)
+                {
+                    minionViews[k*6 + i*3 + j] = new Image();
+                    minionViews[k*6 + i*3 + j].onload = function() 
+                    {
+                        loadedSoFar++;
+                        if(loadedSoFar == 6)
+                        {
+                            bIsReadyToDraw = true;
+                        }
+                    };
+                    minionViews[k*6 + i*3 + j].src = "Assets/Minion_"+ k + i + j + ".png";
+                }
+             }
+        }
+    }
+    
+    this.getPosX = function()
+    {
+        return this._dPosX;
+    }
+    this.setPosX = function(dPosX)
+    {
+        this._dPosX = dPosX;
+    }
+    
+    this.getPosY = function()
+    {
+        return this._dPosY;
+    }
+    this.setPosY = function(dPosY)
+    {
+        this._dPosY = dPosY;
+    }
+    
+    this.getType = function()
+    {
+        return this._iType;
+    }
+    
+    this.getAttack = function()
+    {
+        return this._iAttack;
+    }
+    
+    this.getHealth = function()
+    {
+        return this._iHealth;
+    }
+    /** Damages the minion taking into account the type attacking it
+    *@function
+    *@param {int} type
+    */
+    this.damage = function(type)
+    {
+        if(this._iType - type == 1 || this._iType - type == -2)
+        {
+            this._bDead = true;    
+        }
+        else
+        {
+            this._bDead = false;    
+        }
+    }
+    
+    /** Returns the status of the minion
+    *@function
+    */
+    this.isDead = function()
+    {
+        return this._bDead;
+    }
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bIsReadyToDraw.html">bIsReadyToDraw</a></li><li><a href="canvas.html">canvas</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_advance">_advance</a></li><li><a href="global.html#_battle">_battle</a></li><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_isTheEdge">_isTheEdge</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_spawn">_spawn</a></li><li><a href="global.html#damage">damage</a></li><li><a href="global.html#isDead">isDead</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Nov 30 2015 14:56:01 GMT+0000 (GMT Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
