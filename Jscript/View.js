@@ -172,7 +172,7 @@ function View()
         return isCollision;
     }
     
-    this._collides = function(rects1, rects2, x, y)
+    this._collides2 = function(rects1, rects2, x, y)
     {
         var isCollision = false;
         for (var i = 0, len = rects1.length; i < len; i++) 
