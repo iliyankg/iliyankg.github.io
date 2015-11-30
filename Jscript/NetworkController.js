@@ -22,7 +22,7 @@ handleAuthResult = function(auth)
             
             request.execute(function(resp)
             {
-                consle.log(resp);                
+                console.log(resp);                
             });
         });
         bIsLogged = true;
