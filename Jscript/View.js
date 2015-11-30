@@ -233,9 +233,8 @@ function View()
         }
         else if(gameController.gameState == "lobby")
         {
-            
-            view._drawLobby();
             view._drawFriendsList();
+            view._drawLobby();
         }
         else if(gameController.gameState == "game")
         {
