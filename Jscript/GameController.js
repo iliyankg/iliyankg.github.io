@@ -416,6 +416,7 @@ function keyDownHandler(e)
     
     if(e.keyCode == 38)//up arrow
     {
+        
 
     }
     if(e.keyCode == 40) //down arrow

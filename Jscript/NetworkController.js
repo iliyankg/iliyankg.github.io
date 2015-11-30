@@ -105,3 +105,8 @@ cancelGame = function(index)
         });
     });
 }
+
+joinGame = function()
+{
+    
+}
