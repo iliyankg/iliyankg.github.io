@@ -61,7 +61,7 @@ createJoinGame = function()
         "kind" : "games#turnBasedMatchCreateRequest",
         "variant" : 0,
         "invitedPlayerIds": [
-            toString(gameController.playerToInvite)],
+            gameController.playerToInvite],
         "autoMatchingCriteria" :
         {
             "kind" : "games#turnBasedAutoMatchingCriteria",
