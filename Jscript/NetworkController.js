@@ -207,8 +207,8 @@ getGame = function(index)
        
         var newRequest = gapi.client.games.turnBasedMatches.get
         (
-            {"matchId" : resp.items[index].matchId},
-            {"includeMatchData" : true}
+            {"matchId" : resp.items[index].matchId,
+            "includeMatchData" : true}
         );
         
         newRequest.execute(function(respp)
