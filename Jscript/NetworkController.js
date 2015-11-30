@@ -24,9 +24,9 @@ handleAuthResult = function(auth)
             request.execute(function(resp)
             {
                 console.log(resp);
-                friends = resp;
+                friends = resp.items;
                 console.log(friends);
-                view.createRectsFriends(resp.length);
+                view.createRectsFriends(resp.totalItems);
            });
         });
         bIsLogged = true;
