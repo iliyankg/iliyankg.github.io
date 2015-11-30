@@ -21,7 +21,16 @@ function View()
     this._rectsMinionSelection = [{x: canvas.width/2 - 55, y: canvas.height - 100, w: 35, h: 35, t: "firstM", m: 0},
                                  {x: canvas.width/2 - 17, y: canvas.height - 100, w: 35, h: 35, t: "secondM", m: 1},
                                  {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
+    this._rectsFriendsList;
     
+    this.createRectsFriends = function(var lenght)
+    {
+        this._rectsFriendsList = new Array(lenght);
+        for(var i = 0; i < lenght; i++)
+        {
+            this._rectsFriendsList[i] = {x: canvas.width - 100, y: 50 + i * 50, w: 100, h:50, t: "friend" + i, f: friends[i]};
+        }
+    }
     
     this._Minion =  function()
     {
@@ -185,6 +194,20 @@ function View()
         canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
     }
     
+    this._drawFriendsList = function()
+    {
+        for(var i = 0; i < friends.length; i++)
+        {
+            var rect = this._rectsFriendsList[i];
+            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 25, 100);
+        }
+    }
+    
     this.update = function()
     {
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
@@ -192,6 +215,10 @@ function View()
         if(gameController.gameState == "menu")
         {
             view._drawMenuScrren();
+            if(bIsLogged)
+            {
+                view._drawFriendsList();
+            }
         }
         else if(gameController.gameState == "game")
         {
