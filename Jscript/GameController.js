@@ -461,7 +461,7 @@ function click(e)
             }
             else if(rect.t == "google")
             {
-               //Google play services
+               gapi.auth.signIn();
             }
             console.log('collision: ' + rect.x + '/' + rect.y);
         }
