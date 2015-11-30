@@ -428,6 +428,7 @@ function click(e)
 {
     if(gameController.gameState == "menu")
     {
+        
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
         var rect = view._collides(view._rectsMenu, e.offsetX, e.offsetY);
         if (rect) 
@@ -445,6 +446,7 @@ function click(e)
     }
     else if(gameController.gameState == "lobby")
     {
+        console.log('click: ' + e.offsetX + '/' + e.offsetY);
         var rect = view._collides(view._rectsMenu, e.offsetX, e.offsetY);
         if (rect) 
         {
