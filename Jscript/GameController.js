@@ -406,7 +406,7 @@ function keyDownHandler(e)
 {
     if(e.keyCode == 39)//right arrow
     {
-        listActiveGames();
+        initiateData();
     }
     
     if(e.keyCode == 37)//left arrow
@@ -416,12 +416,12 @@ function keyDownHandler(e)
     
     if(e.keyCode == 38)//up arrow
     {
-        
+        takeTurn();
 
     }
     if(e.keyCode == 40) //down arrow
     {
-            
+        listActiveGames();
     }
 }
 

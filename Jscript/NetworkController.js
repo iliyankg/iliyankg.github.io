@@ -106,6 +106,58 @@ cancelGame = function(index)
     });
 }
 
+initiateData = function()
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
+            {"matchId" : resp.items[0].matchId},
+            {
+                "kind": "games#turnBasedMatchTurn",
+                "data": 
+                {
+                        "kind": "games#turnBasedMatchDataRequest",
+                        "data": btoa("111")
+                },
+                "pendingParticipantId": "p_1",
+                "matchVersion": 1,
+            });
+        
+        newRequest.execute(function(resp)
+                          {
+            console.log(resp);
+        });
+    });
+}
+
+takeTurn = function()
+{
+    var request = gapi.client.games.turnBasedMatches.list();
+    
+    request.execute(function(resp)
+    {
+        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
+            {"matchId" : resp.items[0].matchId},
+            {
+                "kind": "games#turnBasedMatchTurn",
+                "data": 
+                {
+                        "kind": "games#turnBasedMatchDataRequest",
+                        "data": btoa("111")
+                },
+                "pendingParticipantId": "p_2",
+                "matchVersion": 2,
+            });
+        
+        newRequest.execute(function(respp)
+                          {
+            console.log(respp);
+        });
+    });
+}
+
 joinGame = function()
 {
     
