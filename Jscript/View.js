@@ -205,7 +205,7 @@ function View()
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
             canvasContext.fillStyle = "black";
-            canvasContext.fillText(friends[i].displayName, rect.x + 50, rect.y + 30, 150);
+            canvasContext.fillText(friends[i].displayName, rect.x + 75, rect.y + 30, 150);
         }
     }
     
