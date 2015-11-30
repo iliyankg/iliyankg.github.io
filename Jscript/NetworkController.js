@@ -154,7 +154,7 @@ takeTurn = function(index)
                 "data": 
                 {
                         "kind": "games#turnBasedMatchDataRequest",
-                        "data": btoa("111")
+                        "data": btoa(data)
                 },
                 "pendingParticipantId": nextPlayer,
                 "matchVersion": resp.items[index].matchVersion
