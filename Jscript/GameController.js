@@ -461,7 +461,7 @@ function click(e)
                 console.log(rect.f.displayName);
                 gameController.playerToInvite = rect.f.id;
             }
-            console.log('collision: ' + rect.x + '/' + rect.y);
+            console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
         }
     }
     else if(gameController.gameState == "game")
