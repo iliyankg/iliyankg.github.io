@@ -25,6 +25,7 @@ handleAuthResult = function(auth)
             {
                 console.log(resp);
                 friends = resp;
+                console.log(friends);
                 view.createRectsFriends(resp.length);
            });
         });
