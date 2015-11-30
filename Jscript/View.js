@@ -172,6 +172,33 @@ function View()
         return isCollision;
     }
     
+    this._collides = function(rects1, rects2, x, y)
+    {
+        var isCollision = false;
+        for (var i = 0, len = rects1.length; i < len; i++) 
+        {
+            var left = rects1[i].x, right = rects1[i].x+rects1[i].w;
+            var top = rects1[i].y, bottom = rects1[i].y+rects1[i].h;
+            
+            if (right >= x && left <= x && bottom >= y && top <= y) 
+            {
+                isCollision = rects1[i];
+            }
+        }
+        
+        for (var i = 0, len = rects2.length; i < len; i++) 
+        {
+            var left = rects2[i].x, right = rects2[i].x+rects2[i].w;
+            var top = rects2[i].y, bottom = rects2[i].y+rects2[i].h;
+            
+            if (right >= x && left <= x && bottom >= y && top <= y) 
+            {
+                isCollision = rects2[i];
+            }
+        }
+        return isCollision;
+    }
+    
     this._drawMenuScrren = function()
     {
         canvasContext.fillStyle = "black";
