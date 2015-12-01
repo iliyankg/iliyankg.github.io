@@ -2,6 +2,8 @@ var clientID = '247812372074-s6v0cjlf12q04cm7gbajipmfv1ee9iu8';
 var apiKey = 'AIzaSyCCaQb_poHUrGjOjX34w7uZKhpuY_NZOqc';
 var friends;
 
+var allGames;
+
 handleAuthResult = function(auth)
 {
     //Successfull login
@@ -84,28 +86,25 @@ listActiveGames = function()
     
     request.execute(function(resp)
     {
-        console.log(resp);
+        allGames = resp;
     });
 }
 
 cancelGame = function(index)
 {
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
+
+    var newRequest = gapi.client.games.turnBasedMatches.cancel(
     {
-        var newRequest = gapi.client.games.turnBasedMatches.cancel(
-        {
-            "matchId" : resp.items[0].matchId
-        });
+        "matchId" : allGames[index].matchId
+    });
         
-        newRequest.execute(function(respp)
-        {
-            console.log("game deleted");                           
-        });
+    newRequest.execute(function(respp)
+    {
+        console.log("game deleted");                          
     });
 }
 
+//Questionable if necessary
 initiateData = function()
 {
     var request = gapi.client.games.turnBasedMatches.list();
@@ -132,92 +131,83 @@ initiateData = function()
     });
 }
 
-takeTurn = function(index)
+takeTurn = function(index, data)
 {
-    var request = gapi.client.games.turnBasedMatches.list();
     
-    request.execute(function(resp)
+    var nextPlayer = "p_2";
+        
+    if(resp.items[index].pendingParticipantId == "p_2")
     {
-        var nextPlayer = "p_2";
-        var data = "111";
-        
-        if(resp.items[index].pendingParticipantId == "p_2")
-            {
-                nextPlayer = "p_1";
-                data = "212";
-            }
+        nextPlayer = "p_1";
+    }
             
-        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
-            {"matchId" : resp.items[index].matchId},
-            {
-                "kind": "games#turnBasedMatchTurn",
-                "data": 
-                {
-                        "kind": "games#turnBasedMatchDataRequest",
-                        "data": btoa(data)
-                },
-                "pendingParticipantId": nextPlayer,
-                "matchVersion": resp.items[index].matchVersion
-            });
+    var request = gapi.client.games.turnBasedMatches.takeTurn(
+    {"matchId" : allGames[index].matchId},
+    {
+        "kind": "games#turnBasedMatchTurn",
+        "data": 
+        {
+                "kind": "games#turnBasedMatchDataRequest",
+                "data": btoa(data)
+        },
+        "pendingParticipantId": nextPlayer,
+        "matchVersion": resp.items[index].matchVersion
+    });
         
-        newRequest.execute(function(respp)
+    request.execute(function(respp)
                           {
-            console.log(respp);
-        });
+        console.log(respp);
     });
 }
 
 joinGame = function(index)
 {
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
+    var request = gapi.client.games.turnBasedMatches.join(
     {
-        var newRequest = gapi.client.games.turnBasedMatches.join(
-        {
-            "matchId" : resp.items[index].matchId
-        });
-        
-        newRequest.execute(function(respp)
-        {
-           console.log(respp); 
-        });
+        "matchId" : allGames[index].matchId
+    });
+    
+    request.execute(function(respp)
+    {
+       console.log(respp); 
     });
 }
 
 declineGame = function(index)
 {
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
+    var request = gapi.client.games.turnBasedMatches.decline(
     {
-        var newRequest = gapi.client.games.turnBasedMatches.decline(
-        {
-            "matchId" : resp.items[indexd].matchId
-        });
+        "matchId" : allGames[indexd].matchId
+    });
+    
+    request.execute(function(respp)
+    {
+        console.log(respp);
     });
 }
 
 getGame = function(index)
-{
-    var request = gapi.client.games.turnBasedMatches.list();
+{   
+    var request = gapi.client.games.turnBasedMatches.get
+    (
+        {"matchId" : allGames[index].matchId,
+        "includeMatchData" : true}
+    );
     
-    request.execute(function(resp)
+    request.execute(function(respp)
     {
-       
-        var newRequest = gapi.client.games.turnBasedMatches.get
-        (
-            {"matchId" : resp.items[index].matchId,
-            "includeMatchData" : true}
-        );
+        console.log(respp);
         
-        newRequest.execute(function(respp)
-        {
-            console.log(respp);
-            
-            console.log(atob(respp.data.data));
-        });
-        
-        
+        console.log(atob(respp.data.data));
+    });
+}
+
+dismissGame = function(index)
+{
+    var request = gapi.client.games.turnBasedMatches.dismiss({"matchId" : allGames[index].matchId});
+    
+    request.execute(function(respp)
+    {
+       console.log("GameDismissed"); 
     });
 }
