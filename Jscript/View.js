@@ -76,6 +76,7 @@ function View()
     //Background of a match is drawn   
     this._drawBackground = function()
     {
+        gameController.loadBackground();
         if(bBackDraw)
         {
             canvasContext.drawImage(backgorundImage, 0, 0); 
