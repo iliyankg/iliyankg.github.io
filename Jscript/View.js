@@ -115,7 +115,7 @@ function View()
             
             if(local.m != null)
             {
-                canvasContext.drawImage(minionViews[local.m], local.x + 15, local.y + 7);
+                canvasContext.drawImage(minionViews[local.m], local.x + 13, local.y + 7);
             }
             else
             {
