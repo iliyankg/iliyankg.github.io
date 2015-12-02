@@ -459,6 +459,7 @@ function click(e)
             {
                 createJoinGame();
                 console.log("Player ID: " + gameController.playerToInvite);
+                listActiveGames();
                 //gameController.startGame();
             }
             else if(rect.t == "friend")

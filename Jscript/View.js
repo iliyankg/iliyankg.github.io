@@ -42,8 +42,8 @@ function View()
         for(var i = 0; i < lenght; i++)
         {
             this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
+            this._bHasGames = true;
         }
-        this._bHasGames = true;
     }
     
     this._Minion =  function()
@@ -253,7 +253,7 @@ function View()
     {
         for(var i = 0; i < allGames.length; i++)
         {
-            var rect = this._rectsGamessList[i];
+            var rect = this._rectsGamesList[i];
             canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
@@ -289,7 +289,8 @@ function View()
         else if(gameController.gameState == "lobby")
         {
             view._drawFriendsList();
-            view._drawGamesList();
+            if(view._bHasGames)
+                view._drawGamesList();
             view._drawLobby();
         }
         else if(gameController.gameState == "game")
