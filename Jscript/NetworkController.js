@@ -2,7 +2,7 @@ var clientID = '247812372074-s6v0cjlf12q04cm7gbajipmfv1ee9iu8';
 var apiKey = 'AIzaSyCCaQb_poHUrGjOjX34w7uZKhpuY_NZOqc';
 var friends;
 
-var allGames;
+var allGames = new Array();
 
 handleAuthResult = function(auth)
 {
@@ -87,6 +87,7 @@ listActiveGames = function()
     request.execute(function(resp)
     {
         allGames = resp;
+        view.createRectsGames(allGames.length);
     });
 }
 

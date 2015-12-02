@@ -23,6 +23,9 @@ function View()
                                  {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
     this._rectsFriendsList;
+    this._rectsGamesList;
+    
+    this._bHasGames = false;
     
     this.createRectsFriends = function(lenght)
     {
@@ -31,6 +34,16 @@ function View()
         {
             this._rectsFriendsList[i] = {x: canvas.width - 200, y: 50 + i * 50, w: 150, h:50, t: "friend", f: friends[i]};
         }
+    }
+    
+    this.createRectsGames = function(lenght)
+    {
+        this._rectsGamesList = new Array(lenght);
+        for(var i = 0; i < lenght; i++)
+        {
+            this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
+        }
+        this._bHasGames = true;
     }
     
     this._Minion =  function()
@@ -236,6 +249,21 @@ function View()
         }
     }
     
+    this._drawGamesList = function()
+    {
+        for(var i = 0; i < allGames.length; i++)
+        {
+            var rect = this._rectsGamessList[i];
+            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
+            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 40, 150);
+        }
+    }
+    
     this._drawLobby = function()
     {
         canvasContext.fillStyle = "black";
@@ -261,6 +289,7 @@ function View()
         else if(gameController.gameState == "lobby")
         {
             view._drawFriendsList();
+            vier._drawGamesList();
             view._drawLobby();
         }
         else if(gameController.gameState == "game")
