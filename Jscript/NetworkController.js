@@ -86,7 +86,7 @@ listActiveGames = function()
     
     request.execute(function(resp)
     {
-        allGames = resp;
+        allGames = resp.items;
         view.createRectsGames(allGames.length);
     });
 }
