@@ -323,8 +323,8 @@ function View()
         
         if(gameController.gameState == "menu")
         {
-            view._drawMenuScrren();
             view._drawBackground();
+            view._drawMenuScrren();
         }
         else if(gameController.gameState == "lobby")
         {
@@ -335,8 +335,8 @@ function View()
         }
         else if(gameController.gameState == "game")
         {
-            view._newDrawMinions();
             view._drawBackground();
+            view._newDrawMinions();
             view._drawUI();
         }
         else if(gameController.gameState == "over")
