@@ -325,11 +325,15 @@ function click(e)
                 console.log(rect.g);
                 if(rect.g.userMatchStatus == "USER_INVITED")
                 {
-                    
+                    //Join game
                 }
-                else
+                else if(rect.g.userMatchStatus == "USER_AWAITING_TURN")
                 {
-                    //gameController.joinGame(rect.g);
+                    //Just see the situation of the game
+                }
+                else if(rect.g.userMatchStatus == "USER_TURN")
+                {
+                    //Load the acual game
                 }
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
@@ -340,6 +344,7 @@ function click(e)
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
         var rectM = view._collides(view._rectsMinionSelection, e.offsetX, e.offsetY);
         var rectL = view._collides(view._rectsMinionsLocal, e.offsetX, e.offsetY);
+        var rect = view._collides(view._rectsGame, e.offsetX, e.offsetY);
         
         if(rectM && gameController.iMinionSelection < 3)
         {
@@ -392,6 +397,18 @@ function click(e)
             {
                 if(view._rectsMinionsLocal[gameController.iMinionSelection - 1].m == null)
                     gameController.iMinionSelection--;
+            }
+        }
+        else if(rect)
+        {
+            if(rect.t == "lobby")
+            {
+                gameController.goToLobby();
+                //Do something to "cancel" the game
+            }
+            else if(rect.t == "sent")
+            {
+                //POST the data
             }
         }
     }
