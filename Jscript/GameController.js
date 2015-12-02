@@ -187,31 +187,9 @@ function GameController()
         }
     }
     
-    this._timer_ChangeTime = function()
+    this._timer_RefreshList = function()
     {        
-        if(gameController._iTurnNum == 10)
-        {
-            gameController._iTurnNum = 0;
-        }
-        
-        if(gameController._iTurnNum == 0)
-        {
-            gameController._newSpawn();    
-        }
-        else if(gameController._iTurnNum == 5)
-        {
-            gameController._newBattle();
-        }
-        else if(gameController._iTurnNum > 5)
-        {
-            gameController._newRetreat();
-        }
-        else
-        {
-            gameController._newAdvance();
-        }
-        
-        gameController._iTurnNum++;
+        listActiveGames();
     }
     this._timer_TimeoutAdvance = function(timer)
     {
@@ -220,7 +198,7 @@ function GameController()
     }
     this._timer = function()
     {
-        var timerInt = setInterval(this._timer_ChangeTime, 1000);
+        var timerInt = setInterval(this._timer_RefreshList, 10000);
     }
     
     this._firstTurn = function()
@@ -269,7 +247,7 @@ function GameController()
     this.goToLobby = function()
     {
         this.gameState = "lobby";
-        //gameController._fFirstTimer = setInterval(this._firstTurn, 10000);
+        gameController._timer();
     }
 }
 
