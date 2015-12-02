@@ -247,6 +247,7 @@ function GameController()
     this.goToLobby = function()
     {
         this.gameState = "lobby";
+        listActiveGames();
         gameController._timer();
     }
 }
@@ -309,6 +310,7 @@ function click(e)
                 createJoinGame();
                 console.log("Player ID: " + gameController.playerToInvite);
                 listActiveGames();
+                gameController.gameState = "game";
                 //gameController.startGame();
             }
             else if(rect.t == "friend")

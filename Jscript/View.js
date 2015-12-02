@@ -19,8 +19,10 @@ function View()
                                {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
     this._rectsMinionSelection = [{x: canvas.width/2 - 55, y: canvas.height - 100, w: 35, h: 35, t: "firstM", m: 0},
                                  {x: canvas.width/2 - 17, y: canvas.height - 100, w: 35, h: 35, t: "secondM", m: 1},
-                                 {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
+                                 {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2};
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
+    this._rectsGame = [{x: canvas.width - 150, y: 50, w: 150, h: 50, t: "lobby"},
+                      {x: canvas.width/2 - 75, y: canvas.height - 75, w: 150, h: 50, t: "send"}];
     this._rectsFriendsList;
     this._rectsGamesList;
     
@@ -127,6 +129,23 @@ function View()
             }
         }
         
+        //UI
+        for (var i = 0; i < view._rectsGame.length; i++)
+        {
+            var rect = view._rectsGame[i];
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(rect.t, rect.x + 75, rect.y + 30);
+        }
+        
+        canvasContext.font = "20px Arial";
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "black";
+        canvasContext.fillText(playerController._left.getName(), 100, 180);
+        canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
     }
 
     this._drawMinions = function()
