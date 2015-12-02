@@ -25,12 +25,12 @@ handleAuthResult = function(auth)
             
             request.execute(function(resp)
             {
+                bIsLogged = true;
                 console.log(resp);
                 friends = resp.items;
                 view.createRectsFriends(resp.totalItems);
            });
         });
-        bIsLogged = true;
     }
     //Bad login
     else
