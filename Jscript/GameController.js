@@ -248,6 +248,7 @@ function GameController()
     {
         this.gameState = "lobby";
         listActiveGames();
+        minion.loadMinions();
         gameController._timer();
     }
 }
