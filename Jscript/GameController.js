@@ -367,14 +367,17 @@ function click(e)
             if(rectL.t == "firstLS")
             {
                 gameController.iMinionSelection = 0;
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
             }
             else if(rectL.t == "secondLS")
             {   
                 gameController.iMinionSelection = 1;
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
             }
             else if(rectL.t == "thirdLS")
             {
                 gameController.iMinionSelection = 2;
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
             }
         }
         else if(rect)

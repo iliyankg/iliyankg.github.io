@@ -16,7 +16,7 @@ function View()
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
     this._rectsMinionSelection = [{x: canvas.width/2 - 60, y: canvas.height - 165, w: 35, h: 35, t: "firstM", m: 0},
                                  {x: canvas.width/2 - 10, y: canvas.height - 165, w: 35, h: 35, t: "secondM", m: 1},
-                                 {x: canvas.width/2 + 45, y: canvas.height - 165, w: 35, h: 35, t: "thirdM", m: 2}];
+                                 {x: canvas.width/2 + 40, y: canvas.height - 165, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby"},
                       {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send"}];
@@ -115,7 +115,7 @@ function View()
             
             if(local.m != null)
             {
-                canvasContext.drawImage(minionViews[local.m], local.x + 7, local.y + 7);
+                canvasContext.drawImage(minionViews[local.m], local.x + 15, local.y + 7);
             }
             else
             {
