@@ -137,7 +137,7 @@ takeTurn = function(index, data)
     
     var nextPlayer = "p_2";
         
-    if(resp.items[index].pendingParticipantId == "p_2")
+    if(allGames[index].pendingParticipantId == "p_2")
     {
         nextPlayer = "p_1";
     }
@@ -152,7 +152,7 @@ takeTurn = function(index, data)
                 "data": btoa(data)
         },
         "pendingParticipantId": nextPlayer,
-        "matchVersion": resp.items[index].matchVersion
+        "matchVersion": allGames[index].matchVersion
     });
         
     request.execute(function(respp)
@@ -187,11 +187,11 @@ declineGame = function(index)
     });
 }
 
-getGame = function(index)
+getGame = function(_matchId)
 {   
     var request = gapi.client.games.turnBasedMatches.get
     (
-        {"matchId" : allGames[index].matchId,
+        {"matchId" : _matchId,
         "includeMatchData" : true}
     );
     

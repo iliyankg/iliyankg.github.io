@@ -29,48 +29,6 @@ function GameController()
     this._iBlueFirst = 0;
     this._fFirstTimer = 0;
     
-    /*this._turn = function(leftType, rightType)
-    {
-        // 5 turns per side 
-        int this._turnNum(i = 0; i < 5; i++);  
-        {
-            this._leftType = this._advanceRight();
-        }
-        int this._turnNum(j = 0; j < 5; j++);
-        {
-            this._rightType = this.advanceLeft();
-        }
-    }
-    */
-    
-    /** Facilitates the combat between the frontmost minions.
-    *@function
-    */
-    this._battle = function()
-    {
-        console.log(this._iBlueFirst);
-        if(battlefield[this._iBlueFirst + 1] != null)
-        {
-            battlefield[this._iBlueFirst].damage(battlefield[this._iBlueFirst + 1].getAttack(), battlefield[this._iBlueFirst + 1].getType());
-            battlefield[this._iBlueFirst + 1].damage(battlefield[this._iBlueFirst].getAttack(), battlefield[this._iBlueFirst].getType()); 
-            
-            if(battlefield[this._iBlueFirst].getHealth() <= 0)
-            {
-                //battlefield[this._iBlueFirst] = battlefield[this._iBlueFirst + 1];
-                battlefield[this._iBlueFirst] = null;
-            }
-            if(battlefield[this._iBlueFirst + 1].getHealth() <= 0)
-            {
-                //battlefield[this._iBlueFirst + 1] = battlefield[this._iBlueFirst];
-                battlefield[this._iBlueFirst + 1] = null;
-            }
-        }
-        else
-        {
-            this._iBlueFirst = 0;
-        }
-    }
-    
     /** Facilitates the combat between the frontmost minions.
     *@function
     */
@@ -160,71 +118,6 @@ function GameController()
     /** Runs through the battlefield array for minions and makes them advance or battle
     *@function
     */
-    this._advance = function()
-    {
-        var tempBattlefield = [];
-        this._iTurnNum++;
-        for(i = 0; i < battlefield.length; ++i)
-        {
-            tempBattlefield[i] = battlefield[i];
-        }
-        for(var i = 0; i < tempBattlefield.length; i++)
-        {
-            //Verify is there is a Minion in the "i" position of the array
-            if(tempBattlefield[i] != null)
-            {
-                //Verify the team of the Minion
-                if(tempBattlefield[i]._bTeam)
-                {
-                    //Verify if the Minion is at the edge of the array/map
-                    if(this._isTheEdge(i, tempBattlefield[i]))
-                    {
-                        //this._gameOver(true);
-                        break;
-                    }
-                    else
-                    {
-                        //Verify if the next space is empty
-                        if(battlefield[i + 1] == null)
-                        {
-                            battlefield[i] = null;
-                            battlefield[i + 1] = tempBattlefield[i];
-                            battlefield[i + 1].setPosX(battlefield[i + 1].getPosX() + 35);   
-                            
-                            if(this._iBlueFirst < i + 1)
-                            {
-                                this._iBlueFirst = i + 1;
-                            }
-                        }                            
-                    }
-                }
-                else
-                {
-                    //Verify if the Minion is at the edge of the array/map
-                    if(this._isTheEdge(i, tempBattlefield[i]))
-                    {
-                        //_gameOver(false);
-                        break;
-                    }
-                    else
-                    {
-                        console.log(battlefield[i-i]);
-                        //Verify if the previous space is empty
-                        if(battlefield[i - 1] == null)
-                        {
-                            battlefield[i] = null;
-                            battlefield[i - 1] = tempBattlefield[i];
-                            battlefield[i - 1].setPosX(battlefield[i - 1].getPosX() - 35);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    /** Runs through the battlefield array for minions and makes them advance or battle
-    *@function
-    */
     this._newAdvance = function()
     {
         for(var i = 0; i < platoonLength; i++)
@@ -251,33 +144,6 @@ function GameController()
                 rightPlatoon[i].setPosX(rightPlatoon[i].getPosX() + 60);
             }
         }
-    }
-    
-    /** Verify if the index is at the edge of the array
-    *@returns {Bool}
-    */
-    this._isTheEdge = function(index, minion)
-    {
-        if(index == battlefield.length - 1 && minion._bTeam)
-            return true;
-        
-        if(index == 0 && !minion._bTeam)
-            return true;
-        
-        return false;
-    }
-    
-    /**Spawns the minions.
-    *@function
-    */
-    this._spawn = function()
-    {
-        battlefield[0] = new Minion();
-        battlefield[0].createMinion(1, true, 100, 240);
-        
-        battlefield[battlefield.length - 1] = new Minion()
-        battlefield[battlefield.length - 1].createMinion(2, false, canvasContext.canvas.width - 135, 240);
-        console.log(battlefield[0]);
     }
     
     /**Spawns the minions according to the new combat system.
@@ -309,22 +175,6 @@ function GameController()
         }
     }
     
-    /*this._gameOver(int leftFortress, int rightFortress)
-    {
-        if(this._rightMinion = this._leftFortress);
-        {
-            this._gameOver;
-            bool this.rightTeamWin;
-        }
-        else
-        {
-            if(this._leftMinion = this._rightFortress);
-            this._gameOver;
-            bool this.LeftTeamWin;
-        }
-    }
-    */
-    
     this._timer_ChangeTime = function()
     {        
         if(gameController._iTurnNum == 10)
@@ -334,8 +184,6 @@ function GameController()
         
         if(gameController._iTurnNum == 0)
         {
-            
-            //gameController._timer();
             gameController._newSpawn();    
         }
         else if(gameController._iTurnNum == 5)
@@ -351,7 +199,6 @@ function GameController()
             gameController._newAdvance();
         }
         
-        //gameController._advance();
         gameController._iTurnNum++;
     }
     this._timer_TimeoutAdvance = function(timer)
@@ -359,7 +206,6 @@ function GameController()
         clearInterval(timer);
         gameController._newSpawn();
     }
-    
     this._timer = function()
     {
         var timerInt = setInterval(this._timer_ChangeTime, 1000);
@@ -392,8 +238,20 @@ function GameController()
         playerController._right.createPlayer(10,10,"Remote_Player", 1);
         
         //gameController._timer();
-        gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
+        //gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
         
+    }
+    
+    this._joinGame = function(game)
+    {
+        if(game.userMatchStatus == "USER_TURN")
+        {
+            this.startGame();
+        }
+        else
+        {
+            //get the player platoon choice and show on screen
+        }
     }
     
     this.goToLobby = function()
@@ -452,7 +310,7 @@ function click(e)
     else if(gameController.gameState == "lobby")
     {
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
-        var rect = view._collides2(view._rectsFriendsList, view._rectsLobby, e.offsetX, e.offsetY);
+        var rect = view._collides3(view._rectsFriendsList, view._rectsLobby, view._rectsGamesList, e.offsetX, e.offsetY);
         if (rect) 
         {
             if(rect.t == "create" && gameController.playerToInvite != null)
@@ -467,6 +325,18 @@ function click(e)
                 console.log(rect.f.displayName);
                 console.log(rect.f.id);
                 gameController.playerToInvite = rect.f.id;
+            }
+            else if(rect.t == "games")
+            {
+                console.log(rect.g);
+                if(rect.g.userMatchStatus == "USER_INVITED")
+                {
+                    
+                }
+                else
+                {
+                    //gameController.joinGame(rect.g);
+                }
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
         }
