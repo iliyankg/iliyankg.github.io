@@ -421,7 +421,7 @@ function keyDownHandler(e)
     }
     if(e.keyCode == 40) //down arrow
     {
-        joinGame(0);
+        //joinGame(0);
         listActiveGames();
     }
     if(e.keyCode == 32) //spacebar
