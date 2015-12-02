@@ -360,6 +360,7 @@ function click(e)
             {
                 view._rectsMinionsLocal[gameController.iMinionSelection].m = 2;
             }
+            gameController.iMinionSelection = -1;
         }
         else if(rectL)
         {

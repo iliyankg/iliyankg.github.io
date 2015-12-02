@@ -14,12 +14,9 @@ function View()
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
-//    this._rectsMinionsRemote = [{x: canvas.width - 200, y: canvas.height - 200, w: 50, h: 50, t: "firstRS", m: null},
-//                               {x: canvas.width - 150, y: canvas.height - 200, w: 50, h: 50, t: "secondRS", m: null},
-//                               {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
-    this._rectsMinionSelection = [{x: canvas.width/2 - 60, y: canvas.height - 115, w: 35, h: 35, t: "firstM", m: 0},
-                                 {x: canvas.width/2 - 10, y: canvas.height - 115, w: 35, h: 35, t: "secondM", m: 1},
-                                 {x: canvas.width/2 + 45, y: canvas.height - 115, w: 35, h: 35, t: "thirdM", m: 2}];
+    this._rectsMinionSelection = [{x: canvas.width/2 - 60, y: canvas.height - 165, w: 35, h: 35, t: "firstM", m: 0},
+                                 {x: canvas.width/2 - 10, y: canvas.height - 165, w: 35, h: 35, t: "secondM", m: 1},
+                                 {x: canvas.width/2 + 45, y: canvas.height - 165, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby"},
                       {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send"}];
@@ -105,7 +102,8 @@ function View()
         {
             for (var i = 0, len = this._rectsMinionSelection.length; i < len; i++) 
             {
-                canvasContext.drawImage(minionViews[this._rectsMinionSelection[i].m], this._rectsMinionSelection[i].x, this._rectsMinionSelection[i].y);
+                var rect = this._rectsMinionSelection[i];
+                canvasContext.drawImage(minionViews[rect.m], rect.x, rect.y);
             }
         }
         
@@ -118,6 +116,10 @@ function View()
             if(local.m != null)
             {
                 canvasContext.drawImage(minionViews[local.m], local.x + 7, local.y + 7);
+            }
+            else
+            {
+                canvasContext.drawImage(plusView, local.x + 7, local.y + 7);
             }
         }
         

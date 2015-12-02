@@ -1,6 +1,7 @@
 
 var bIsReadyToDraw = false;
 var minionViews = [];
+var plusView;
 var loadedSoFar = 0;
 
 /** Minion Model
@@ -59,6 +60,12 @@ function Minion()
     
     this.loadMinions = function()
     {
+        plusView = new Image();
+        plusView.onload = function()
+        {
+            loadedSoFar++;
+        };
+        plusView.src = "Assets/Plus.png";
         for(var k=0; k <=1; k++)
         { 
             for(var i=0; i <= 1; i++)
@@ -69,7 +76,7 @@ function Minion()
                     minionViews[k*6 + i*3 + j].onload = function() 
                     {
                         loadedSoFar++;
-                        if(loadedSoFar == 6)
+                        if(loadedSoFar == 7)
                         {
                             bIsReadyToDraw = true;
                         }
