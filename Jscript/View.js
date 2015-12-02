@@ -137,10 +137,11 @@ function View()
             
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
+            canvasContext.fillStyle = "white";
             canvasContext.fillText(rect.t, rect.x + 75, rect.y + 30);
         }
         
+        //Player names
         canvasContext.font = "20px Arial";
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "black";
