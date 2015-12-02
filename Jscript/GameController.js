@@ -121,8 +121,8 @@ function GameController()
     {
         for(var i = 0; i < 3; i++)
         {
-            view._rectsMinionsLocal[i].m = null;
-            view._rectsMinionsRemote[i].m = null;
+//            view._rectsMinionsLocal[i].m = null;
+//            view._rectsMinionsRemote[i].m = null;
         }
         this.iMinionSelection = 0;
     }

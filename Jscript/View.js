@@ -11,9 +11,9 @@ function View()
 {
     this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
                    {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
-    this._rectsMinionsLocal = [{x: canvas.width - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
-                              {x: canvas.width - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
-                              {x: canvas.width + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
+    this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
+                              {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
+                              {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
 //    this._rectsMinionsRemote = [{x: canvas.width - 200, y: canvas.height - 200, w: 50, h: 50, t: "firstRS", m: null},
 //                               {x: canvas.width - 150, y: canvas.height - 200, w: 50, h: 50, t: "secondRS", m: null},
 //                               {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
@@ -119,16 +119,16 @@ function View()
         }
         
         //Remote selection boxes
-        for (var i = 0, len = this._rectsMinionsRemote.length; i < len; i++) 
-        {
-            var remote = this._rectsMinionsRemote[i];
-            canvasContext.strokeRect(this._rectsMinionsRemote[i].x, this._rectsMinionsRemote[i].y, this._rectsMinionsRemote[i].w, this._rectsMinionsRemote[i].h);
-            
-            if(remote.m != null)
-            {
-                canvasContext.drawImage(minionViews[remote.m], remote.x + 7, remote.y + 7);
-            }
-        }
+//        for (var i = 0, len = this._rectsMinionsRemote.length; i < len; i++) 
+//        {
+//            var remote = this._rectsMinionsRemote[i];
+//            canvasContext.strokeRect(this._rectsMinionsRemote[i].x, this._rectsMinionsRemote[i].y, this._rectsMinionsRemote[i].w, this._rectsMinionsRemote[i].h);
+//            
+//            if(remote.m != null)
+//            {
+//                canvasContext.drawImage(minionViews[remote.m], remote.x + 7, remote.y + 7);
+//            }
+//        }
         
         //UI
         for (var i = 0; i < view._rectsGame.length; i++)
