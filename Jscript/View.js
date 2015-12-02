@@ -289,7 +289,7 @@ function View()
         else if(gameController.gameState == "lobby")
         {
             view._drawFriendsList();
-            vier._drawGamesList();
+            view._drawGamesList();
             view._drawLobby();
         }
         else if(gameController.gameState == "game")
