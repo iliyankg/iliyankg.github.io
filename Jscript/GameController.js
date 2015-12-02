@@ -333,7 +333,8 @@ function click(e)
                 }
                 else if(rect.g.userMatchStatus == "USER_TURN")
                 {
-                    //Load the acual game
+                    //Load the actual game
+                    //populate leftPlatoon and rightPlatoon
                 }
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
@@ -390,6 +391,8 @@ function click(e)
             else if(rect.t == "sent")
             {
                 //POST the data
+                //Where to get the choices:
+                //view._rectsMinionsLocal[0-2].m
             }
         }
     }
