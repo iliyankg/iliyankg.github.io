@@ -269,6 +269,7 @@ function GameController()
     this.goToLobby = function()
     {
         this.gameState = "lobby";
+        //gameController._fFirstTimer = setInterval(this._firstTurn, 10000);
     }
 }
 
