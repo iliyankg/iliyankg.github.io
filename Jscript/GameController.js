@@ -29,7 +29,7 @@ function GameController()
     this._iSpawnNum;//Number of spawns so far
     this._iTurnNum = 1;//Number of turns so far
     this._iBlueFirst = 0;
-    this._fFirstTimer = 0;
+    this._fLobbyTimer = 0;
     
     this.loadBackground = function()
     {
@@ -191,14 +191,13 @@ function GameController()
     {        
         listActiveGames();
     }
-    this._timer_TimeoutAdvance = function(timer)
+    this._timer_Timeout = function(timer)
     {
         clearInterval(timer);
-        gameController._newSpawn();
     }
-    this._timer = function()
+    this._timer = function(timer, interval)
     {
-        var timerInt = setInterval(this._timer_RefreshList, 10000);
+        timer = setInterval(this._timer_RefreshList, interval);
     }
     
     this._firstTurn = function()
@@ -216,6 +215,7 @@ function GameController()
     this.startGame = function()
     {
         minion.loadMinions();
+        gameController._timer_Timeout(gameController._fLobbyTimer);
         this.gameState = "game";
         for(i = 0; i < platoonLength; i++)
         {
@@ -249,7 +249,7 @@ function GameController()
         this.gameState = "lobby";
         listActiveGames();
         minion.loadMinions();
-        gameController._timer();
+        gameController._timer(gameController._fLobbyTimer, 10000);
     }
 }
 
