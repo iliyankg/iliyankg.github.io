@@ -1,3 +1,8 @@
+
+var bIsReadyToDraw = false;
+var minionViews = [];
+var loadedSoFar = 0;
+
 /** Minion Model
 *@constructor
 *@property {double} _dPosX position X of the minion
@@ -11,10 +16,6 @@
 *@property {bool} _bDead if the minion is dead or not
 *@property {view} _view stores the minion sprite
 */
-var bIsReadyToDraw = false;
-var minionViews = [];
-var loadedSoFar = 0;
-
 function Minion()
 {
     this._dPosX;

@@ -4,6 +4,8 @@ var playerController = new PlayerController();//Instance of the PlayerController
 var view = new View();
 var gameController = new GameController();
 var minion = new Minion();
+var backgorundImage;
+var bBackDraw = false;
 
 var leftPlatoon = new Array(3);
 var rightPlatoon = new Array(3);
@@ -28,6 +30,17 @@ function GameController()
     this._iTurnNum = 1;//Number of turns so far
     this._iBlueFirst = 0;
     this._fFirstTimer = 0;
+    
+    this.loadBackground = function()
+    {
+        backgorundImage = new Image();
+        backgorundImage.onload = function() 
+        {
+                bBackDraw = true;
+            }
+        };
+        backgorundImage.src = "Assets/Background.png";
+    }
     
     /** Facilitates the combat between the frontmost minions.
     *@function

@@ -1,13 +1,12 @@
+var canvas = document.getElementById("Placeholder");
+var canvasContext = canvas.getContext("2d");
+
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
 *@property {Draw} _Minion
 *@property {Draw} _UI
 *@property {Draw} _Background
 */
-
-var canvas = document.getElementById("Placeholder");
-var canvasContext = canvas.getContext("2d");
-
 function View()
 {
     this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
@@ -77,7 +76,10 @@ function View()
     //Background of a match is drawn   
     this._drawBackground = function()
     {
-        
+        if(bBackDraw)
+        {
+            canvasContext.drawImage(backgorundImage, 0, 0); 
+        }
     }
 
     this._drawUI = function()
@@ -321,6 +323,7 @@ function View()
         if(gameController.gameState == "menu")
         {
             view._drawMenuScrren();
+            view._drawBackground();
         }
         else if(gameController.gameState == "lobby")
         {
@@ -332,6 +335,7 @@ function View()
         else if(gameController.gameState == "game")
         {
             view._newDrawMinions();
+            view._drawBackground();
             view._drawUI();
         }
         else if(gameController.gameState == "over")
