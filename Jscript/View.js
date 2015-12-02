@@ -18,7 +18,7 @@ function View()
 //                               {x: canvas.width - 150, y: canvas.height - 200, w: 50, h: 50, t: "secondRS", m: null},
 //                               {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
     this._rectsMinionSelection = [{x: canvas.width/2 - 58, y: canvas.height - 108, w: 35, h: 35, t: "firstM", m: 0},
-                                 {x: canvas.width/2, y: canvas.height - 108, w: 35, h: 35, t: "secondM", m: 1},
+                                 {x: canvas.width/2 - 8, y: canvas.height - 108, w: 35, h: 35, t: "secondM", m: 1},
                                  {x: canvas.width/2 + 42, y: canvas.height - 108, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby"},
