@@ -101,9 +101,12 @@ function View()
         canvasContext.fillText(10 - gameController._iTurnNum, canvas.width/2, 400);
         
         //Minion selection
-        for (var i = 0, len = this._rectsMinionSelection.length; i < len; i++) 
+        if(gameController.iMinionSelection != -1)
         {
-            canvasContext.drawImage(minionViews[this._rectsMinionSelection[i].m], this._rectsMinionSelection[i].x, this._rectsMinionSelection[i].y);
+            for (var i = 0, len = this._rectsMinionSelection.length; i < len; i++) 
+            {
+                canvasContext.drawImage(minionViews[this._rectsMinionSelection[i].m], this._rectsMinionSelection[i].x, this._rectsMinionSelection[i].y);
+            }
         }
         
         //Local selection boxes
@@ -117,18 +120,6 @@ function View()
                 canvasContext.drawImage(minionViews[local.m], local.x + 7, local.y + 7);
             }
         }
-        
-        //Remote selection boxes
-//        for (var i = 0, len = this._rectsMinionsRemote.length; i < len; i++) 
-//        {
-//            var remote = this._rectsMinionsRemote[i];
-//            canvasContext.strokeRect(this._rectsMinionsRemote[i].x, this._rectsMinionsRemote[i].y, this._rectsMinionsRemote[i].w, this._rectsMinionsRemote[i].h);
-//            
-//            if(remote.m != null)
-//            {
-//                canvasContext.drawImage(minionViews[remote.m], remote.x + 7, remote.y + 7);
-//            }
-//        }
         
         //UI
         for (var i = 0; i < view._rectsGame.length; i++)

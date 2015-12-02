@@ -22,7 +22,7 @@ function GameController()
 //Public
 {
     this.gameState = "menu";
-    this.iMinionSelection = 0;
+    this.iMinionSelection = -1;
     this.playerToInvite = null;
     
     //PRIVATE
@@ -346,7 +346,7 @@ function click(e)
         var rectL = view._collides(view._rectsMinionsLocal, e.offsetX, e.offsetY);
         var rect = view._collides(view._rectsGame, e.offsetX, e.offsetY);
         
-        if(rectM && gameController.iMinionSelection < 3)
+        if(rectM && gameController.iMinionSelection != -1)
         {
             if(rectM.t == "firstM")
             {
@@ -360,43 +360,20 @@ function click(e)
             {
                 view._rectsMinionsLocal[gameController.iMinionSelection].m = 2;
             }
-            do
-            {
-                if(gameController.iMinionSelection < 2)
-                    gameController.iMinionSelection++;
-            }while(view._rectsMinionsLocal[gameController.iMinionSelection].m != null && gameController.iMinionSelection != 2)
         }
         else if(rectL)
         {
             if(rectL.t == "firstLS")
             {
-                if(view._rectsMinionsLocal[0].m != null)
-                {
-                    gameController.iMinionSelection = 0;
-                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
-                }
+                gameController.iMinionSelection = 0;
             }
             else if(rectL.t == "secondLS")
-            {
-                if(view._rectsMinionsLocal[1].m != null)
-                {
-                    gameController.iMinionSelection = 1;
-                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
-                }
+            {   
+                gameController.iMinionSelection = 1;
             }
             else if(rectL.t == "thirdLS")
             {
-                if(view._rectsMinionsLocal[2].m != null)
-                {
-                    gameController.iMinionSelection = 2;
-                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
-                }
-            }
-            
-            for(var i = gameController.iMinionSelection; i > 0; i--)
-            {
-                if(view._rectsMinionsLocal[gameController.iMinionSelection - 1].m == null)
-                    gameController.iMinionSelection--;
+                gameController.iMinionSelection = 2;
             }
         }
         else if(rect)
