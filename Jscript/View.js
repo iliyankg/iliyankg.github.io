@@ -133,6 +133,8 @@ function View()
         for (var i = 0; i < view._rectsGame.length; i++)
         {
             var rect = view._rectsGame[i];
+            
+            canvasContext.fillStyle = "black";
             canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
