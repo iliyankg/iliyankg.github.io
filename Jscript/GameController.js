@@ -37,7 +37,6 @@ function GameController()
         backgorundImage.onload = function() 
         {
                 bBackDraw = true;
-            }
         };
         backgorundImage.src = "Assets/Background.png";
     }
