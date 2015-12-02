@@ -11,15 +11,15 @@ function View()
 {
     this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
                    {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
-    this._rectsMinionsLocal = [{x: 200, y: canvas.height - 200, w: 50, h: 50, t: "firstLS", m: null},
-                              {x: 150, y: canvas.height - 200, w: 50, h: 50, t: "secondLS", m: null},
-                              {x: 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdLS", m: null}];
-    this._rectsMinionsRemote = [{x: canvas.width - 200, y: canvas.height - 200, w: 50, h: 50, t: "firstRS", m: null},
-                               {x: canvas.width - 150, y: canvas.height - 200, w: 50, h: 50, t: "secondRS", m: null},
-                               {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
-    this._rectsMinionSelection = [{x: canvas.width/2 - 55, y: canvas.height - 100, w: 35, h: 35, t: "firstM", m: 0},
-                                 {x: canvas.width/2 - 17, y: canvas.height - 100, w: 35, h: 35, t: "secondM", m: 1},
-                                 {x: canvas.width/2 + 20, y: canvas.height - 100, w: 35, h: 35, t: "thirdM", m: 2}];
+    this._rectsMinionsLocal = [{x: canvas.width - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
+                              {x: canvas.width - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
+                              {x: canvas.width + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
+//    this._rectsMinionsRemote = [{x: canvas.width - 200, y: canvas.height - 200, w: 50, h: 50, t: "firstRS", m: null},
+//                               {x: canvas.width - 150, y: canvas.height - 200, w: 50, h: 50, t: "secondRS", m: null},
+//                               {x: canvas.width - 100, y: canvas.height - 200, w: 50, h: 50, t: "thirdRS", m: null}];
+    this._rectsMinionSelection = [{x: canvas.width/2 - 58, y: canvas.height - 90, w: 35, h: 35, t: "firstM", m: 0},
+                                 {x: canvas.width/2 - 17, y: canvas.height - 90, w: 35, h: 35, t: "secondM", m: 1},
+                                 {x: canvas.width/2 + 42, y: canvas.height - 90, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby"},
                       {x: canvas.width/2 - 75, y: canvas.height - 75, w: 150, h: 50, t: "send"}];
@@ -39,6 +39,7 @@ function View()
     
     this.createRectsGames = function(lenght)
     {
+        this._bHasGames = false;
         this._rectsGamesList = new Array(lenght);
         for(var i = 0; i < lenght; i++)
         {
@@ -193,7 +194,73 @@ function View()
             }
         }
     }
-             
+    
+    this._drawMenuScrren = function()
+    {
+        canvasContext.fillStyle = "black";
+        for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
+        {
+            canvasContext.fillRect(this._rectsMenu[i].x, this._rectsMenu[i].y, this._rectsMenu[i].w, this._rectsMenu[i].h);
+        }
+        
+        canvasContext.font = "20px Arial";
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "white";
+        canvasContext.fillText("Sign In", canvas.width/2 + 125, canvas.height/2 + 130, 150);
+        if(!bIsLogged)
+            canvasContext.fillStyle = "gray";
+        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
+        
+        canvasContext.font = "50px Arial";
+        canvasContext.fillStyle = "blue";
+        canvasContext.fillText("Minion", canvas.width/2 - 80, canvas.height/2 - 130, 150);
+        canvasContext.fillStyle = "red";
+        canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
+    }
+    
+    this._drawFriendsList = function()
+    {
+        for(var i = 0; i < friends.length; i++)
+        {
+            var rect = this._rectsFriendsList[i];
+            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(friends[i].displayName, rect.x + 75, rect.y + 30, 150);
+        }
+    }
+    
+    this._drawGamesList = function()
+    {
+        for(var i = 0; i < allGames.length; i++)
+        {
+            var rect = this._rectsGamesList[i];
+            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
+            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 40, 150);
+        }
+    }
+    
+    this._drawLobby = function()
+    {
+        canvasContext.fillStyle = "black";
+        var rect = this._rectsLobby[0];
+        canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+        
+        canvasContext.font = "20px Arial";
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "white";
+        if(gameController.playerToInvite == null)
+            canvasContext.fillStyle = "gray";
+        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
+    }
+    
     this._collides = function(rects, x, y)
     {
         var isCollision = false;
@@ -271,72 +338,6 @@ function View()
             }
         }
         return isCollision;
-    }
-    
-    this._drawMenuScrren = function()
-    {
-        canvasContext.fillStyle = "black";
-        for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
-        {
-            canvasContext.fillRect(this._rectsMenu[i].x, this._rectsMenu[i].y, this._rectsMenu[i].w, this._rectsMenu[i].h);
-        }
-        
-        canvasContext.font = "20px Arial";
-        canvasContext.textAlign = "center";
-        canvasContext.fillStyle = "white";
-        canvasContext.fillText("Sign In", canvas.width/2 + 125, canvas.height/2 + 130, 150);
-        if(!bIsLogged)
-            canvasContext.fillStyle = "gray";
-        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
-        
-        canvasContext.font = "50px Arial";
-        canvasContext.fillStyle = "blue";
-        canvasContext.fillText("Minion", canvas.width/2 - 80, canvas.height/2 - 130, 150);
-        canvasContext.fillStyle = "red";
-        canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
-    }
-    
-    this._drawFriendsList = function()
-    {
-        for(var i = 0; i < friends.length; i++)
-        {
-            var rect = this._rectsFriendsList[i];
-            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
-            
-            canvasContext.font = "20px Arial";
-            canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
-            canvasContext.fillText(friends[i].displayName, rect.x + 75, rect.y + 30, 150);
-        }
-    }
-    
-    this._drawGamesList = function()
-    {
-        for(var i = 0; i < allGames.length; i++)
-        {
-            var rect = this._rectsGamesList[i];
-            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
-            
-            canvasContext.font = "20px Arial";
-            canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
-            canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
-            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 40, 150);
-        }
-    }
-    
-    this._drawLobby = function()
-    {
-        canvasContext.fillStyle = "black";
-        var rect = this._rectsLobby[0];
-        canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
-        
-        canvasContext.font = "20px Arial";
-        canvasContext.textAlign = "center";
-        canvasContext.fillStyle = "white";
-        if(gameController.playerToInvite == null)
-            canvasContext.fillStyle = "gray";
-        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
     }
     
     this.update = function()
