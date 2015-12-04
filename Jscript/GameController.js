@@ -6,6 +6,7 @@ var gameController = new GameController();
 var minion = new Minion();
 var backgorundImage;
 var bBackDraw = false;
+var sLocalPlayerName = "Loading...";
 
 var leftPlatoon = new Array(3);
 var rightPlatoon = new Array(3);
@@ -25,6 +26,7 @@ function GameController()
     this.iMinionSelection = -1;
     this.playerToInvite = null;
     this.activeMatch = null;
+    
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far

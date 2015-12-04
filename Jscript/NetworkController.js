@@ -29,6 +29,8 @@ handleAuthResult = function(auth)
                 console.log(resp);
                 friends = resp.items;
                 view.createRectsFriends(resp.totalItems);
+                
+                getLocalPlayerName();
            });
         });
     }
@@ -49,8 +51,7 @@ getLocalPlayerName = function()
     
     request.execute(function(resp)
     {
-        console.log("PLAYER_MAYBE");
-        playerController._left.setName(resp.displayName);
+        sLocalPlayerName = resp.displayName;
     });
     
     return "Loading...";
