@@ -158,8 +158,9 @@ takeTurn = function(data, creatorWon, creatorLost)
     else
     {
         nextPlayer = "p_2"
-        dataToSend = data + "_" + "xxx" + "_" + creatorWon.toString() + creatorLost.toString();  
+        dataToSend = data + "_" + "xxx" + "_" + creatorWon.toString() + creatorLost.toString();
     }
+    console.log(dataToSend);
             
     var request = gapi.client.games.turnBasedMatches.takeTurn(
     {"matchId" : gameController.activeMatch.matchId},

@@ -258,10 +258,22 @@ function GameController()
                 playerController._right.createPlayer(10, 10, sName, 1);
             }
         }
+        
+        
+    }
+    
+    this.resetGameState = function()
+    {
+        gameController.iMinionSelection = -1;
+        for(var i = 0; i < 3; i++)
+        {
+            view._rectsMinionsLocal[i].m = null;
+        }
     }
     
     this.goToLobby = function()
     {
+        this.resetGameState();
         this.gameState = "lobby";
         this.activeMatch = null;
         listActiveGames();
