@@ -262,13 +262,9 @@ function GameController()
         }
         console.log(this.activeMatch.userMatchStatus);
         
-        if(this.activeMatch.userMatchStatus == "")
+        if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")
         {
-            
-        }
-        else if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")
-        {
-            
+            console.log(gameController.activeMatch.data.data);
         }
     }
     
