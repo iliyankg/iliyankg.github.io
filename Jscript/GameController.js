@@ -260,8 +260,16 @@ function GameController()
                 playerController._right.createPlayer(10, 10, sName, 1);
             }
         }
+        console.log(this.activeMatch.userMatchStatus);
         
-        
+        if(this.activeMatch.userMatchStatus == "")
+        {
+            
+        }
+        else if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")
+        {
+            
+        }
     }
     
     this.resetGameState = function()
@@ -362,6 +370,7 @@ function click(e)
             {
                 console.log(rect.f.displayName);
                 console.log(rect.f.id);
+                view.createRectsFriends();
                 gameController.playerToInvite = rect.f.id;
             }
             else if(rect.t == "games")

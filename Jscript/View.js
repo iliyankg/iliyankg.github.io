@@ -30,7 +30,7 @@ function View()
         this._rectsFriendsList = new Array(lenght);
         for(var i = 0; i < lenght; i++)
         {
-            this._rectsFriendsList[i] = {x: canvas.width - 200, y: 50 + i * 50, w: 150, h:50, t: "friend", f: friends[i]};
+            this._rectsFriendsList[i] = {x: canvas.width - 200, y: 50 + i * 50, w: 150, h:50, t: "friend", f: friends[i], c: "black"};
         }
     }
     
@@ -225,7 +225,7 @@ function View()
             
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
+            canvasContext.fillStyle = rect.c;
             canvasContext.fillText(friends[i].displayName, rect.x + 75, rect.y + 30, 150);
         }
     }
