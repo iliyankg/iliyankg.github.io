@@ -76,6 +76,7 @@ createJoinGame = function()
      
     request.execute(function(resp)
     {
+        gameController.activeMatch = resp;
         console.log(resp);
     });
 }
