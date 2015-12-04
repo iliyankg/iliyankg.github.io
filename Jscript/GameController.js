@@ -266,7 +266,8 @@ function GameController()
         {
             if(gameController.activeMatch.matchVersion != 1)
             {
-                console.log(atob(gameController.activeMatch.data.data));
+                var sData = atob(gameController.activeMatch.data.data).split("_");
+                console.log(sData);
             }
         }
     }
