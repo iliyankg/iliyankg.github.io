@@ -371,6 +371,7 @@ function click(e)
                 console.log(rect.f.displayName);
                 console.log(rect.f.id);
                 view.resetRectsFriendsColor();
+                rect.c = "green";
                 gameController.playerToInvite = rect.f.id;
             }
             else if(rect.t == "games")
