@@ -34,6 +34,14 @@ function View()
         }
     }
     
+    this.resetRectsFriendsColor = function()
+    {
+        for(var i = 0; i < lenght; i++)
+        {
+            this._rectsFriendsList[i].c = "black";
+        }
+    }
+    
     this.createRectsGames = function(lenght)
     {
         this._bHasGames = false;

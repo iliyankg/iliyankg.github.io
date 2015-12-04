@@ -370,7 +370,7 @@ function click(e)
             {
                 console.log(rect.f.displayName);
                 console.log(rect.f.id);
-                view.createRectsFriends();
+                view.resetRectsFriendsColor();
                 gameController.playerToInvite = rect.f.id;
             }
             else if(rect.t == "games")
