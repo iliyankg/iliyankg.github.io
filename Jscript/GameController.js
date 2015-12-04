@@ -264,7 +264,10 @@ function GameController()
         
         if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")
         {
-            console.log(gameController.activeMatch.data.data);
+            if(gameController.activeMatch.matchVersion != 1)
+            {
+                console.log(atob(gameController.activeMatch.data.data));
+            }
         }
     }
     
