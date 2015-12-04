@@ -36,7 +36,7 @@ function View()
     
     this.resetRectsFriendsColor = function()
     {
-        for(var i = 0; i < lenght; i++)
+        for(var i = 0; i < this._rectsFriendsList.lenght; i++)
         {
             this._rectsFriendsList[i].c = "black";
         }
