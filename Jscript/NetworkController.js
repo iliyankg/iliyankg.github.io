@@ -218,6 +218,7 @@ getGame = function(_matchId)
     request.execute(function(respp)
     {
         gameController.activeMatch = respp;
+        gameController.populateMatch();
     });
 }
 

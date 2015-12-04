@@ -249,11 +249,11 @@ function GameController()
     
     this.populateMatch = function()
     {
-        playerController._left.createPlayer(10, 10, getLocalPlayerName(), 0);
+        playerController._left.createPlayer(10, 10, sLocalPlayerName, 0);
         for(var i = 0; i < 2; i++)
         {
             var sName = gameController.activeMatch.participants[i].player.displayName;
-            if(sName != playerController._left.getName())
+            if(sName != sLocalPlayerName)
             {
                 playerController._right.createPlayer(10, 10, sName, 1);
             }
