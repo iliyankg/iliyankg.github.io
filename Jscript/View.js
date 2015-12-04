@@ -34,13 +34,13 @@ function View()
         }
     }
     
-    this.createRectsGames = function()
+    this.createRectsGames = function(lenght)
     {
         this._bHasGames = false;
         if(allGames != null)
         {
-            this._rectsGamesList = new Array(allGames.lenght);
-            for(var i = 0; i < allGames.lenght; i++)
+            this._rectsGamesList = new Array(lenght);
+            for(var i = 0; i < lenght; i++)
             {
                 this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
                 this._bHasGames = true;
