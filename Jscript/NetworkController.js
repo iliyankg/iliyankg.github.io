@@ -191,7 +191,6 @@ joinGame = function(_matchId)
     request.execute(function(respp)
     {
         getGame(_matchId);
-        gameController.populateMatch();
     });
 }
 

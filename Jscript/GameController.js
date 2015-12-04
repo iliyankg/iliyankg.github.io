@@ -249,6 +249,8 @@ function GameController()
     
     this.populateMatch = function()
     {
+        
+        
         playerController._left.createPlayer(10, 10, sLocalPlayerName, 0);
         for(var i = 0; i < 2; i++)
         {
@@ -269,6 +271,8 @@ function GameController()
         {
             view._rectsMinionsLocal[i].m = null;
         }
+        playerController._left = null;
+        playerController._right = null;
     }
     
     this.goToLobby = function()
@@ -418,7 +422,7 @@ function click(e)
                 gameController.goToLobby();
                 //Do something to "cancel" the game
             }
-            else if(rect.t == "send")
+            else if(rect.t == "send" && playerController._left != null)
             {
                 //POST the data
                 //Where to get the choices:
