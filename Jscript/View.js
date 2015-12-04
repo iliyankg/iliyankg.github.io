@@ -27,7 +27,7 @@ function View()
     
     this.createRectsFriends = function(lenght)
     {
-        this._rectsFriendsList = new Array(lenght);
+        view._rectsFriendsList = new Array(lenght);
         for(var i = 0; i < lenght; i++)
         {
             this._rectsFriendsList[i] = {x: canvas.width - 200, y: 50 + i * 50, w: 150, h:50, t: "friend", f: friends[i], c: "black"};
@@ -36,9 +36,9 @@ function View()
     
     this.resetRectsFriendsColor = function()
     {
-        for(var i = 0; i < this._rectsFriendsList.lenght; i++)
+        for(var i = 0; i < view._rectsFriendsList.length; i++)
         {
-            this._rectsFriendsList[i].c = "black";
+            view._rectsFriendsList[i].c = "black";
         }
     }
     
