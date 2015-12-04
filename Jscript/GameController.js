@@ -26,6 +26,7 @@ function GameController()
     this.iMinionSelection = -1;
     this.playerToInvite = null;
     this.activeMatch = null;
+    this.bCanMakeTurn = false;
     
     
     //PRIVATE
@@ -262,17 +263,40 @@ function GameController()
         }
         console.log(this.activeMatch.userMatchStatus);
         
-        if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")
+        var sData = atob(gameController.activeMatch.data.data).split("_");
+        if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")//player can make a turn
         {
-            if(gameController.activeMatch.matchVersion != 1)
+            if(gameController.activeMatch.matchVersion != 1)//not first turn
             {
-                var sData = atob(gameController.activeMatch.data.data).split("_");
-                console.log(sData);
-                if(gameController.activeMatch.pendingParticipantId != gameController.activeMatch.withParticipantId)
+                if(gameController.activeMatch.participants[0].player.displayName == sLocalPlayerName)//which player is making the turn (this is player 1)
                 {
                     console.log("your move");
+                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
+                    {
+                        var char = sData[1].charAt(i);
+                        rightPlatoon[i] = parseInt(char);
+                    }
+                    
+                    //populate the wins of each player
+                    var char = sData[2].charAt(0);
+                    playerController._left._iWins = parseInt(char);
+                    
+                    char = sData[2].charAt(1);
+                    playerController._right._iWins = parseInt(char);
+                }
+                else//this is player 2
+                {
+                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
+                    {
+                        var char = sData[0].charAt(i);
+                        rightPlatoon[i] = parseInt(char);
+                    }
                 }
             }
+        }
+        else
+        {
+            //fill with information that the player can see but not interact
         }
     }
     
@@ -297,6 +321,11 @@ function GameController()
             }
         }
         return true;
+    }
+    
+    this.executeTurn = function()
+    {
+        
     }
     
     this.goToLobby = function()
@@ -365,6 +394,7 @@ function click(e)
         {
             if(rect.t == "create" && gameController.playerToInvite != null)
             {
+                gameController.bCanMakeTurn = true;
                 createJoinGame();
                 console.log("Player ID: " + gameController.playerToInvite);
                 gameController.gameState = "game";
@@ -383,16 +413,19 @@ function click(e)
                 console.log(rect.g);
                 if(rect.g.userMatchStatus == "USER_INVITED")
                 {
+                    gameController.bCanMakeTurn = true;
                     joinGame(rect.g.matchId);
                     gameController.gameState = "game";
                 }
                 else if(rect.g.userMatchStatus == "USER_AWAITING_TURN")
                 {
+                    gameController.bCanMakeTurn = false;
                     getGame(rect.g.matchId);
                     gameController.gameState = "game";
                 }
                 else if(rect.g.userMatchStatus == "USER_TURN")
                 {
+                    gameController.bCanMakeTurn = true;
                     getGame(rect.g.matchId);
                     gameController.gameState = "game";
                 }
@@ -423,7 +456,7 @@ function click(e)
             }
             gameController.iMinionSelection = -1;
         }
-        else if(rectL)
+        else if(rectL && gameController.bCanMakeTurn)
         {
             if(rectL.t == "firstLS")
             {
@@ -448,13 +481,14 @@ function click(e)
                 gameController.goToLobby();
                 //Do something to "cancel" the game
             }
-            else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits())
+            else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits() && gameController.bCanMakeTurn)
             {
                 //POST the data
                 //Where to get the choices:
                 //view._rectsMinionsLocal[0-2].m
-                var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString(); 
-                takeTurn(chosenTurn, 0, 0);
+                var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
+                gameController.executeTurn();
+                takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
             }
         }
     }

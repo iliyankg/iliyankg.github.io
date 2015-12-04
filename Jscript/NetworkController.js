@@ -140,11 +140,11 @@ takeTurn = function(data, creatorWon, creatorLost)
     var nextPlayer = null;
     var dataToSend = "error"
     
-    if(gameController.activeMatch.matchVersion == 1)
-    {
-        creatorLost = 0;
-        creatorWon = 0;
-    }
+//    if(gameController.activeMatch.matchVersion == 1)
+//    {
+//        creatorLost = 0;
+//        creatorWon = 0;
+//    }
     
     if(gameController.activeMatch.pendingParticipantId == "p_2")
     {
@@ -158,7 +158,14 @@ takeTurn = function(data, creatorWon, creatorLost)
     else
     {
         nextPlayer = "p_2"
-        dataToSend = data + "_" + "xxx" + "_" + creatorWon.toString() + creatorLost.toString();
+        if(gameController.activeMatch.matchVersion == 1)
+        {
+            dataToSend = data + "_" + "xxx" + "_" + "00";
+        }
+        else
+        {
+            dataToSend = data + "_" + "xxx" + "_" + creatorWon.toString() + creatorLost.toString();
+        }
     }
     console.log(dataToSend);
             
