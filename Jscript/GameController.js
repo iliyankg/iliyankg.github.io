@@ -24,6 +24,7 @@ function GameController()
     this.gameState = "menu";
     this.iMinionSelection = -1;
     this.playerToInvite = null;
+    this.activeMatch = null;
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
@@ -247,6 +248,7 @@ function GameController()
     this.goToLobby = function()
     {
         this.gameState = "lobby";
+        this.activeMatch = null;
         listActiveGames();
         minion.loadMinions();
         gameController._timer(gameController._fLobbyTimer, 10000);
@@ -277,7 +279,7 @@ function keyDownHandler(e)
     }
     if(e.keyCode == 32) //spacebar
     {
-        getGame(0);
+        getGame(gameController.activeMatch.matchId);
     }
 }
 
@@ -325,16 +327,18 @@ function click(e)
                 console.log(rect.g);
                 if(rect.g.userMatchStatus == "USER_INVITED")
                 {
-                    //Join game
+                    joinGame(rect.g.matchId);
+                    gameController.gameState = "game";
                 }
                 else if(rect.g.userMatchStatus == "USER_AWAITING_TURN")
                 {
-                    //Just see the situation of the game
+                    getGame(rect.g.matchId);
+                    gameController.gameState = "game";
                 }
                 else if(rect.g.userMatchStatus == "USER_TURN")
                 {
-                    //Load the actual game
-                    //populate leftPlatoon and rightPlatoon
+                    getGame(rect.g.matchId);
+                    gameController.gameState = "game";
                 }
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
@@ -393,6 +397,8 @@ function click(e)
                 //POST the data
                 //Where to get the choices:
                 //view._rectsMinionsLocal[0-2].m
+                var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString(); 
+                takeTurn(chosenTurn, 0, 0);
             }
         }
     }

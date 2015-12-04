@@ -132,27 +132,43 @@ initiateData = function()
     });
 }
 
-takeTurn = function(index, data)
+takeTurn = function(data, creatorWon, creatorLost)
 {
+    var nextPlayer = null;
+    var dataToSend = "error"
     
-    var nextPlayer = "p_2";
-        
-    if(allGames[index].pendingParticipantId == "p_2")
+    if(gameController.activeMatch.matchVersion == 1)
+    {
+        creatorLost = 0;
+        creatorWon = 0;
+    }
+    
+    if(gameController.activeMatch.pendingParticipantId == "p_2")
     {
         nextPlayer = "p_1";
+        var tempData = atob(gameController.activeMatch.data.data);
+        var splitTempData = tempData.split("_");
+        
+        
+        dataToSend = splitTempData[0] + "_" + data + "_" + creatorWon.toString() + creatorLost.toString();  
+    }
+    else
+    {
+        nextPlayer = "p_2"
+        dataToSend = data + "_" + "xxx" + "_" + creatorWon.toString() + creatorLost.toString();  
     }
             
     var request = gapi.client.games.turnBasedMatches.takeTurn(
-    {"matchId" : allGames[index].matchId},
+    {"matchId" : gameController.activeMatch.matchId},
     {
         "kind": "games#turnBasedMatchTurn",
         "data": 
         {
                 "kind": "games#turnBasedMatchDataRequest",
-                "data": btoa(data)
+                "data": btoa(dataToSend)
         },
         "pendingParticipantId": nextPlayer,
-        "matchVersion": allGames[index].matchVersion
+        "matchVersion": gameController.activeMatch.matchVersion
     });
         
     request.execute(function(respp)
@@ -161,16 +177,16 @@ takeTurn = function(index, data)
     });
 }
 
-joinGame = function(index)
+joinGame = function(_matchId)
 {
     var request = gapi.client.games.turnBasedMatches.join(
     {
-        "matchId" : allGames[index].matchId
+        "matchId" : _matchId
     });
     
     request.execute(function(respp)
     {
-       console.log(respp); 
+        getGame(_matchId);
     });
 }
 
@@ -197,9 +213,7 @@ getGame = function(_matchId)
     
     request.execute(function(respp)
     {
-        console.log(respp);
-        
-        console.log(atob(respp.data.data));
+        gameController.activeMatch = respp;
     });
 }
 
