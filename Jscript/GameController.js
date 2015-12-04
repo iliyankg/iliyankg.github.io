@@ -268,6 +268,10 @@ function GameController()
             {
                 var sData = atob(gameController.activeMatch.data.data).split("_");
                 console.log(sData);
+                if(gameController.activeMatch.pendingParticipantId != gameController.activeMatch.withParticipantId)
+                {
+                    console.log("your move");
+                }
             }
         }
     }
