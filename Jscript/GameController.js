@@ -392,7 +392,7 @@ function click(e)
                 gameController.goToLobby();
                 //Do something to "cancel" the game
             }
-            else if(rect.t == "sent")
+            else if(rect.t == "send")
             {
                 //POST the data
                 //Where to get the choices:
