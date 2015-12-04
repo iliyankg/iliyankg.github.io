@@ -238,7 +238,14 @@ function View()
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
             canvasContext.fillStyle = "black";
-            canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
+            if(sLocalPlayerName == allGames[i].participants[1].player.displayName)
+            {
+                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
+            }
+            else
+            {
+                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 75, rect.y + 10, 150);
+            }
             canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 40, 150);
         }
     }
