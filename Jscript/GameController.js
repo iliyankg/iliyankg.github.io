@@ -271,8 +271,8 @@ function GameController()
         {
             view._rectsMinionsLocal[i].m = null;
         }
-        playerController._left = null;
-        playerController._right = null;
+        playerController._left.setName(null);
+        playerController._right.setName(null);
     }
     
     this.checkUnits = function()
@@ -434,7 +434,7 @@ function click(e)
                 gameController.goToLobby();
                 //Do something to "cancel" the game
             }
-            else if(rect.t == "send" && playerController._left != null && gameController.checkUnits())
+            else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits())
             {
                 //POST the data
                 //Where to get the choices:
