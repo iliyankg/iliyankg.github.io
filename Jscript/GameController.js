@@ -245,6 +245,19 @@ function GameController()
         }
     }
     
+    this.populateMatch = function()
+    {
+        playerController._left.createPlayer(10, 10, getLocalPlayerName(), 0);
+        for(var i = 0; i < 2; i++)
+        {
+            var sName = gameController.activeMatch.participants[i].player.displayName;
+            if(sName != playerController._left.getName())
+            {
+                playerController._right.createPlayer(10, 10, sName, 1);
+            }
+        }
+    }
+    
     this.goToLobby = function()
     {
         this.gameState = "lobby";
@@ -312,7 +325,6 @@ function click(e)
             {
                 createJoinGame();
                 console.log("Player ID: " + gameController.playerToInvite);
-                listActiveGames();
                 gameController.gameState = "game";
                 //gameController.startGame();
             }
