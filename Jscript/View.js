@@ -137,7 +137,7 @@ function View()
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
             canvasContext.fillStyle = "white";
-            if(rect.t == "send" && playerController._left == null)
+            if(rect.t == "send" && playerController._left == null && gameController.checkUnits())
                 canvasContext.fillStyle = "gray";
             canvasContext.fillText(rect.t, rect.x + 75, rect.y + 30);
         }

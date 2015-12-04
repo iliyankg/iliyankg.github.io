@@ -275,6 +275,18 @@ function GameController()
         playerController._right = null;
     }
     
+    this.checkUnits = function()
+    {
+        for(var i = 0; i < platoonLength; i++)
+        {
+            if(view._rectsMinionsLocal[i].m == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     this.goToLobby = function()
     {
         this.resetGameState();
@@ -422,7 +434,7 @@ function click(e)
                 gameController.goToLobby();
                 //Do something to "cancel" the game
             }
-            else if(rect.t == "send" && playerController._left != null)
+            else if(rect.t == "send" && playerController._left != null && gameController.checkUnits())
             {
                 //POST the data
                 //Where to get the choices:
