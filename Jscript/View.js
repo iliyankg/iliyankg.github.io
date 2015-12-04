@@ -34,14 +34,17 @@ function View()
         }
     }
     
-    this.createRectsGames = function(lenght)
+    this.createRectsGames = function()
     {
         this._bHasGames = false;
-        this._rectsGamesList = new Array(lenght);
-        for(var i = 0; i < lenght; i++)
+        if(allGames != null)
         {
-            this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
-            this._bHasGames = true;
+            this._rectsGamesList = new Array(lenght);
+            for(var i = 0; i < lenght; i++)
+            {
+                this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
+                this._bHasGames = true;
+            }
         }
     }
     
