@@ -51,7 +51,7 @@ getLocalPlayerName = function()
     
     request.execute(function(resp)
     {
-        sLocalPlayerName = resp.displayName;
+        sLocalPlayer = resp;
     });
     
     return "Loading...";

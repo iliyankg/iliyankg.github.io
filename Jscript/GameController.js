@@ -6,7 +6,7 @@ var gameController = new GameController();
 var minion = new Minion();
 var backgorundImage;
 var bBackDraw = false;
-var sLocalPlayerName = "Loading...";
+var sLocalPlayer = null;
 
 var leftPlatoon = new Array(3);
 var rightPlatoon = new Array(3);
@@ -252,13 +252,13 @@ function GameController()
     {
         
         
-        playerController._left.createPlayer(10, 10, sLocalPlayerName, 0);
+        playerController._left.createPlayer(10, 10, sLocalPlayer.displayName, 0);
         for(var i = 0; i < 2; i++)
         {
-            var sName = gameController.activeMatch.participants[i].player.displayName;
-            if(sName != sLocalPlayerName)
+            var player = gameController.activeMatch.participants[i].player;
+            if(player.playerId != sLocalPlayer.playerId)
             {
-                playerController._right.createPlayer(10, 10, sName, 1);
+                playerController._right.createPlayer(10, 10, player.displayName, 1);
             }
         }
         console.log(this.activeMatch.userMatchStatus);
@@ -268,7 +268,7 @@ function GameController()
             if(gameController.activeMatch.matchVersion != 1)//not first turn
             {
                 var sData = atob(gameController.activeMatch.data.data).split("_");
-                if(gameController.activeMatch.participants[0].player.displayName == sLocalPlayerName)//which player is making the turn (this is player 1)
+                if(gameController.activeMatch.participants[0].player.playerId == sLocalPlayer.playerId)//which player is making the turn (this is player 1)
                 {
                     console.log("your move");
                     for(var i = 0; i < platoonLength; i++)//populate the enemy minions
