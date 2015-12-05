@@ -286,6 +286,7 @@ function GameController()
                     
                     char = sData[2].charAt(1);
                     playerController._right._iWins = parseInt(char);
+                    this.executeTurn();
                 }
                 else//this is player 2
                 {
@@ -492,7 +493,8 @@ function click(e)
                 //Where to get the choices:
                 //view._rectsMinionsLocal[0-2].m
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
-                gameController.executeTurn();
+                if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)
+                    gameController.executeTurn();
                 gameController.bTurnTaken = true;
                 takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
             }
