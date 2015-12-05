@@ -185,10 +185,10 @@ function View()
             if(leftPlatoon[i] != null)
             {
                 leftPlatoon[i].loadMinions();
-                if(bIsReadyToDraw)
-                {
+//                if(bIsReadyToDraw)
+//                {
                     canvasContext.drawImage(minionViews[leftPlatoon[i].getViewIndex()], leftPlatoon[i].getPosX(), leftPlatoon[i].getPosY()); 
-                }
+//                }
             }
             
             if(rightPlatoon[i] != null)
