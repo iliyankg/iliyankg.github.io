@@ -238,3 +238,32 @@ dismissGame = function(index)
        console.log("GameDismissed"); 
     });
 }
+
+submitScore = function(scr)
+{
+	var request = gapi.client.games.scores.submit(
+	{
+		"leaderboardId" : "CgkI6uySlpsHEAIQAw",
+		"timeSpan" : "ALL_TIME",
+		"score" : score
+	});
+	
+	request.execute(function(resp)
+	{
+		console.log(resp);
+	});
+}
+
+fetchLeaderBoard = function(id)
+{
+	var request = gapi.client.games.scores.listWindow({
+		"leaderboardId" : "CgkI6uySlpsHEAIQAw",
+		"collection" : "PUBLIC",
+		"timeSpan" : "ALL_TIME"
+	});
+	
+	request.execute(function(resp)
+	{
+		console.log(resp);
+	});
+}
