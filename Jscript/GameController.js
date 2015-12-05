@@ -27,7 +27,7 @@ function GameController()
     this.playerToInvite = null;
     this.activeMatch = null;
     this.bCanMakeTurn = false;
-    
+    this.bTurnTaken = false;
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
@@ -57,12 +57,12 @@ function GameController()
             
             if(leftPlatoon[i].isDead())
             {
-                leftPlatoon[i] = null;
+                //leftPlatoon[i] = null;
             }
             
             if(rightPlatoon[i].isDead())
             {
-                rightPlatoon[i] = null;
+                //rightPlatoon[i] = null;
             }
         }
         
@@ -279,12 +279,6 @@ function GameController()
                 if(gameController.activeMatch.participants[0].player.playerId == sLocalPlayer.playerId)//which player is making the turn (this is player 1)
                 {
                     console.log("your move");
-//                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
-//                    {
-//                        var char = sData[1].charAt(i);
-//                        //rightPlatoon[i] = parseInt(char);
-//                        rightPlatoon[i].createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
-//                    }
                     
                     //populate the wins of each player
                     var char = sData[2].charAt(0);
@@ -295,12 +289,7 @@ function GameController()
                 }
                 else//this is player 2
                 {
-//                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
-//                    {
-//                        var char = sData[0].charAt(i);
-//                        //rightPlatoon[i] = parseInt(char);
-//                        rightPlatoon[i].createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
-//                    }
+                    
                 }
             }
         }
@@ -319,6 +308,7 @@ function GameController()
         }
         playerController._left.setName(null);
         playerController._right.setName(null);
+        this.bTurnTaken = false;
     }
     
     this.checkUnits = function()
@@ -335,7 +325,12 @@ function GameController()
     
     this.executeTurn = function()
     {
-        
+        for(var i = 0; i < platoonLength; i++)
+        {
+            leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, 240);
+        }
+        gameController._newBattle();
+        //do animation stuff;
     }
     
     this.goToLobby = function()
@@ -498,6 +493,7 @@ function click(e)
                 //view._rectsMinionsLocal[0-2].m
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
                 gameController.executeTurn();
+                gameController.bTurnTaken = true;
                 takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
             }
         }

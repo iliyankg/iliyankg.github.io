@@ -372,7 +372,8 @@ function View()
         else if(gameController.gameState == "game")
         {
             view._drawBackground();
-            view._newDrawMinions();
+            if(gameController.bTurnTaken)
+                view._newDrawMinions();
             view._drawUI();
         }
         else if(gameController.gameState == "over")
