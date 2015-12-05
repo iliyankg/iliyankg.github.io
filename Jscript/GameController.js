@@ -342,7 +342,7 @@ function GameController()
     {
         for(var i = 0; i < platoonLength; i++)
         {
-            leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
         }
         gameController.bShowTurn = true;
     }
