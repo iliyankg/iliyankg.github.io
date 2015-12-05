@@ -268,14 +268,23 @@ function GameController()
             if(gameController.activeMatch.matchVersion != 1)//not first turn
             {
                 var sData = atob(gameController.activeMatch.data.data).split("_");
+                
+                for(var i = 0; i < platoonLength; i++)//populate the enemy minions
+                {
+                    var char = sData[1].charAt(i);
+                    //rightPlatoon[i] = parseInt(char);
+                    rightPlatoon[i].createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
+                }
+                
                 if(gameController.activeMatch.participants[0].player.playerId == sLocalPlayer.playerId)//which player is making the turn (this is player 1)
                 {
                     console.log("your move");
-                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
-                    {
-                        var char = sData[1].charAt(i);
-                        rightPlatoon[i] = parseInt(char);
-                    }
+//                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
+//                    {
+//                        var char = sData[1].charAt(i);
+//                        //rightPlatoon[i] = parseInt(char);
+//                        rightPlatoon[i].createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
+//                    }
                     
                     //populate the wins of each player
                     var char = sData[2].charAt(0);
@@ -286,11 +295,12 @@ function GameController()
                 }
                 else//this is player 2
                 {
-                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
-                    {
-                        var char = sData[0].charAt(i);
-                        rightPlatoon[i] = parseInt(char);
-                    }
+//                    for(var i = 0; i < platoonLength; i++)//populate the enemy minions
+//                    {
+//                        var char = sData[0].charAt(i);
+//                        //rightPlatoon[i] = parseInt(char);
+//                        rightPlatoon[i].createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
+//                    }
                 }
             }
         }
