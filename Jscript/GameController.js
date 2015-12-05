@@ -27,7 +27,7 @@ function GameController()
     this.playerToInvite = null;
     this.activeMatch = null;
     this.bCanMakeTurn = false;
-    this.bTurnTaken = false;
+    this.bShowTurn = false;
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
@@ -250,8 +250,6 @@ function GameController()
     
     this.populateMatch = function()
     {
-        
-        
         playerController._left.createPlayer(10, 10, sLocalPlayer.displayName, 0);
         for(var i = 0; i < 2; i++)
         {
@@ -268,8 +266,6 @@ function GameController()
             if(gameController.activeMatch.matchVersion != 1)//not first turn
             {
                 var sData = atob(gameController.activeMatch.data.data).split("_");
-                
-                
                 
                 if(gameController.activeMatch.participants[0].player.playerId == sLocalPlayer.playerId)//which player is making the turn (this is player 1)
                 {
@@ -316,7 +312,7 @@ function GameController()
         }
         playerController._left.setName(null);
         playerController._right.setName(null);
-        this.bTurnTaken = false;
+        this.bShowTurn = false;
     }
     
     this.checkUnits = function()
@@ -338,6 +334,7 @@ function GameController()
             leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
         }
         gameController._newBattle();
+        gameController.bShowTurn = true;
         //do animation stuff;
     }
     
@@ -502,7 +499,6 @@ function click(e)
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
                 if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)
                     gameController.executeTurn();
-                gameController.bTurnTaken = true;
                 takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
             }
         }

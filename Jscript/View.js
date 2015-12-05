@@ -373,7 +373,7 @@ function View()
         else if(gameController.gameState == "game")
         {
             view._drawBackground();
-            if(gameController.bTurnTaken)
+            if(gameController.bShowTurn)
                 view._newDrawMinions();
             view._drawUI();
         }
