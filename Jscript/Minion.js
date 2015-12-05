@@ -37,7 +37,7 @@ function Minion()
         return newMinion;
     }
     
-    this._setMinionStats = function(iType, bTeam, dPoX, dPosY)
+    this._setMinionStats = function(iType, bTeam, dPosX, dPosY)
     {
         this._iType = iType;
         this._bTeam = bTeam;
