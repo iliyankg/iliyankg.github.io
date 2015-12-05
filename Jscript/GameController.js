@@ -263,11 +263,11 @@ function GameController()
         }
         console.log(this.activeMatch.userMatchStatus);
         
-        var sData = atob(gameController.activeMatch.data.data).split("_");
         if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")//player can make a turn
         {
             if(gameController.activeMatch.matchVersion != 1)//not first turn
             {
+                var sData = atob(gameController.activeMatch.data.data).split("_");
                 if(gameController.activeMatch.participants[0].player.displayName == sLocalPlayerName)//which player is making the turn (this is player 1)
                 {
                     console.log("your move");
