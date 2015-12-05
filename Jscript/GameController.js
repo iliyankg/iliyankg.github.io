@@ -273,7 +273,7 @@ function GameController()
                 {
                     var char = sData[1].charAt(i);
                     //rightPlatoon[i] = parseInt(char);
-                    rightPlatoon[i].createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
+                    rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, 240);
                 }
                 
                 if(gameController.activeMatch.participants[0].player.playerId == sLocalPlayer.playerId)//which player is making the turn (this is player 1)
