@@ -32,6 +32,13 @@ function Minion()
     
     this.createMinion = function(iType, bTeam, dPosX, dPosY)
     {
+        var newMinion = new Minion();
+        newMinion._setMinionStats(iType, bTeam, dPosX, dPosY);
+        return newMinion;
+    }
+    
+    this._setMinionStats = function(iType, bTeam, dPoX, dPosY)
+    {
         this._iType = iType;
         this._bTeam = bTeam;
         this._dPosX = dPosX;

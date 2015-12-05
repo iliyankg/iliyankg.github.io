@@ -57,7 +57,7 @@ function GameController()
             
             if(leftPlatoon[i].isDead())
             {
-                //leftPlatoon[i] = null;
+                //leftPlatoon[i]. = null;
             }
             
             if(rightPlatoon[i].isDead())
