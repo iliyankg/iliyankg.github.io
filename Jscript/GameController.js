@@ -273,7 +273,7 @@ function GameController()
                     
                     for(var i = 0; i < platoonLength; i++)//populate the enemy minions
                     {
-                        var char = sData[1].charAt(i);
+                        var char = sData[1].charAt(2-i);
                         //rightPlatoon[i] = parseInt(char);
                         rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
                     }
@@ -290,7 +290,7 @@ function GameController()
                 {
                     for(var i = 0; i < platoonLength; i++)//populate the enemy minions
                     {
-                        var char = sData[0].charAt(i);
+                        var char = sData[0].charAt(2-i);
                         //rightPlatoon[i] = parseInt(char);
                         rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
                     }
@@ -331,7 +331,7 @@ function GameController()
     {
         for(var i = 0; i < platoonLength; i++)
         {
-            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
         }
         gameController._newBattle();
         gameController.bShowTurn = true;
@@ -342,7 +342,7 @@ function GameController()
     {
         for(var i = 0; i < platoonLength; i++)
         {
-            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
         }
         gameController.bShowTurn = true;
     }
