@@ -128,7 +128,6 @@ function GameController()
 //            view._rectsMinionsLocal[i].m = null;
 //            view._rectsMinionsRemote[i].m = null;
         }
-        this.iMinionSelection = 0;
     }
     
     /** Runs through the battlefield array for minions and makes them advance or battle
@@ -504,9 +503,6 @@ function click(e)
             }
             else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits() && gameController.bCanMakeTurn)
             {
-                //POST the data
-                //Where to get the choices:
-                //view._rectsMinionsLocal[0-2].m
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
                 if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)
                     gameController.executeTurn();
