@@ -338,12 +338,22 @@ function GameController()
         //do animation stuff;
     }
     
+    this.showYourUnits = function()
+    {
+        for(var i = 0; i < platoonLength; i++)
+        {
+            leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
+        }
+        gameController.bShowTurn = true;
+    }
+    
     this.goToLobby = function()
     {
         this.resetGameState();
         this.gameState = "lobby";
         this.activeMatch = null;
         this.playerToInvite = null;
+        view.resetRectsFriendsColor();
         listActiveGames();
         minion.loadMinions();
         gameController._timer(gameController._fLobbyTimer, 10000);
@@ -500,6 +510,8 @@ function click(e)
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
                 if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)
                     gameController.executeTurn();
+                else
+                    gameController.showYourUnits();
                 takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
             }
         }
