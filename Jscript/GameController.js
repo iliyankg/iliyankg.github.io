@@ -275,7 +275,7 @@ function GameController()
                     {
                         var char = sData[1].charAt(i);
                         //rightPlatoon[i] = parseInt(char);
-                        rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
+                        rightPlatoon[2-i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
                     }
                     
                     //populate the wins of each player
@@ -331,7 +331,7 @@ function GameController()
     {
         for(var i = 0; i < platoonLength; i++)
         {
-            leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[i].m, true, 170 - i * 35, canvas.height/2 + 100);
         }
         gameController._newBattle();
         gameController.bShowTurn = true;
