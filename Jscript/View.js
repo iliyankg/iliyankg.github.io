@@ -88,6 +88,7 @@ function View()
     this._drawBackground = function()
     {
         gameController.loadBackground();
+        minion.loadMinions();
         if(bBackDraw)
         {
             canvasContext.drawImage(backgorundImage, 0, 0); 

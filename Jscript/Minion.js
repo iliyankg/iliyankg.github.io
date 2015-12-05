@@ -1,4 +1,3 @@
-
 var bIsReadyToDraw = false;
 var minionViews = [];
 var plusView;
