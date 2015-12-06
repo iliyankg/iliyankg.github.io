@@ -383,6 +383,7 @@ function GameController()
             rightPlatoon[i] = null;
         }
         gameController._iTurnNum = 0;
+        gameController._timer_Timeout(gameController._timerCounter);
         gameController.bShowTurn = true;
     }
     
