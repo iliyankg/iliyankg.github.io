@@ -279,7 +279,7 @@ finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
         "results": [
         {
           "kind": "games#participantResult",
-          "participantId": localPlayer.playerId.toString(),
+          "participantId": gameController.activeMatch.pendingParticipantId,
           "result": sResult,
           "placing": iPlacing
         }],
