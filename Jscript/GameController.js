@@ -377,12 +377,14 @@ function GameController()
         gameController._newBattle();
         gameController.bShowTurn = true;
         gameController._timerCounter = setInterval(this._timer_ChangeTime, 1000);
-        
-        var bWon = gameController._checkWinner();
-        if(bWon != null)
+        if(gameController.activeMatch.participants[0].player.playerId == localPlayer.playerId)//If it is the first player, check for the win
         {
-            var chosenTurn = "xxx";
-            finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+            var bWon = gameController._checkWinner();
+            if(bWon != null)
+            {
+                var chosenTurn = "xxx";
+                finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+            }
         }
     }
     
