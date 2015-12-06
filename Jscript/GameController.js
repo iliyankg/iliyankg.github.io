@@ -51,21 +51,6 @@ function GameController()
     */
     this._newBattle = function()
     {
-        for(var i = 0; i < platoonLength; i++)
-        {
-            leftPlatoon[i].damage(rightPlatoon[i].getType());
-            rightPlatoon[i].damage(leftPlatoon[i].getType());
-            
-            if(leftPlatoon[i].isDead())
-            {
-                //leftPlatoon[i]. = null;
-            }
-            
-            if(rightPlatoon[i].isDead())
-            {
-                //rightPlatoon[i] = null;
-            }
-        }
         
         //Check how many minions each side has left
         var leftMinions = 0;//Number of minions on the left side that survived
@@ -73,16 +58,33 @@ function GameController()
         
         for(var i = 0; i < platoonLength; i++)
         {
-            if(leftPlatoon[i] != null)
+            leftPlatoon[i].damage(rightPlatoon[i].getType());
+            rightPlatoon[i].damage(leftPlatoon[i].getType());
+            
+            if(!leftPlatoon[i].isDead())
             {
                 leftMinions++;
             }
             
-            if(rightPlatoon[i] != null)
+            if(!rightPlatoon[i].isDead())
             {
                 rightMinions++;
             }
         }
+        
+        
+//        for(var i = 0; i < platoonLength; i++)
+//        {
+//            if(leftPlatoon[i] != null)
+//            {
+//                leftMinions++;
+//            }
+//            
+//            if(rightPlatoon[i] != null)
+//            {
+//                rightMinions++;
+//            }
+//        }
         
         
         if(leftMinions > rightMinions)
@@ -96,7 +98,7 @@ function GameController()
         
         this._checkWinner();
         
-        this._clearPlatoons();
+//        this._clearPlatoons();
     }
     
     /** Checks for winners and reset the win counter if necessary
@@ -122,12 +124,19 @@ function GameController()
         }
     }
     
-    this._clearPlatoons = function()
+    this._clearDeadMinions = function()
     {
-        for(var i = 0; i < 3; i++)
+        for(var i = 0; i < platoonLength; i++)
         {
-//            view._rectsMinionsLocal[i].m = null;
-//            view._rectsMinionsRemote[i].m = null;
+            if(leftPlatoon[i].isDead())
+            {
+                leftPlatoon[i] = null;
+            }
+            
+            if(rightPlatoon[i].isDead())
+            {
+                rightPlatoon[i] = null;
+            }
         }
     }
     
@@ -208,6 +217,7 @@ function GameController()
         {
             //gameController._newBattle();
             //remove dead units
+            gameController._clearDeadMinions();
         }
         else if(gameController._iTurnNum > 5)
         {
@@ -382,7 +392,7 @@ function GameController()
             leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
             rightPlatoon[i] = null;
         }
-        gameController._iTurnNum = 0;
+        gameController._iTurnNum = 1;
         gameController._timer_Timeout(gameController._timerCounter);
         gameController.bShowTurn = true;
     }
