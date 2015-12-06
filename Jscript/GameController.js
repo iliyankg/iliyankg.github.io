@@ -96,7 +96,7 @@ function GameController()
             playerController._right.won();
         }
         
-        this._checkWinner();
+//        this._checkWinner();
         
 //        this._clearPlatoons();
     }
@@ -555,8 +555,11 @@ function click(e)
             else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits() && gameController.bCanMakeTurn)
             {
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
-                if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)
+                if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)//If player 2
+                {
                     gameController.executeTurn();
+                    gameController._checkWinner();
+                }
                 else
                     gameController.showYourUnits();
                 takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
