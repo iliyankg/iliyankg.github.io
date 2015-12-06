@@ -193,7 +193,7 @@ function GameController()
     
     this._timer_ChangeTime = function()
     {        
-        if(gameController._iTurnNum == 10)
+        if(gameController._iTurnNum == 9)
         {
             gameController._timer_Timeout(gameController._timerCounter);
         }
