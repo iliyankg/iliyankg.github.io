@@ -85,7 +85,7 @@ createJoinGame = function()
 
 listActiveGames = function()
 {
-    var request = gapi.client.games.turnBasedMatches.list();
+    var request = gapi.client.games.turnBasedMatches.list(true, "en_US", 0);
     
     request.execute(function(resp)
     {
