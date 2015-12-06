@@ -360,9 +360,12 @@ function GameController()
     
     this.executeTurn = function()
     {
-        for(var i = 0; i < platoonLength; i++)
+        if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)//If it is the second player, put the minion choices in the leftPlatoon
         {
-            leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            for(var i = 0; i < platoonLength; i++)
+            {
+                leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            }
         }
         gameController._newBattle();
         gameController.bShowTurn = true;
@@ -372,12 +375,9 @@ function GameController()
     
     this.showYourUnits = function()
     {
-        if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)//If it is the second player, put the minion choices in the leftPlatoon
+        for(var i = 0; i < platoonLength; i++)
         {
-            for(var i = 0; i < platoonLength; i++)
-            {
-                leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
-            }
+            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
         }
         gameController.bShowTurn = true;
     }
