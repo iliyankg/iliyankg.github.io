@@ -18,8 +18,8 @@ function View()
                                  {x: canvas.width/2 - 10, y: canvas.height - 165, w: 35, h: 35, t: "secondM", m: 1},
                                  {x: canvas.width/2 + 40, y: canvas.height - 165, w: 35, h: 35, t: "thirdM", m: 2}];
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
-    this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby"},
-                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send"}];
+    this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
+                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
     this._rectsFriendsList;
     this._rectsGamesList;
     
@@ -145,7 +145,7 @@ function View()
             
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "white";
+            canvasContext.fillStyle = rect.c;
             if(rect.t == "send" && !gameController.checkUnits() && gameController.bCanMakeTurn)
                 canvasContext.fillStyle = "gray";
             canvasContext.fillText(rect.t, rect.x + 75, rect.y + 30);

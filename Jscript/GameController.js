@@ -502,6 +502,7 @@ function click(e)
                     gameController.bCanMakeTurn = true;
                     getGame(rect.g.matchId);
                     gameController.gameState = "game";
+                    view._rectsGame[1].c = "white";
                 }
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
@@ -557,6 +558,7 @@ function click(e)
             }
             else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits() && gameController.bCanMakeTurn)
             {
+                rect.c = "blue";
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
                 if(gameController.activeMatch.participants[1].player.playerId == localPlayer.playerId)//If player 2
                 {
