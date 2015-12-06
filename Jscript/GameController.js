@@ -52,24 +52,22 @@ function GameController()
     this._newBattle = function()
     {
         
-        //Check how many minions each side has left
-        var leftMinions = 0;//Number of minions on the left side that survived
-        var rightMinions = 0;//Number of minions on the right side that survived
+        
         
         for(var i = 0; i < platoonLength; i++)
         {
             leftPlatoon[i].damage(rightPlatoon[i].getType());
             rightPlatoon[i].damage(leftPlatoon[i].getType());
             
-            if(!leftPlatoon[i].isDead())
-            {
-                leftMinions++;
-            }
-            
-            if(!rightPlatoon[i].isDead())
-            {
-                rightMinions++;
-            }
+//            if(!leftPlatoon[i].isDead())
+//            {
+//                leftMinions++;
+//            }
+//            
+//            if(!rightPlatoon[i].isDead())
+//            {
+//                rightMinions++;
+//            }
         }
         
         
@@ -87,14 +85,14 @@ function GameController()
 //        }
         
         
-        if(leftMinions > rightMinions)
-        {
-            playerController._left.won();
-        }
-        else if(rightMinions > leftMinions)
-        {
-            playerController._right.won();
-        }
+//        if(leftMinions > rightMinions)
+//        {
+//            playerController._left.won();
+//        }
+//        else if(rightMinions > leftMinions)
+//        {
+//            playerController._right.won();
+//        }
         
 //        this._checkWinner();
         
@@ -106,6 +104,32 @@ function GameController()
     */
     this._checkWinner = function()
     {
+        //Check how many minions each side has left
+        var leftMinions = 0;//Number of minions on the left side that survived
+        var rightMinions = 0;//Number of minions on the right side that survived
+        
+        for(var i = 0; i < platoonLength; i++)
+        {
+            if(!leftPlatoon[i].isDead())
+            {
+                leftMinions++;
+            }
+
+            if(!rightPlatoon[i].isDead())
+            {
+                rightMinions++;
+            } 
+        }
+        
+        if(leftMinions > rightMinions)
+        {
+            playerController._left.won();
+        }
+        else if(rightMinions > leftMinions)
+        {
+            playerController._right.won();
+        }
+        
         if(playerController._left.getWins() == 2)
         {
             //Local player wins
