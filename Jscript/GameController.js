@@ -195,7 +195,7 @@ function GameController()
     {        
         if(gameController._iTurnNum == 10)
         {
-            gameController._timer_Timeout(this._timerCounter);
+            gameController._timer_Timeout(gameController._timerCounter);
         }
         
         if(gameController._iTurnNum == 0)
