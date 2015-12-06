@@ -290,7 +290,7 @@ finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
         "matchVersion": gameController.activeMatch.matchVersion
     });
     
-    response.execute(function(respp)
+    request.execute(function(respp)
     {
        console.log(respp); 
     });
