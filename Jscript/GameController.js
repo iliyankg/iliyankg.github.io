@@ -6,7 +6,7 @@ var gameController = new GameController();
 var minion = new Minion();
 var backgorundImage;
 var bBackDraw = false;
-var sLocalPlayer = null;
+var localPlayer = null;
 
 var leftPlatoon = new Array(3);
 var rightPlatoon = new Array(3);
@@ -55,45 +55,7 @@ function GameController()
         {
             leftPlatoon[i].damage(rightPlatoon[i].getType());
             rightPlatoon[i].damage(leftPlatoon[i].getType());
-            
-//            if(!leftPlatoon[i].isDead())
-//            {
-//                leftMinions++;
-//            }
-//            
-//            if(!rightPlatoon[i].isDead())
-//            {
-//                rightMinions++;
-//            }
         }
-        
-        
-//        for(var i = 0; i < platoonLength; i++)
-//        {
-//            if(leftPlatoon[i] != null)
-//            {
-//                leftMinions++;
-//            }
-//            
-//            if(rightPlatoon[i] != null)
-//            {
-//                rightMinions++;
-//            }
-//        }
-        
-        
-//        if(leftMinions > rightMinions)
-//        {
-//            playerController._left.won();
-//        }
-//        else if(rightMinions > leftMinions)
-//        {
-//            playerController._right.won();
-//        }
-        
-//        this._checkWinner();
-        
-//        this._clearPlatoons();
     }
     
     /** Checks for winners and reset the win counter if necessary
@@ -131,11 +93,13 @@ function GameController()
         {
             //Local player wins
             console.log("Local player won");
+            return true;
         }
         else if(playerController._right.getWins() == 2)
         {
             //Remote player wins
             console.log("Remote player won");
+            return false;
         }
         
         if(playerController._left.getWins() == playerController._right.getWins())
@@ -143,6 +107,7 @@ function GameController()
             playerController._left.resetWins();
             playerController._right.resetWins();
         }
+        return null;
     }
     
     this._clearDeadMinions = function()
@@ -310,11 +275,11 @@ function GameController()
     
     this.populateMatch = function()
     {
-        playerController._left.createPlayer(10, 10, sLocalPlayer.displayName, 0);
+        playerController._left.createPlayer(10, 10, localPlayer.displayName, 0);
         for(var i = 0; i < 2; i++)
         {
             var player = gameController.activeMatch.participants[i].player;
-            if(player.playerId != sLocalPlayer.playerId)
+            if(player.playerId != localPlayer.playerId)
             {
                 playerController._right.createPlayer(10, 10, player.displayName, 1);
             }
@@ -327,7 +292,7 @@ function GameController()
             {
                 var sData = atob(gameController.activeMatch.data.data).split("_");
                 
-                if(gameController.activeMatch.participants[0].player.playerId == sLocalPlayer.playerId)//which player is making the turn (this is player 1)
+                if(gameController.activeMatch.participants[0].player.playerId == localPlayer.playerId)//which player is making the turn (this is player 1)
                 {
                     console.log("your move");
                     
@@ -400,7 +365,7 @@ function GameController()
     
     this.executeTurn = function()
     {
-        if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)//If it is the second player, put the minion choices in the leftPlatoon
+        if(gameController.activeMatch.participants[1].player.playerId == localPlayer.playerId)//If it is the second player, put the minion choices in the leftPlatoon
         {
             for(var i = 0; i < platoonLength; i++)
             {
@@ -583,11 +548,19 @@ function click(e)
             else if(rect.t == "send" && playerController._left.getName() != null && gameController.checkUnits() && gameController.bCanMakeTurn)
             {
                 var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
-                if(gameController.activeMatch.participants[1].player.playerId == sLocalPlayer.playerId)//If player 2
+                if(gameController.activeMatch.participants[1].player.playerId == localPlayer.playerId)//If player 2
                 {
                     gameController.executeTurn();
-                    gameController._checkWinner();
-                    takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                    
+                    var bWon = gameController._checkWinner();
+                    if(bWon != null)
+                    {
+                        finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                    }
+                    else
+                    {
+                        takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                    }
                 }
                 else
                 {

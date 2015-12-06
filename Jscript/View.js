@@ -249,7 +249,7 @@ function View()
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
             canvasContext.fillStyle = "black";
-            if(sLocalPlayer.playerId == allGames[i].participants[0].player.playerId)
+            if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
             {
                 canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
             }

@@ -30,7 +30,7 @@ handleAuthResult = function(auth)
                 friends = resp.items;
                 view.createRectsFriends(resp.totalItems);
                 
-                getLocalPlayerName();
+                getLocalPlayer();
            });
         });
     }
@@ -42,7 +42,7 @@ handleAuthResult = function(auth)
     }
 }
 
-getLocalPlayerName = function()
+getLocalPlayer = function()
 {    
     var request = gapi.client.games.players.get(
     {
@@ -51,7 +51,7 @@ getLocalPlayerName = function()
     
     request.execute(function(resp)
     {
-        sLocalPlayer = resp;
+        localPlayer = resp;
     });
     
     return "Loading...";
@@ -236,6 +236,63 @@ dismissGame = function(index)
     request.execute(function(respp)
     {
        console.log("GameDismissed"); 
+    });
+}
+
+finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
+{
+    var sResult = "MATCH_RESULT_LOSS";
+    var iPlacing = 2;
+    if(bWon)
+    {
+        sResult = "MATCH_RESULT_WIN";
+        iPlacing = 1;
+    }
+    
+    var dataToSend = "error"
+    
+    if(gameController.activeMatch.pendingParticipantId == "p_2")
+    {
+        var tempData = atob(gameController.activeMatch.data.data);
+        var splitTempData = tempData.split("_");
+        
+        
+        dataToSend = splitTempData[0] + "_" + data + "_" + creatorWon.toString() + creatorLost.toString();  
+    }
+    else
+    {
+        if(gameController.activeMatch.matchVersion == 1)
+        {
+            dataToSend = data + "_" + "xxx" + "_" + "00";
+        }
+        else
+        {
+            dataToSend = data + "_" + "xxx" + "_" + creatorWon.toString() + creatorLost.toString();
+        }
+    }
+    
+    
+    var request = gapi.client.games.turnBasedMatches.finish(
+    {"matchId": _matchId},
+    {
+        "kind": "games#turnBasedMatchResults",
+        "results": [
+        {
+          "kind": "games#participantResult",
+          "participantId": localPlayer.playerId,
+          "result": sResult,
+          "placing": iPlacing
+        }],
+        "data": {
+        "kind": "games#turnBasedMatchDataRequest",
+        "data": btoa(dataToSend)
+        },
+        "matchVersion": gameController.activeMatch.matchVersion
+    });
+    
+    response.execute(function(respp)
+    {
+       console.log(respp); 
     });
 }
 
