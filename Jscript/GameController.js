@@ -372,7 +372,7 @@ function GameController()
         gameController._newBattle();
         gameController.bShowTurn = true;
         //do animation stuff;
-        this._turnCounter = setInterval(this._timer_ChangeTime, 1000);
+        gameController._turnCounter = setInterval(this._timer_ChangeTime, 1000);
     }
     
     this.showYourUnits = function()
