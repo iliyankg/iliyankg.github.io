@@ -194,10 +194,10 @@ function View()
             if(rightPlatoon[i] != null)
             {
                 rightPlatoon[i].loadMinions();
-                if(bIsReadyToDraw)
-                {
+//                if(bIsReadyToDraw)
+//                {
                     canvasContext.drawImage(minionViews[rightPlatoon[i].getViewIndex()], rightPlatoon[i].getPosX(), rightPlatoon[i].getPosY());
-                }
+//                }
             }
         }
     }
