@@ -380,7 +380,9 @@ function GameController()
         for(var i = 0; i < platoonLength; i++)
         {
             leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            rightPlatoon[i] = null;
         }
+        gameController._iTurnNum = 0;
         gameController.bShowTurn = true;
     }
     
