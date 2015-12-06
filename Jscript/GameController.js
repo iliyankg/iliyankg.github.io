@@ -51,9 +51,6 @@ function GameController()
     */
     this._newBattle = function()
     {
-        
-        
-        
         for(var i = 0; i < platoonLength; i++)
         {
             leftPlatoon[i].damage(rightPlatoon[i].getType());
@@ -359,6 +356,13 @@ function GameController()
                         //rightPlatoon[i] = parseInt(char);
                         rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
                     }
+                    
+                    //populate the wins of each player
+                    var char = sData[2].charAt(0);
+                    playerController._right._iWins = parseInt(char);
+                    
+                    char = sData[2].charAt(1);
+                    playerController._left._iWins = parseInt(char);
                 }
             }
         }
@@ -583,10 +587,13 @@ function click(e)
                 {
                     gameController.executeTurn();
                     gameController._checkWinner();
+                    takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
                 }
                 else
+                {
                     gameController.showYourUnits();
-                takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                    takeTurn(chosenTurn, playerController._left.getWins(), playerController._right.getWins());
+                }
             }
         }
     }
