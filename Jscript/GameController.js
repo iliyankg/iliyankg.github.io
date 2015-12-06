@@ -58,10 +58,7 @@ function GameController()
         }
     }
     
-    /** Checks for winners and reset the win counter if necessary
-    *@function
-    */
-    this._checkWinner = function()
+    this.countWinners = function()
     {
         //Check how many minions each side has left
         var leftMinions = 0;//Number of minions on the left side that survived
@@ -88,7 +85,13 @@ function GameController()
         {
             playerController._right.won();
         }
-        
+    }
+    
+    /** Checks for winners and reset the win counter if necessary
+    *@function
+    */
+    this._checkWinner = function()
+    {
         if(playerController._left.getWins() == 2)
         {
             //Local player wins
@@ -318,7 +321,6 @@ function GameController()
                     for(var i = 0; i < platoonLength; i++)//populate the enemy minions
                     {
                         var char = sData[0].charAt(2-i);
-                        //rightPlatoon[i] = parseInt(char);
                         rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
                     }
                     
@@ -374,8 +376,13 @@ function GameController()
         }
         gameController._newBattle();
         gameController.bShowTurn = true;
-        //do animation stuff;
         gameController._timerCounter = setInterval(this._timer_ChangeTime, 1000);
+        
+        var bWon = gameController._checkWinner();
+        if(bWon != null)
+        {
+            finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+        }
     }
     
     this.showYourUnits = function()
@@ -551,7 +558,7 @@ function click(e)
                 if(gameController.activeMatch.participants[1].player.playerId == localPlayer.playerId)//If player 2
                 {
                     gameController.executeTurn();
-                    
+                    gameController.countWinners();
                     var bWon = gameController._checkWinner();
                     if(bWon != null)
                     {
