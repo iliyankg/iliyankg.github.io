@@ -195,7 +195,7 @@ function GameController()
     {        
         if(gameController._iTurnNum == 10)
         {
-            this._timer_Timeout(this._timerCounter);
+            gameController._timer_Timeout(this._timerCounter);
         }
         
         if(gameController._iTurnNum == 0)
@@ -343,7 +343,9 @@ function GameController()
         }
         playerController._left.setName(null);
         playerController._right.setName(null);
+        this._iTurnNum = 1;
         this.bShowTurn = false;
+        gameController._timer(gameController._fLobbyTimer, 10000);
     }
     
     this.checkUnits = function()
@@ -388,12 +390,10 @@ function GameController()
         this.gameState = "lobby";
         this.activeMatch = null;
         this.playerToInvite = null;
-        this._iTurnNum = 1;
         this._timer_Timeout(this._timerCounter);
         view.resetRectsFriendsColor();
         listActiveGames();
         minion.loadMinions();
-        gameController._timer(gameController._fLobbyTimer, 10000);
     }
 }
 
