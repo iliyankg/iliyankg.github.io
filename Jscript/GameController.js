@@ -34,6 +34,7 @@ function GameController()
     this._iTurnNum = 1;//Number of turns so far
     this._iBlueFirst = 0;
     this._fLobbyTimer = 0;
+    this._timerCounter = null;
     
     this.loadBackground = function()
     {
@@ -190,6 +191,35 @@ function GameController()
         }
     }
     
+    this._timer_ChangeTime = function()
+    {        
+        if(gameController._iTurnNum == 10)
+        {
+            this._timer_Timeout(this._timerCounter);
+        }
+        
+        if(gameController._iTurnNum == 0)
+        {
+            
+            //gameController._timer();
+            //gameController._newSpawn();    
+        }
+        else if(gameController._iTurnNum == 5)
+        {
+            //gameController._newBattle();
+            //remove dead units
+        }
+        else if(gameController._iTurnNum > 5)
+        {
+            gameController._newRetreat();
+        }
+        else
+        {
+            gameController._newAdvance();
+        }
+        
+        gameController._iTurnNum++;
+    }
     this._timer_RefreshList = function()
     {        
         listActiveGames();
@@ -335,6 +365,7 @@ function GameController()
         gameController._newBattle();
         gameController.bShowTurn = true;
         //do animation stuff;
+        this._turnCounter = setInterval(this._timer_ChangeTime, 1000);
     }
     
     this.showYourUnits = function()
@@ -352,6 +383,8 @@ function GameController()
         this.gameState = "lobby";
         this.activeMatch = null;
         this.playerToInvite = null;
+        this._iTurnNum = 1;
+        this._timer_Timeout(this._timerCounter);
         view.resetRectsFriendsColor();
         listActiveGames();
         minion.loadMinions();
