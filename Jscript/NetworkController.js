@@ -241,12 +241,16 @@ dismissGame = function(index)
 
 finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
 {
-    var sResult = "MATCH_RESULT_LOSS";
-    var iPlacing = 2;
+    var sResult1 = "MATCH_RESULT_LOSS";
+    var sResult2 = "MATCH_RESULT_WIN";
+    var iPlacing1 = 2;
+    var iPlacing2 = 1;
     if(bWon)
     {
-        sResult = "MATCH_RESULT_WIN";
-        iPlacing = 1;
+        sResult1 = "MATCH_RESULT_WIN";
+        sResult2 = "MATCH_RESULT_LOSS";
+        iPlacing1 = 1;
+        iPlacing2 = 2
     }
     
     var dataToSend = "error"
@@ -280,8 +284,14 @@ finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
         {
           "kind": "games#participantResult",
           "participantId": gameController.activeMatch.pendingParticipantId,
-          "result": sResult,
-          "placing": iPlacing
+          "result": sResult1,
+          "placing": iPlacing1
+        },
+        {
+          "kind": "games#participantResult",
+          "participantId": gameController.activeMatch.withParticipantId,
+          "result": sResult2,
+          "placing": iPlacing2
         }],
         "data": {
         "kind": "games#turnBasedMatchDataRequest",
