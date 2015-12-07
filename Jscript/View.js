@@ -50,7 +50,7 @@ function View()
             this._rectsGamesList = new Array(lenght);
             for(var i = 0; i < lenght; i++)
             {
-                this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 60, w: 150, h:50, t: "games", g: allGames[i]};
+                this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
                 this._bHasGames = true;
             }
         }
@@ -251,13 +251,13 @@ function View()
             canvasContext.fillStyle = "black";
             if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
             {
-                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 10, 150);
+                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 20, 150);
             }
             else
             {
-                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 75, rect.y + 10, 150);
+                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 75, rect.y + 20, 150);
             }
-            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 40, 150);
+            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 50, 150);
         }
     }
     
