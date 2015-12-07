@@ -251,13 +251,13 @@ function View()
             canvasContext.fillStyle = "black";
             if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
             {
-                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 20, 150);
+                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 75, rect.y + 15, 150);
             }
             else
             {
-                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 75, rect.y + 20, 150);
+                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 75, rect.y + 15, 150);
             }
-            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 50, 150);
+            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 75, rect.y + 45, 150);
         }
     }
     
