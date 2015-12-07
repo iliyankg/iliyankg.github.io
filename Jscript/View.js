@@ -1,6 +1,15 @@
 var canvas = document.getElementById("Placeholder");
 var canvasContext = canvas.getContext("2d");
 
+var gameWidth = 960;
+var gameHeight = 540;
+
+var currentWidth = gameWidth;
+var currentHeight = gameHeight;
+
+canvas.width = gameWidth;
+canvas.height = gameHeight;
+
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
 *@property {Draw} _Minion
@@ -24,6 +33,26 @@ function View()
     this._rectsGamesList;
     
     this._bHasGames = false;
+    
+    this._resize = function()
+    {
+        var ratio =  gameHeight / gameWidth;
+
+        currentWidth = window.innerWidth;
+        currentHeight = ratio * currentWidth;
+
+        canvas.style.width = currentWidth + 'px';
+        canvas.style.height = currentHeight + 'px';
+
+        // we use a timeout here because some mobile
+            // browsers don't fire if there is not
+            // a short delay
+            window.setTimeout(function() {
+                    window.scrollTo(0,1);
+            }, 1);
+    
+    }
+
     
     this.createRectsFriends = function(lenght)
     {
@@ -367,6 +396,8 @@ function View()
     this.update = function()
     {
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+        
+        view._resize();
         
         if(gameController.gameState == "menu")
         {
