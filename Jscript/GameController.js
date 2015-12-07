@@ -382,7 +382,7 @@ function GameController()
             var bWon = gameController._checkWinner();
             if(bWon != null)
             {
-                finishCreatorsGame();
+                finishCreatorsGame(gameController.activeMatch.matchId);
             }
         }
     }

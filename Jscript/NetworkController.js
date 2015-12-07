@@ -306,7 +306,7 @@ finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
     });
 }
 
-finishCreatorsGame = function()
+finishCreatorsGame = function(_matchId)
 {
     var request = gapi.client.games.turnBasedMatches.finish(
     {"matchId": _matchId
