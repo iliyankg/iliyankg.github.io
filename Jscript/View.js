@@ -275,6 +275,16 @@ function View()
         canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
     }
     
+    this._drawLeaderboards = function()
+    {
+        
+    }
+    
+    this._drawBackToMenu = function()
+    {
+        
+    }
+    
     this._collides = function(rects, x, y)
     {
         var isCollision = false;
@@ -368,6 +378,7 @@ function View()
             view._drawFriendsList();
             if(view._bHasGames)
                 view._drawGamesList();
+            view._drawBavkToMenu();
             view._drawLobby();
         }
         else if(gameController.gameState == "game")
@@ -377,9 +388,10 @@ function View()
                 view._newDrawMinions();
             view._drawUI();
         }
-        else if(gameController.gameState == "over")
+        else if(gameController.gameState == "leaderboards")
         {
-            
+            view._drawLeaderBoards();
+            view._drawBackToMenu();
         }
         
         requestAnimationFrame(view.update);
