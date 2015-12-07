@@ -18,7 +18,9 @@ canvas.height = gameHeight;
 */
 function View()
 {
-    this._rectsMenu = [{x: currentWidth/2 - 200, y: currentHeight/2 + 100, w: 150, h: 50, t: "play"},//Play game
+    this._fAspect =currentWidth / gameWidth;
+    
+    this._rectsMenu = [{x: (currentWidth/2 - 200) * this._fAspect, y: (currentHeight/2 + 100) * this._fAspect, w: 150, h: 50, t: "play"},//Play game
                    {x: currentWidth/2 + 50, y: currentHeight/2 + 100, w: 150, h: 50, t: "google"}];//Google play
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
@@ -37,6 +39,8 @@ function View()
     this._resize = function()
     {
         var ratio =  gameHeight / gameWidth;
+        
+        
 
         currentWidth = window.innerWidth;
         currentHeight = ratio * currentWidth;
@@ -50,6 +54,8 @@ function View()
             window.setTimeout(function() {
                     window.scrollTo(0,1);
             }, 1);
+        
+        this._fAspect =currentWidth / gameWidth;
     
     }
 
