@@ -21,7 +21,7 @@ function View()
     this._fAspect =currentWidth / gameWidth;
     
     this._rectsMenu = [{x: currentWidth/2 - 200, y: currentHeight/2 + 100, w: 150, h: 50, t: "play"},//Play game
-                   {x: currentWidth/2 + 50, y: currentHeight/2 + 100, w: 150, h: 50, t: "google"}];//Google play
+                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
@@ -60,7 +60,7 @@ function View()
     this._resizeRects = function()
     {
         this._rectsMenu = [{x: currentWidth/2 - 200, y: currentHeight/2 + 100, w: 150, h: 50, t: "play"},//Play game
-                          {x: currentWidth/2 + 50, y: currentHeight/2 + 100, w: 150, h: 50, t: "google"}];//Google play
+                          {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
         this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                                   {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                                   {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
