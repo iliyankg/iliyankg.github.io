@@ -70,7 +70,7 @@ function View()
         this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
         this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
                           {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
-        this.createRectsGames();
+        //this.createRectsGames();
         this.createRectsFriends();
     }
     
