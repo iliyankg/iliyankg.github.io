@@ -436,7 +436,8 @@ function keyDownHandler(e)
     }
     if(e.keyCode == 32) //spacebar
     {
-        getGame(gameController.activeMatch.matchId);
+        //getGame(gameController.activeMatch.matchId);
+        console.log(view._rectsMenu);
     }
 }
 
