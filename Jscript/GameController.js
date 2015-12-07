@@ -382,8 +382,7 @@ function GameController()
             var bWon = gameController._checkWinner();
             if(bWon != null)
             {
-                var chosenTurn = "xxx";
-                finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                finishCreatorsGame();
             }
         }
     }

@@ -306,6 +306,18 @@ finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
     });
 }
 
+finishCreatorsGame = function()
+{
+    var request = gapi.client.games.turnBasedMatches.finish(
+    {"matchId": _matchId
+    });
+    
+    request.execute(function(respp)
+    {
+       console.log(respp); 
+    });
+}
+
 submitScore = function(scr)
 {
 	var request = gapi.client.games.scores.submit(
