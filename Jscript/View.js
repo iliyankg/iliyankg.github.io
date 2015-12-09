@@ -272,6 +272,8 @@ function View()
         canvasContext.fillText("Minion", canvas.width/2 - 80, canvas.height/2 - 130, 150);
         canvasContext.fillStyle = "red";
         canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
+        
+        canvasContext.fillText(currentWidth + " x " + currentHeight, 0, 0, 100);
     }
     
     this._drawFriendsList = function()
