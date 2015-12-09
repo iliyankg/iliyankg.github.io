@@ -170,25 +170,6 @@ function View()
 //        canvasContext.fillText(playerController._left.getName(), 100, 180);
 //        canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
     }
-
-    this._drawMinions = function()
-    {
-        for(var i = 0; i < 20; ++i)
-        {
-            if(battlefield[i] == null)
-            {
-                
-            }
-            else
-            {
-                battlefield[i].loadMinions();
-                if(bIsReadyToDraw)
-                {
-                    canvasContext.drawImage(minionViews[battlefield[i].getViewIndex()], battlefield[i].getPosX(), battlefield[i].getPosY());
-                }
-            }
-        }
-    }
     
     this._newDrawMinions = function()
     {
@@ -239,6 +220,7 @@ function View()
     
     this._drawFriendsList = function()
     {
+        canvasContext.fillText("Friends", this._rectsFriendsList[0].x, this._rectsFriendsList[0].y - 50, 150);
         for(var i = 0; i < friends.length; i++)
         {
             var rect = this._rectsFriendsList[i];
@@ -253,6 +235,7 @@ function View()
     
     this._drawGamesList = function()
     {
+        canvasContext.fillText("Games", this._rectsGamesList[0].x, this._rectsGamesList[0].y - 50, 150);
         for(var i = 0; i < allGames.length; i++)
         {
             var rect = this._rectsGamesList[i];
