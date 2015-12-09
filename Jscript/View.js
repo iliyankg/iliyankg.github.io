@@ -257,6 +257,7 @@ function View()
         for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
         {
             canvasContext.fillRect(this._rectsMenu[i].x, this._rectsMenu[i].y, this._rectsMenu[i].w, this._rectsMenu[i].h);
+            console.log(this._rectsMenu[i].x);
         }
         
         canvasContext.font = "20px Arial";
