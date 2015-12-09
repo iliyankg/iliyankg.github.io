@@ -298,6 +298,11 @@ function View()
     
     this._drawLeaderboardsList = function()
     {
+        canvasContext.font = "20px Arial";
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "black";
+        canvasContext.fillText("Leaderboards", this._rectsLeaderboardsList[0].x + this._rectsLeaderboardsList[0].w/2, this._rectsLeaderboardsList[0].y - 10, 150);
+        
         for(var i = 0; i < this._rectsLeaderboardsList.length; i++)
         {
             var rect = this._rectsLeaderboardsList[i];
