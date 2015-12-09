@@ -96,7 +96,7 @@ function View()
         canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
         if(playerController._right.getWins() > 0)
         {
-            canvasContext.fillText("Won", canvas.width - 120, 200);
+            canvasContext.fillText("Winning", canvas.width - 120, 200);
         }
         
         //Timer
@@ -330,9 +330,15 @@ function View()
         }
     }
     
-    this._drawBackToMenu = function()
+    this._drawPlayerWin = function()
     {
-        
+        canvasContext.font = "20px Arial";
+        canvasContext.textAlign = "center";
+        canvasContext.fillStyle = "black";
+        if(gameController._checkWinner())
+            canvasContext.fillText("You defeated!", this._rectsLeaderboardsList[0].x + this._rectsLeaderboardsList[0].w/2, this._rectsLeaderboardsList[0].y - 10, 150);
+        else
+            canvasContext.fillText("The opponent won!", this._rectsLeaderboardsList[0].x + this._rectsLeaderboardsList[0].w/2, this._rectsLeaderboardsList[0].y - 10, 150);
     }
     
     this._collides = function(rects, x, y)
@@ -437,6 +443,8 @@ function View()
             view._drawBackground();
             if(gameController.bShowTurn)
                 view._newDrawMinions();
+            if(gameController._checkWinner() != null)
+                view._drawPlayerWin();
             view._drawUI();
         }
         else if(gameController.gameState == "leaderboards")
