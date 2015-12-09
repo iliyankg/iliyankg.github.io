@@ -174,10 +174,10 @@ function View()
     this._drawMenuScreen = function()
     {
         //Buttons
-        canvasContext.fillStyle = "black";
         for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
         {
             var rect = this._rectsMenu[i];
+            canvasContext.fillStyle = "black";
             canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
@@ -248,10 +248,10 @@ function View()
     
     this._drawLobby = function()
     {
-        canvasContext.fillStyle = "black";
         for(var i = 0; i < this._rectsLobby.length; i++)
         {
-            var rect = this._rectsLobby[i];            
+            var rect = this._rectsLobby[i];
+            canvasContext.fillStyle = "black";
             canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
@@ -273,10 +273,10 @@ function View()
     
     this._drawLeaderboards = function()
     {
-        canvasContext.fillStyle = "black";
         for(var i = 0; i < this._rectsLeaderboards.length; i++)
         {
             var rect = this._rectsLeaderboards[i];            
+            canvasContext.fillStyle = "black";
             canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
