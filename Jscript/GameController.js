@@ -29,6 +29,7 @@ function GameController()
     this.activeMatch = null;
     this.bCanMakeTurn = false;
     this.bShowTurn = false;
+    this.leaderboard = null;
     
     //PRIVATE
     this._iSpawnNum;//Number of spawns so far
@@ -423,6 +424,7 @@ function GameController()
     
     this.goToLeaderboards = function()
     {
+        fetchLeaderBoard();
         this.gameState = "leaderboards";
     }
 }

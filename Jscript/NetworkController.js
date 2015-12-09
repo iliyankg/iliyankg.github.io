@@ -347,5 +347,6 @@ fetchLeaderBoard = function(id)
 	request.execute(function(resp)
 	{
 		console.log(resp);
+        gameController.leaderboard = resp;
 	});
 }
