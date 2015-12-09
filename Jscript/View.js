@@ -424,7 +424,10 @@ function View()
         {
             view._drawLeaderboards();
             if(gameController.leaderboard != null)
+            {
+                view.createRectsLeaderboards(gameController.leaderboard.length);
                 view._drawLeaderboardsList();
+            }
             view._drawBackToMenu();
         }
         
