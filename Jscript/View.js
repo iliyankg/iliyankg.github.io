@@ -60,6 +60,16 @@ function View()
         }
     }
     
+    this.createRectsLeaderboards = function(lenght)
+    {
+        view._rectsLeaderboardsList = new Array(lenght);
+        for(var i = 0; i < lenght; i++)
+        {
+            var places = gameController.leaderboard[i];
+            this._rectsLeaderboardsList[i] = {x: 100, y: 100 + i * 100, w: 500, h: 50, s: places.scoreValue, f: places.formattedScoreRank, p: places.player.displayName};
+        }
+    }
+    
     //Background of a match is drawn   
     this._drawBackground = function()
     {
@@ -286,6 +296,22 @@ function View()
         }
     }
     
+    this._drawLeaderboardsList = function()
+    {
+        for(vai i = 0; i < this._rectsLeaderboardsList.length; i++)
+        {
+            var rect = this._rectsLeaderboardsList[i];
+            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "left";
+            canvasContext.fillStyle = "black";
+            canvasContext.fillText(rect.f, rect.x + 10, rect.y + 30, 50);
+            canvasContext.fillText(rect.p, rect.x + 80, rect.y + 30, 150);
+            canvasContext.fillText(rect.s, rect.x + 250, rect.y + 30, 50);
+        }
+    }
+    
     this._drawBackToMenu = function()
     {
         
@@ -397,6 +423,8 @@ function View()
         else if(gameController.gameState == "leaderboards")
         {
             view._drawLeaderboards();
+            if(gameController.leaderboard != null)
+                view._drawLeaderboardsList();
             view._drawBackToMenu();
         }
         

@@ -347,6 +347,7 @@ fetchLeaderBoard = function(id)
 	request.execute(function(resp)
 	{
 		console.log(resp);
-        gameController.leaderboard = resp;
+        gameController.leaderboard = resp.items;
+        view.createRectsLeaderboards(resp.items.lenght);
 	});
 }
