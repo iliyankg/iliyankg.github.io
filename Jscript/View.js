@@ -378,7 +378,7 @@ function View()
             view._drawFriendsList();
             if(view._bHasGames)
                 view._drawGamesList();
-            view._drawBavkToMenu();
+            view._drawBackToMenu();
             view._drawLobby();
         }
         else if(gameController.gameState == "game")
