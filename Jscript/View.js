@@ -102,8 +102,10 @@ function View()
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "blue";
         canvasContext.fillText(playerController._left.getName(), 100, 180);
+        canvasContext.fillText("Wins: " + playerController._left.getWins(), 150, 200);
         canvasContext.fillStyle = "red";
         canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
+        canvasContext.fillText("Wins: " + playerController._right.getWins(), canvas.width - 150, 200);
         
         //Timer
         canvasContext.fillStyle = "black";
@@ -118,6 +120,10 @@ function View()
                 canvasContext.drawImage(minionViews[rect.m], rect.x, rect.y);
             }
         }
+        
+        //Win chart
+        
+        canvasContext.drawImage(winChartImage, 200, 150);
         
         //Local selection boxes
         for (var i = 0, len = this._rectsMinionsLocal.length; i < len; i++) 
@@ -152,11 +158,11 @@ function View()
         }
         
         //Player names
-        canvasContext.font = "20px Arial";
-        canvasContext.textAlign = "center";
-        canvasContext.fillStyle = "black";
-        canvasContext.fillText(playerController._left.getName(), 100, 180);
-        canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
+//        canvasContext.font = "20px Arial";
+//        canvasContext.textAlign = "center";
+//        canvasContext.fillStyle = "black";
+//        canvasContext.fillText(playerController._left.getName(), 100, 180);
+//        canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
     }
 
     this._drawMinions = function()

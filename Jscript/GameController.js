@@ -5,6 +5,7 @@ var view = new View();
 var gameController = new GameController();
 var minion = new Minion();
 var backgorundImage;
+var winChartImage;
 var bBackDraw = false;
 var localPlayer = null;
 
@@ -44,6 +45,10 @@ function GameController()
                 bBackDraw = true;
         };
         backgorundImage.src = "Assets/Background.png";
+        
+        winChartImage = new Image();
+        winChartImage.src = "Assets/Win_Loss.png";
+        
     }
     
     /** Facilitates the combat between the frontmost minions.
