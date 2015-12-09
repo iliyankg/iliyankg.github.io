@@ -336,9 +336,9 @@ function View()
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "black";
         if(gameController._checkWinner())
-            canvasContext.fillText("You defeated!", this._rectsLeaderboardsList[0].x + this._rectsLeaderboardsList[0].w/2, this._rectsLeaderboardsList[0].y - 10, 150);
+            canvasContext.fillText("You defeated!", canvas.width/2, canvas.height/2, 150);
         else
-            canvasContext.fillText("The opponent won!", this._rectsLeaderboardsList[0].x + this._rectsLeaderboardsList[0].w/2, this._rectsLeaderboardsList[0].y - 10, 150);
+            canvasContext.fillText("The opponent won!", canvas.width/2, canvas.height/2, 150);
     }
     
     this._collides = function(rects, x, y)
