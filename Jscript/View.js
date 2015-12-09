@@ -1,15 +1,6 @@
 var canvas = document.getElementById("Placeholder");
 var canvasContext = canvas.getContext("2d");
 
-var gameWidth = 960;
-var gameHeight = 540;
-
-var currentWidth = gameWidth;
-var currentHeight = gameHeight;
-
-canvas.width = gameWidth;
-canvas.height = gameHeight;
-
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
 *@property {Draw} _Minion
@@ -18,10 +9,8 @@ canvas.height = gameHeight;
 */
 function View()
 {
-    this._fAspect =currentWidth / gameWidth;
-    
-    this._rectsMenu = [{x: currentWidth/2 - 200 * this._fAspect, y: currentHeight/2 + 100 * this._fAspect, w: 150, h: 50, t: "play"},//Play game
-                   {x: currentWidth/2, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
+    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
+                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
@@ -35,44 +24,6 @@ function View()
     this._rectsGamesList;
     
     this._bHasGames = false;
-    
-    this._resize = function()
-    {
-        var ratio =  gameHeight / gameWidth;
-    
-        currentWidth = window.innerWidth;
-        currentHeight = ratio * currentWidth;
-
-        canvas.style.width = currentWidth + 'px';
-        canvas.style.height = currentHeight + 'px';
-
-        // we use a timeout here because some mobile
-            // browsers don't fire if there is not
-            // a short delay
-            window.setTimeout(function() {
-                    window.scrollTo(0,1);
-            }, 1);
-        
-        this._fAspect =currentWidth / gameWidth;
-    
-    }
-
-    this._resizeRects = function()
-    {
-        this._rectsMenu = [{x: currentWidth/2 - 200 * this._fAspect, y: currentHeight/2 + 100 * this._fAspect, w: 150 * this._fAspect, h: 50 * this._fAspect, t: "play"},//Play game
-                          {x: currentWidth/2, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
-        this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
-                                  {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
-                                  {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
-        this._rectsMinionSelection = [{x: canvas.width/2 - 60, y: canvas.height - 165, w: 35, h: 35, t: "firstM", m: 0},
-                                     {x: canvas.width/2 - 10, y: canvas.height - 165, w: 35, h: 35, t: "secondM", m: 1},
-                                     {x: canvas.width/2 + 40, y: canvas.height - 165, w: 35, h: 35, t: "thirdM", m: 2}];
-        this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"}];
-        this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
-                          {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
-        //this.createRectsGames();
-        this.createRectsFriends();
-    }
     
     this.createRectsFriends = function(lenght)
     {
@@ -257,7 +208,6 @@ function View()
         for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
         {
             canvasContext.fillRect(this._rectsMenu[i].x, this._rectsMenu[i].y, this._rectsMenu[i].w, this._rectsMenu[i].h);
-            console.log(this._rectsMenu[i].x);
         }
         
         canvasContext.font = "20px Arial";
@@ -273,8 +223,6 @@ function View()
         canvasContext.fillText("Minion", canvas.width/2 - 80, canvas.height/2 - 130, 150);
         canvasContext.fillStyle = "red";
         canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
-        
-        canvasContext.fillText(currentWidth + " x " + currentHeight, 50, 50, 100);
     }
     
     this._drawFriendsList = function()
@@ -420,9 +368,6 @@ function View()
     {
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         
-        view._resize();
-        view._resizeRects();
-        
         if(gameController.gameState == "menu")
         {
             view._drawBackground();
@@ -433,7 +378,7 @@ function View()
             view._drawFriendsList();
             if(view._bHasGames)
                 view._drawGamesList();
-            view._drawBackToMenu();
+            view._drawBavkToMenu();
             view._drawLobby();
         }
         else if(gameController.gameState == "game")
