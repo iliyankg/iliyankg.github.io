@@ -220,7 +220,7 @@ function View()
     
     this._drawFriendsList = function()
     {
-        canvasContext.fillText("Friends", this._rectsFriendsList[0].x, this._rectsFriendsList[0].y - 50, 150);
+        canvasContext.fillText("Friends", this._rectsFriendsList[0].x, this._rectsFriendsList[0].y, 150);
         for(var i = 0; i < friends.length; i++)
         {
             var rect = this._rectsFriendsList[i];
@@ -235,7 +235,7 @@ function View()
     
     this._drawGamesList = function()
     {
-        canvasContext.fillText("Games", this._rectsGamesList[0].x, this._rectsGamesList[0].y - 50, 150);
+        canvasContext.fillText("Games", this._rectsGamesList[0].x, this._rectsGamesList[0].y, 150);
         for(var i = 0; i < allGames.length; i++)
         {
             var rect = this._rectsGamesList[i];
