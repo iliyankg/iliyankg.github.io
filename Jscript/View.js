@@ -218,12 +218,16 @@ function View()
     
     this._drawFriendsList = function()
     {
-        canvasContext.fillStyle = "black";
         canvasContext.fillText("Friends", this._rectsFriendsList[0].x + 75, this._rectsFriendsList[0].y - 10, 150);
         for(var i = 0; i < friends.length; i++)
         {
             var rect = this._rectsFriendsList[i];
+            
+            canvasContext.fillStyle = "white";
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            canvasContext.fillStyle = "black";
             canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+            
             
             canvasContext.font = "20px Arial";
             canvasContext.textAlign = "center";
@@ -234,11 +238,14 @@ function View()
     
     this._drawGamesList = function()
     {
-        canvasContext.fillStyle = "black";
         canvasContext.fillText("Games", this._rectsGamesList[0].x + 75, this._rectsGamesList[0].y - 10, 150);
         for(var i = 0; i < allGames.length; i++)
         {
             var rect = this._rectsGamesList[i];
+            
+            canvasContext.fillStyle = "white";
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            canvasContext.fillStyle = "black";
             canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
@@ -306,6 +313,10 @@ function View()
         for(var i = 0; i < this._rectsLeaderboardsList.length; i++)
         {
             var rect = this._rectsLeaderboardsList[i];
+            
+            canvasContext.fillStyle = "white";
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            canvasContext.fillStyle = "black";
             canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
             
             canvasContext.font = "20px Arial";
