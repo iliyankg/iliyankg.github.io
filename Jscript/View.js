@@ -312,7 +312,7 @@ function View()
             canvasContext.textAlign = "left";
             canvasContext.fillStyle = "black";
             canvasContext.fillText(rect.f, rect.x + 10, rect.y + 30, 50);
-            canvasContext.fillText("Player:  " + rect.p, rect.x + 150, rect.y + 30, 200);
+            canvasContext.fillText("Player:  " + rect.p, rect.x + 120, rect.y + 30, 300);
             canvasContext.textAlign = "right";
             canvasContext.fillText("Score:  " + rect.s, rect.x + rect.w - 10, rect.y + 30, 50);
         }
