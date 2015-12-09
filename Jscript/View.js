@@ -10,7 +10,8 @@ var canvasContext = canvas.getContext("2d");
 function View()
 {
     this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
-                   {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "google"}];//Google play
+                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google"},//Google play
+                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards"}];//Leaderboards
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
@@ -197,6 +198,7 @@ function View()
     
     this._drawMenuScrren = function()
     {
+        //Buttons
         canvasContext.fillStyle = "black";
         for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
         {
@@ -206,11 +208,14 @@ function View()
         canvasContext.font = "20px Arial";
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "white";
-        canvasContext.fillText("Sign In", canvas.width/2 + 125, canvas.height/2 + 130, 150);
+        canvasContext.fillText("Sign In", canvas.width/2, canvas.height/2 + 230, 150);
+        canvasContext.fillText("Leaderboards", canvas.width/2 + 75, canvas.height/2 + 130, 150);
         if(!bIsLogged)
             canvasContext.fillStyle = "gray";
         canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
         
+        
+        //Title
         canvasContext.font = "50px Arial";
         canvasContext.fillStyle = "blue";
         canvasContext.fillText("Minion", canvas.width/2 - 80, canvas.height/2 - 130, 150);
