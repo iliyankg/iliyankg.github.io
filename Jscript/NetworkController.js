@@ -4,6 +4,9 @@ var friends;
 
 var allGames = new Array();
 
+/**Callback function for the to handle the google sign in. Uppon a successfull login it loads the required Google APIs (Google Play and Google Plus).
+*@function
+*/
 handleAuthResult = function(auth)
 {
     //Successfull login
@@ -42,6 +45,9 @@ handleAuthResult = function(auth)
     }
 }
 
+/**Function used to return the local player name via the google play API. 
+*@function
+*/
 getLocalPlayer = function()
 {    
     var request = gapi.client.games.players.get(
@@ -57,6 +63,9 @@ getLocalPlayer = function()
     return "Loading...";
 }
 
+/**Creates a game and invites a player by user ID supplied by the UI.
+*@function
+*/
 createJoinGame = function()
 {
     var request = gapi.client.games.turnBasedMatches.create(
@@ -83,6 +92,9 @@ createJoinGame = function()
     });
 }
 
+/**Fetches a list of the currently active games for the logged in user.
+*@function
+*/
 listActiveGames = function()
 {
     var request = gapi.client.games.turnBasedMatches.list(
@@ -97,6 +109,9 @@ listActiveGames = function()
     });
 }
 
+/**Forcess a game to be completed. This is not the desirable method of completion for a game.
+*@function
+*/
 cancelGame = function(index)
 {
 
@@ -111,33 +126,9 @@ cancelGame = function(index)
     });
 }
 
-//Questionable if necessary
-initiateData = function()
-{
-    var request = gapi.client.games.turnBasedMatches.list();
-    
-    request.execute(function(resp)
-    {
-        var newRequest = gapi.client.games.turnBasedMatches.takeTurn(
-            {"matchId" : resp.items[0].matchId},
-            {
-                "kind": "games#turnBasedMatchTurn",
-                "data": 
-                {
-                        "kind": "games#turnBasedMatchDataRequest",
-                        "data": btoa("111")
-                },
-                "pendingParticipantId": "p_1",
-                "matchVersion": 1,
-            });
-        
-        newRequest.execute(function(resp)
-                          {
-            console.log(resp);
-        });
-    });
-}
-
+/**Takes the turn with the supplied data from the view for the currently active game.
+*@function
+*/
 takeTurn = function(data, creatorWon, creatorLost)
 {
     var nextPlayer = null;
@@ -191,6 +182,9 @@ takeTurn = function(data, creatorWon, creatorLost)
     });
 }
 
+/**Joins the selected game by match ID.
+*@function
+*/
 joinGame = function(_matchId)
 {
     var request = gapi.client.games.turnBasedMatches.join(
