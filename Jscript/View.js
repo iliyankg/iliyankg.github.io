@@ -102,14 +102,20 @@ function View()
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "blue";
         canvasContext.fillText(playerController._left.getName(), 100, 180);
-        canvasContext.fillText("Wins: " + playerController._left.getWins(), 120, 200);
+        if(playerController._left.getWins() > 0)
+        {
+            canvasContext.fillText("Won", 120, 200);
+        }
         canvasContext.fillStyle = "red";
         canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
-        canvasContext.fillText("Wins: " + playerController._right.getWins(), canvas.width - 120, 200);
+        if(playerController._right.getWins() > 0)
+        {
+            canvasContext.fillText("Won", canvas.width - 120, 200);
+        }
         
         //Timer
         canvasContext.fillStyle = "black";
-        canvasContext.fillText(10 - gameController._iTurnNum, canvas.width/2, 400);
+        canvasContext.fillText("Timer: " + 10 - gameController._iTurnNum, canvas.width/2, 400);
         
         //Minion selection
         if(gameController.iMinionSelection != -1)
