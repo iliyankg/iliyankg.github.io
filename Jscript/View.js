@@ -54,7 +54,7 @@ function View()
             this._rectsGamesList = new Array(lenght);
             for(var i = 0; i < lenght; i++)
             {
-                this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
+                this._rectsGamesList[i] = {x: canvas.width - 450, y: 50 + i * 70, w: 200, h: 70, t: "games", g: allGames[i]};
                 this._bHasGames = true;
             }
         }
@@ -218,6 +218,7 @@ function View()
     
     this._drawFriendsList = function()
     {
+        canvasContext.fillStyle = "black";
         canvasContext.fillText("Friends", this._rectsFriendsList[0].x + 75, this._rectsFriendsList[0].y - 10, 150);
         for(var i = 0; i < friends.length; i++)
         {
