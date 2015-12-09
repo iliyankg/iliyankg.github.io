@@ -209,7 +209,7 @@ function View()
         canvasContext.textAlign = "center";
         canvasContext.fillStyle = "white";
         canvasContext.fillText("Sign In", canvas.width/2, canvas.height/2 + 230, 150);
-        canvasContext.fillText("Leaderboards", canvas.width/2 + 75, canvas.height/2 + 130, 150);
+        canvasContext.fillText("Leaderboards", canvas.width/2 + 125, canvas.height/2 + 130, 150);
         if(!bIsLogged)
             canvasContext.fillStyle = "gray";
         canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
