@@ -22,6 +22,7 @@ function View()
                        {x: canvas.width/2 - 10, y: canvas.height - 60, w: 150, h: 50, t: "menu"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
                       {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
+    this._rectLeaderboards = [{x: canvas.width/2 - 10, y: canvas.height - 60, w: 150, h: 50, t: "menu"}];
     this._rectsFriendsList;
     this._rectsGamesList;
     this._rectsLeaderboardsList;
