@@ -377,7 +377,7 @@ function View()
         if(gameController.gameState == "menu")
         {
             view._drawBackground();
-            view._drawMenuScrren();
+            view._drawMenuScreen();
         }
         else if(gameController.gameState == "lobby")
         {
