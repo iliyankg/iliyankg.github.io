@@ -396,7 +396,7 @@ function View()
         }
         else if(gameController.gameState == "leaderboards")
         {
-            view._drawLeaderBoards();
+            view._drawLeaderboards();
             view._drawBackToMenu();
         }
         
