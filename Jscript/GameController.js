@@ -415,6 +415,16 @@ function GameController()
         listActiveGames();
         minion.loadMinions();
     }
+    
+    this.goToMenu = function()
+    {
+        this.gameState = "menu";
+    }
+    
+    this.goToLeaderboards = function()
+    {
+        this.gameState = "leaderboards";
+    }
 }
 
 function keyDownHandler(e)
@@ -461,6 +471,10 @@ function click(e)
             {
                gapi.auth.signIn();
             }
+            else if(rect.t == "leaderboards")
+            {
+                gameController.goToLeaderboards();
+            }
             console.log('collision: ' + rect.x + '/' + rect.y);
         }
     }
@@ -477,6 +491,10 @@ function click(e)
                 console.log("Player ID: " + gameController.playerToInvite);
                 gameController.gameState = "game";
                 //gameController.startGame();
+            }
+            else if(rect.t == "menu")
+            {
+                gameController.goToMenu();
             }
             else if(rect.t == "friend")
             {
@@ -583,6 +601,17 @@ function click(e)
                     gameController.showYourUnits();
                     takeTurn(chosenTurn, playerController._left.getWins(), playerController._right.getWins());
                 }
+            }
+        }
+    }
+    else if(gameController.gameState == "leaderboards")
+    {
+        var rect = view._collides(, e.offsetX, e.offsetY);
+        if(rect)
+        {
+            if(rect.t == "menu")
+            {
+                gameController.goToMenu();
             }
         }
     }
