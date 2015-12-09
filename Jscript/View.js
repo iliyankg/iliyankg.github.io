@@ -9,20 +9,20 @@ var canvasContext = canvas.getContext("2d");
 */
 function View()
 {
-    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play"},//Play game
-                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google"},//Google play
-                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards"}];//Leaderboards
+    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play", s: "Lobby"},//Play game
+                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google", s: "Sign In"},//Google play
+                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards", s: "Leaderboards"}];//Leaderboards
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
     this._rectsMinionSelection = [{x: canvas.width/2 - 60, y: canvas.height - 165, w: 35, h: 35, t: "firstM", m: 0},
                                  {x: canvas.width/2 - 10, y: canvas.height - 165, w: 35, h: 35, t: "secondM", m: 1},
                                  {x: canvas.width/2 + 40, y: canvas.height - 165, w: 35, h: 35, t: "thirdM", m: 2}];
-    this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create"},
-                       {x: canvas.width/2 - 10, y: canvas.height - 60, w: 150, h: 50, t: "menu"}];
+    this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create", s: "Create game"},
+                       {x: canvas.width/2 - 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
                       {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
-    this._rectLeaderboards = [{x: canvas.width/2 - 10, y: canvas.height - 60, w: 150, h: 50, t: "menu"}];
+    this._rectLeaderboards = [{x: canvas.width/2 - 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];
     this._rectsFriendsList;
     this._rectsGamesList;
     this._rectsLeaderboardsList;
@@ -57,34 +57,6 @@ function View()
                 this._rectsGamesList[i] = {x: canvas.width - 400, y: 50 + i * 50, w: 150, h:50, t: "games", g: allGames[i]};
                 this._bHasGames = true;
             }
-        }
-    }
-    
-    this._Minion =  function()
-    {
-        //Sprites are drawn for the left and right side.
-        this._drawMinion;
-        this._leftMinionSprite1;
-        this._leftMinionSprite2;
-        this._leftMinionSprite3;
-        this._rightMinionSprite1;
-        this._rightMinionSprite2;
-        this._rightMinionSprite3;
-    }
-    
-    this._UI = function()
-    {
-        //UI is drawn
-        this._drawUI;
-        // a button is pressed which will send the data, retrun and record the choice made by the player.
-        this._buttonPress; 
-        {
-            this._sendChoice;
-            this._returnChoice;
-            this._reccordPlayerChoice;
-            this._resolvePlayers;
-            this._getLeftChoice;
-            this._getRightChoice;
         }
     }
     
@@ -199,23 +171,31 @@ function View()
         }
     }
     
-    this._drawMenuScrren = function()
+    this._drawMenuScreen = function()
     {
         //Buttons
         canvasContext.fillStyle = "black";
         for (var i = 0, len = this._rectsMenu.length; i < len; i++) 
         {
-            canvasContext.fillRect(this._rectsMenu[i].x, this._rectsMenu[i].y, this._rectsMenu[i].w, this._rectsMenu[i].h);
+            var rect = this._rectsMenu[i];
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "white";
+            if(!bIsLogged && rect.t == "play")
+                canvasContext.fillStyle = "gray";
+            canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
         }
         
-        canvasContext.font = "20px Arial";
-        canvasContext.textAlign = "center";
-        canvasContext.fillStyle = "white";
-        canvasContext.fillText("Sign In", canvas.width/2, canvas.height/2 + 230, 150);
-        canvasContext.fillText("Leaderboards", canvas.width/2 + 125, canvas.height/2 + 130, 150);
-        if(!bIsLogged)
-            canvasContext.fillStyle = "gray";
-        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
+//        canvasContext.font = "20px Arial";
+//        canvasContext.textAlign = "center";
+//        canvasContext.fillStyle = "white";
+//        canvasContext.fillText("Sign In", canvas.width/2, canvas.height/2 + 230, 150);
+//        canvasContext.fillText("Leaderboards", canvas.width/2 + 125, canvas.height/2 + 130, 150);
+//        if(!bIsLogged)
+//            canvasContext.fillStyle = "gray";
+//        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
         
         
         //Title
@@ -269,20 +249,41 @@ function View()
     this._drawLobby = function()
     {
         canvasContext.fillStyle = "black";
-        var rect = this._rectsLobby[0];
-        canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
-        
-        canvasContext.font = "20px Arial";
-        canvasContext.textAlign = "center";
-        canvasContext.fillStyle = "white";
-        if(gameController.playerToInvite == null)
-            canvasContext.fillStyle = "gray";
-        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
+        for(var i = 0; i < this._rectsLobby.length; i++)
+        {
+            var rect = this._rectsLobby[i];            
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "white";
+            if(gameController.playerToInvite == null && rect.t == "create")
+                canvasContext.fillStyle = "gray";
+            canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
+        }
+//        var rect = this._rectsLobby[0];
+//        
+//        canvasContext.font = "20px Arial";
+//        canvasContext.textAlign = "center";
+//        canvasContext.fillStyle = "white";
+//        if(gameController.playerToInvite == null)
+//            canvasContext.fillStyle = "gray";
+//        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
     }
     
     this._drawLeaderboards = function()
     {
-        
+        canvasContext.fillStyle = "black";
+        for(var i = 0; i < this._rectsLeaderboards.length; i++)
+        {
+            var rect = this._rectsLeaderboards[i];            
+            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+            
+            canvasContext.font = "20px Arial";
+            canvasContext.textAlign = "center";
+            canvasContext.fillStyle = "white";
+            canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
+        }
     }
     
     this._drawBackToMenu = function()
