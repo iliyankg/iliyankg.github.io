@@ -413,6 +413,7 @@ function View()
         }
         else if(gameController.gameState == "lobby")
         {
+            view._drawBackground();
             view._drawFriendsList();
             if(view._bHasGames)
                 view._drawGamesList();
@@ -428,6 +429,7 @@ function View()
         }
         else if(gameController.gameState == "leaderboards")
         {
+            view._drawBackground();
             view._drawLeaderboards();
             if(gameController.leaderboard != null)
             {
