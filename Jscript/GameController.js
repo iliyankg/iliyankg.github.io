@@ -606,7 +606,7 @@ function click(e)
     }
     else if(gameController.gameState == "leaderboards")
     {
-        var rect = view._collides(view._rectLeaderboards, e.offsetX, e.offsetY);
+        var rect = view._collides(view._rectsLeaderboards, e.offsetX, e.offsetY);
         if(rect)
         {
             if(rect.t == "menu")
