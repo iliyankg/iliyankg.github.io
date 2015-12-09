@@ -115,7 +115,7 @@ function View()
         
         //Timer
         canvasContext.fillStyle = "black";
-        canvasContext.fillText("Timer: " + 10 - gameController._iTurnNum, canvas.width/2, 400);
+        canvasContext.fillText(10 - gameController._iTurnNum, canvas.width/2, 400);
         
         //Minion selection
         if(gameController.iMinionSelection != -1)
