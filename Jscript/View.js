@@ -66,7 +66,7 @@ function View()
         for(var i = 0; i < lenght; i++)
         {
             var places = gameController.leaderboard[i];
-            this._rectsLeaderboardsList[i] = {x: 100, y: 100 + i * 100, w: 500, h: 50, s: places.scoreValue, f: places.formattedScoreRank, p: places.player.displayName};
+            this._rectsLeaderboardsList[i] = {x: 100, y: 50 + i * 55, w: 500, h: 50, s: places.scoreValue, f: places.formattedScoreRank, p: places.player.displayName};
         }
     }
     
@@ -307,8 +307,8 @@ function View()
             canvasContext.textAlign = "left";
             canvasContext.fillStyle = "black";
             canvasContext.fillText(rect.f, rect.x + 10, rect.y + 30, 50);
-            canvasContext.fillText(rect.p, rect.x + 80, rect.y + 30, 150);
-            canvasContext.fillText(rect.s, rect.x + 250, rect.y + 30, 50);
+            canvasContext.fillText("Player: " + rect.p, rect.x + 100, rect.y + 30, 150);
+            canvasContext.fillText("Score: " + rect.s, rect.x + 300, rect.y + 30, 50);
         }
     }
     
