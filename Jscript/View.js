@@ -66,7 +66,7 @@ function View()
         for(var i = 0; i < lenght; i++)
         {
             var places = gameController.leaderboard[i];
-            this._rectsLeaderboardsList[i] = {x: 100, y: 50 + i * 55, w: 500, h: 50, s: places.scoreValue, f: places.formattedScoreRank, p: places.player.displayName};
+            this._rectsLeaderboardsList[i] = {x: canvas.width/2 - 250, y: 50 + i * 55, w: 500, h: 50, s: places.scoreValue, f: places.formattedScoreRank, p: places.player.displayName};
         }
     }
     
