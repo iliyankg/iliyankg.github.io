@@ -298,7 +298,7 @@ function View()
     
     this._drawLeaderboardsList = function()
     {
-        for(vai i = 0; i < this._rectsLeaderboardsList.length; i++)
+        for(var i = 0; i < this._rectsLeaderboardsList.length; i++)
         {
             var rect = this._rectsLeaderboardsList[i];
             canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
