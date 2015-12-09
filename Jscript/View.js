@@ -309,7 +309,7 @@ function View()
             canvasContext.fillText(rect.f, rect.x + 10, rect.y + 30, 50);
             canvasContext.fillText("Player:  " + rect.p, rect.x + 100, rect.y + 30, 150);
             canvasContext.textAlign = "right";
-            canvasContext.fillText("Score:  " + rect.s, rect.x + rect.w, rect.y + 30, 50);
+            canvasContext.fillText("Score:  " + rect.s, rect.x + rect.w - 10, rect.y + 30, 50);
         }
     }
     
