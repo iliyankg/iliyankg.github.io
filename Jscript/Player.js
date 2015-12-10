@@ -16,7 +16,7 @@ function Player()
     this._sName;
     this._bTeam;
     
-    this.createPlayer = function( sName, bTeam)
+    this.createPlayer = function(sName, bTeam)
     {
         this.setName(sName);
         this._bTeam = bTeam;
