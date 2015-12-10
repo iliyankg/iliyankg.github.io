@@ -41,8 +41,8 @@ function View()
     
     this._bHasGames = false;
     
-    /**
-    *
+    /** Populates the rects of the friends
+    *@param {lenght} Quantity of friends
     */
     this.createRectsFriends = function(lenght)
     {
@@ -53,8 +53,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Resets of the color of the friends list name
+    *@function
     */
     this.resetRectsFriendsColor = function()
     {
@@ -64,8 +64,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Populates the rects of the games
+    *@param {int} lenght Quantity of games
     */
     this.createRectsGames = function(lenght)
     {
@@ -82,7 +82,7 @@ function View()
     }
     
     /**
-    *
+    *@param {int} lenght
     */
     this.createRectsLeaderboards = function(lenght)
     {
@@ -94,8 +94,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the background
+    *@function
     */
     this._drawBackground = function()
     {
@@ -107,8 +107,8 @@ function View()
         }
     }
 
-    /**
-    *
+    /** Draws the UI of the game
+    *@function
     */
     this._drawUI = function()
     {
@@ -179,8 +179,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the minions
+    *@function
     */
     this._newDrawMinions = function()
     {
@@ -200,8 +200,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the menu buttons and the title of the game
+    *@function
     */
     this._drawMenuScreen = function()
     {
@@ -229,8 +229,8 @@ function View()
         canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
     }
     
-    /**
-    *
+    /** Draws the games list
+    *@function
     */
     this._drawFriendsList = function()
     {
@@ -254,7 +254,7 @@ function View()
     }
     
     /**
-    *
+    *@function
     */
     this._drawGamesList = function()
     {
@@ -285,8 +285,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the lobby buttons
+    *@function
     */
     this._drawLobby = function()
     {
@@ -305,8 +305,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the leaderboards buttons
+    *@function
     */
     this._drawLeaderboards = function()
     {
@@ -323,8 +323,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the leaderboards items
+    *@function
     */
     this._drawLeaderboardsList = function()
     {
@@ -352,8 +352,8 @@ function View()
         }
     }
     
-    /**
-    *
+    /** Draws the winning message
+    *@function
     */
     this._drawPlayerWin = function()
     {
@@ -366,8 +366,10 @@ function View()
             canvasContext.fillText("The opponent won!", canvas.width/2, canvas.height/2, 150);
     }
     
-    /**
-    *
+    /** Checks for collision when the player clicks
+    *@param {Object} rects Rects to check for the collision
+    *@param {int} x X position of the click
+    *@param {int} y Y position of the click
     */
     this._collides = function(rects, x, y)
     {
@@ -384,8 +386,11 @@ function View()
         }
         return isCollision;
     }
-    /**
-    *
+    /** Checks for collision when the player clicks with 2 rects
+    *@param {Object} rects1 Rects to check for the collision
+    *@param {Object} rects2 Rects to check for the collision
+    *@param {int} x X position of the click
+    *@param {int} y Y position of the click
     */
     this._collides2 = function(rects1, rects2, x, y)
     {
@@ -413,8 +418,12 @@ function View()
         }
         return isCollision;
     }
-    /**
-    *
+    /** Checks for collision when the player clicks with 3 rects
+    *@param {Object} rects1 Rects to check for the collision
+    *@param {Object} rects2 Rects to check for the collision
+    *@param {Object} rects3 Rects to check for the collision
+    *@param {int} x X position of the click
+    *@param {int} y Y position of the click
     */
     this._collides3 = function(rects1, rects2, rects3, x, y)
     {
@@ -454,8 +463,8 @@ function View()
         return isCollision;
     }
     
-    /**
-    *
+    /** Update fuction called every frame to draw on screen
+    *@function
     */
     this.update = function()
     {
