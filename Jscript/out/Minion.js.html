@@ -26,7 +26,17 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/** Minion Model
+            <pre class="prettyprint source linenums"><code>/**@fileoverview Minion model. Contains all the data associated with minions.
+*@name Minion.js
+*@author Gustavo Sanches
+*/
+
+var bIsReadyToDraw = false;
+var minionViews = [];
+var plusView;
+var loadedSoFar = 0;
+
+/** Minion Model
 *@constructor
 *@property {double} _dPosX position X of the minion
 *@property {double} _dPosY position Y of the minion
@@ -39,10 +49,6 @@
 *@property {bool} _bDead if the minion is dead or not
 *@property {view} _view stores the minion sprite
 */
-var bIsReadyToDraw = false;
-var minionViews = [];
-var loadedSoFar = 0;
-
 function Minion()
 {
     this._dPosX;
@@ -56,7 +62,27 @@ function Minion()
     this._bDead;
     this._view = new Image();
     
+    /** Creates a minion.
+    *@param {int} iType Minion type.
+    *@param {bool} bTeam Team the minion belongs to.
+    *@param {double} dPosX Horizontal position of the minion.
+    *@param {double} dPosY Vertical position of the minion.
+    *@return {Minion}
+    */
     this.createMinion = function(iType, bTeam, dPosX, dPosY)
+    {
+        var newMinion = new Minion();
+        newMinion._setMinionStats(iType, bTeam, dPosX, dPosY);
+        return newMinion;
+    }
+    
+    /** Setter for all minion properties.
+    *@param {int} iType Minion type.
+    *@param {bool} bTeam Team the minion belongs to.
+    *@param {double} dPosX Horizontal position of the minion.
+    *@param {double} dPosY Vertical position of the minion.
+    */
+    this._setMinionStats = function(iType, bTeam, dPosX, dPosY)
     {
         this._iType = iType;
         this._bTeam = bTeam;
@@ -65,6 +91,9 @@ function Minion()
         this._bDead = false;
     }
     
+    /**Gets the index of the sprite to be desplayed.
+    *@function
+    */
     this.getViewIndex = function()
     {
         var index;
@@ -84,8 +113,17 @@ function Minion()
         return index;
     }
     
+    /**Loads all minion sprites.
+    *@function
+    */
     this.loadMinions = function()
     {
+        plusView = new Image();
+        plusView.onload = function()
+        {
+            loadedSoFar++;
+        };
+        plusView.src = "Assets/Plus.png";
         for(var k=0; k &lt;=1; k++)
         { 
             for(var i=0; i &lt;= 1; i++)
@@ -96,7 +134,7 @@ function Minion()
                     minionViews[k*6 + i*3 + j].onload = function() 
                     {
                         loadedSoFar++;
-                        if(loadedSoFar == 6)
+                        if(loadedSoFar == 7)
                         {
                             bIsReadyToDraw = true;
                         }
@@ -106,40 +144,65 @@ function Minion()
              }
         }
     }
-    
+    /**Gets the horizontal position of the minion.
+    *@function
+    *@return {doulbe}
+    */
     this.getPosX = function()
     {
         return this._dPosX;
     }
+    /**Sets the horizontal position of the minion.
+    *@param {double} dPosX New horizontal position.
+    *@function
+    */
     this.setPosX = function(dPosX)
     {
         this._dPosX = dPosX;
     }
-    
+    /**Gets the vertical position of the minion.
+    *@function
+    *@return {doulbe}
+    */
     this.getPosY = function()
     {
         return this._dPosY;
     }
+    /**Sets the horizontal position of the minion.
+    *@param {double} dPosY New vertical position.
+    *@function
+    */
     this.setPosY = function(dPosY)
     {
         this._dPosY = dPosY;
     }
     
+    /**Gets the type of the minion.
+    *@function
+    *@return {int}
+    */
     this.getType = function()
     {
         return this._iType;
     }
-    
+    /**DEPRECIATED::Gets the minion attack.
+    *@function
+    *@return {int}
+    */
     this.getAttack = function()
     {
         return this._iAttack;
     }
     
+    /**DEPRECIATED::Gets the minion health.
+    *@function
+    *@return {int}
+    */
     this.getHealth = function()
     {
         return this._iHealth;
     }
-    /** Damages the minion taking into account the type attacking it
+    /**DEPRECIATED Damages the minion taking into account the type attacking it
     *@function
     *@param {int} type
     */
@@ -157,6 +220,7 @@ function Minion()
     
     /** Returns the status of the minion
     *@function
+    *@return {bool}
     */
     this.isDead = function()
     {
@@ -173,13 +237,13 @@ function Minion()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bIsReadyToDraw.html">bIsReadyToDraw</a></li><li><a href="canvas.html">canvas</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_advance">_advance</a></li><li><a href="global.html#_battle">_battle</a></li><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_isTheEdge">_isTheEdge</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_spawn">_spawn</a></li><li><a href="global.html#damage">damage</a></li><li><a href="global.html#isDead">isDead</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Nov 30 2015 14:56:01 GMT+0000 (GMT Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 19:15:13 GMT+0000 (GMT Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

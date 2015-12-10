@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: PlayerController.js</title>
+    <title>JSDoc: Class: View</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,115 +17,227 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: PlayerController.js</h1>
+    <h1 class="page-title">Class: View</h1>
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**@fileoverview Controller for the Player model.
-*@name PlayerController.js
-*@author Iliyan Georgiev
-*/
+        <h2>View</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+
+    <h4 class="name" id="View"><span class="type-signature"></span>new View<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
 
 
-/** PlayerController resposible for communication beteen all aspects of the View and the Model.
-*@constructor
-*@property {Player} _left Local player
-*@property {Player} _right Remote player
-*/
-function PlayerController()
-{
-    //PRIVATE
-    this._left = new Player(); 
-    this._right = new Player();
-    
-    /** Sends the local player info to the server
-    *@function
-    */
-    this._sendPlayer = function(){}
-    /** Gets the local player info from the server
-    *@function
-    */
-    this._recievePlayer = function(){} 
-    
-    /** Sends the local player choice to the server
-    *@function
-    */
-    this._sendChoice = function(){}
-    /** Recieves the remote player choice from the server
-    *@function 
-    */
-    this._recieveChoice = function(){}
-    /** Gets the player choice from the UI
-    *@function
-    */
-    this._reccordPlayerChoice = function()
-    {
-        //Change random to UI
-        _left.setChoice(Math.floor((Math.random() * 3) +1));
-    }
-    
-    //SHIM
-    this._SHIM_recieveChoice = function()
-    {
-        _right._iChoice(Math.floor((Math.random() * 3) +1));
-    }
-    
-    //PUBLIC    
-    /** Calls the _sendPlayer() and _recievePlayer() functions to set up the Player.sName variable
-    *@function
-    */
-    this.resolvePlayers = function()
-    {
-        _left.setName("Test Local"); //Get from UI
-        _right.setName("Test Remote"); //Change
-    }
-    /** Calls _reccordPlayerChoice(), _sendChoice() and _recieveChoice() for multiplayer
-    *@function
-    */
-    this.resolveChoices = function()
-    {
-        _reccordPlayerChoice();
-        _sendChoice();
-        _SHIM_recieveChoice();
-    }
-    /** Returns the local player choice
-    *@returns {Number}
-    */
-    this.getLeftChoice = function()
-    {
-        return _left.getChoice();
-    }
-    /** Returns the remote player choice
-    *@returns {Number}
-    */
-    this.getRightChoice = function()
-    {
-        return _right.getChoice();
-    }
-    
-    /** Returns the local player name
-    *@returns {String}
-    */
-    this.getLeftName = function()
-    {
-        return _left.getName();
-    }
-    /** Returns the remote player name
-    *@returns {String}
-    */
-    this.getRightName = function()
-    {
-        return _right.getName();
-    }
 
-}</code></pre>
-        </article>
-    </section>
+<div class="description">
+    View is responsible for the visual aspects of the game and the interactivity within it.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_Minion</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Draw</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_UI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Draw</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_Background</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Draw</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line15">line 15</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

@@ -1,3 +1,8 @@
+/**@fileoverview Minion model. Contains all the data associated with minions.
+*@name Minion.js
+*@author Gustavo Sanches
+*/
+
 var bIsReadyToDraw = false;
 var minionViews = [];
 var plusView;
@@ -29,6 +34,13 @@ function Minion()
     this._bDead;
     this._view = new Image();
     
+    /** Creates a minion.
+    *@param {int} iType Minion type.
+    *@param {bool} bTeam Team the minion belongs to.
+    *@param {double} dPosX Horizontal position of the minion.
+    *@param {double} dPosY Vertical position of the minion.
+    *@return {Minion}
+    */
     this.createMinion = function(iType, bTeam, dPosX, dPosY)
     {
         var newMinion = new Minion();
@@ -36,6 +48,12 @@ function Minion()
         return newMinion;
     }
     
+    /** Setter for all minion properties.
+    *@param {int} iType Minion type.
+    *@param {bool} bTeam Team the minion belongs to.
+    *@param {double} dPosX Horizontal position of the minion.
+    *@param {double} dPosY Vertical position of the minion.
+    */
     this._setMinionStats = function(iType, bTeam, dPosX, dPosY)
     {
         this._iType = iType;
@@ -45,6 +63,9 @@ function Minion()
         this._bDead = false;
     }
     
+    /**Gets the index of the sprite to be desplayed.
+    *@function
+    */
     this.getViewIndex = function()
     {
         var index;
@@ -64,6 +85,9 @@ function Minion()
         return index;
     }
     
+    /**Loads all minion sprites.
+    *@function
+    */
     this.loadMinions = function()
     {
         plusView = new Image();
@@ -92,40 +116,65 @@ function Minion()
              }
         }
     }
-    
+    /**Gets the horizontal position of the minion.
+    *@function
+    *@return {doulbe}
+    */
     this.getPosX = function()
     {
         return this._dPosX;
     }
+    /**Sets the horizontal position of the minion.
+    *@param {double} dPosX New horizontal position.
+    *@function
+    */
     this.setPosX = function(dPosX)
     {
         this._dPosX = dPosX;
     }
-    
+    /**Gets the vertical position of the minion.
+    *@function
+    *@return {doulbe}
+    */
     this.getPosY = function()
     {
         return this._dPosY;
     }
+    /**Sets the horizontal position of the minion.
+    *@param {double} dPosY New vertical position.
+    *@function
+    */
     this.setPosY = function(dPosY)
     {
         this._dPosY = dPosY;
     }
     
+    /**Gets the type of the minion.
+    *@function
+    *@return {int}
+    */
     this.getType = function()
     {
         return this._iType;
     }
-    
+    /**DEPRECIATED::Gets the minion attack.
+    *@function
+    *@return {int}
+    */
     this.getAttack = function()
     {
         return this._iAttack;
     }
     
+    /**DEPRECIATED::Gets the minion health.
+    *@function
+    *@return {int}
+    */
     this.getHealth = function()
     {
         return this._iHealth;
     }
-    /** Damages the minion taking into account the type attacking it
+    /**DEPRECIATED Damages the minion taking into account the type attacking it
     *@function
     *@param {int} type
     */
@@ -143,6 +192,7 @@ function Minion()
     
     /** Returns the status of the minion
     *@function
+    *@return {bool}
     */
     this.isDead = function()
     {

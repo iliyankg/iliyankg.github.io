@@ -1,3 +1,8 @@
+/**@fileoverview Player model. Contains all the data associated with player.
+*@name Player.js
+*@author Iliyan Georgiev
+*/
+
 /** Player Model
 *@constructor
 *@property {int} _iHealth health value of the player's castle

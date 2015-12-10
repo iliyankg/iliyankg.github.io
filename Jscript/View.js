@@ -3,8 +3,13 @@
 *@author Gustavo Sanches
 */
 
+<<<<<<< HEAD
+var canvas = document.getElementById("Placeholder");
+var canvasContext = canvas.getContext("2d");
+=======
 var canvas = document.getElementById("Placeholder");//Reference to the canvas
 var canvasContext = canvas.getContext("2d");//Reference to the context of the canvas
+>>>>>>> refs/remotes/origin/master
 
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
