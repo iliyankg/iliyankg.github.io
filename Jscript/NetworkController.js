@@ -110,8 +110,11 @@ listActiveGames = function()
     
     request.execute(function(resp)
     {
-        allGames = resp.items;
-        view.createRectsGames(resp.items.length);
+        if(resp != null)
+        {
+            allGames = resp.items;
+            view.createRectsGames(resp.items.length);
+        }
     });
 }
 
