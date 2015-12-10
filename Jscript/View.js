@@ -244,24 +244,26 @@ function View()
         for(var i = 0; i < allGames.length; i++)
         {
             var rect = this._rectsGamesList[i];
-            
-            canvasContext.fillStyle = "white";
-            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
-            canvasContext.fillStyle = "black";
-            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
-            
-            canvasContext.font = "20px Arial";
-            canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
-            if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
+            if(rect.g.userMatchStatus != "USER_MATCH_COMPLETED")
             {
-                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 85, rect.y + 25, 150);
+                canvasContext.fillStyle = "white";
+                canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+                canvasContext.fillStyle = "black";
+                canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+
+                canvasContext.font = "20px Arial";
+                canvasContext.textAlign = "center";
+                canvasContext.fillStyle = "black";
+                if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
+                {
+                    canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 85, rect.y + 25, 150);
+                }
+                else
+                {
+                    canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 85, rect.y + 25, 150);
+                }
+                canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 85, rect.y + 55, 150);
             }
-            else
-            {
-                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 85, rect.y + 25, 150);
-            }
-            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 85, rect.y + 55, 150);
         }
     }
     
