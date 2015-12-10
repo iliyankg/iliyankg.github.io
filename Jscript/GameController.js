@@ -274,50 +274,6 @@ function GameController()
         timer = setInterval(this._timer_RefreshList, interval);
     }
     
-//    this._firstTurn = function()
-//    {
-//        if(gameController._iTurnNum == 10)
-//        {
-//            gameController._iTurnNum = 0;
-//            gameController._newSpawn();
-//            clearInterval(gameController._fFirstTimer);
-//            gameController._timer();
-//        }
-//        gameController._iTurnNum++;
-//    }
-//    
-//    this.startGame = function()
-//    {
-//        minion.loadMinions();
-//        gameController._timer_Timeout(gameController._fLobbyTimer);
-//        this.gameState = "game";
-//        for(i = 0; i < platoonLength; i++)
-//        {
-//            leftPlatoon[i] = null;
-//            rightPlatoon[i] = null; 
-//        }
-//        playerController._left = new Player();
-//        playerController._left.createPlayer(10,10,"Local_Player", 0);
-//        playerController._right = new Player();
-//        playerController._right.createPlayer(10,10,"Remote_Player", 1);
-//        
-//        //gameController._timer();
-//        //gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
-//        
-//    }
-//    
-//    this._joinGame = function(game)
-//    {
-//        if(game.userMatchStatus == "USER_TURN")
-//        {
-//            this.startGame();
-//        }
-//        else
-//        {
-//            //get the player platoon choice and show on screen
-//        }
-//    }
-    
     /** Populate all the match variables based on the data received from the other player.
     *@function
     */
