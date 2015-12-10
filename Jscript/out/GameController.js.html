@@ -26,7 +26,12 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>//PUBLIC
+            <pre class="prettyprint source linenums"><code>/**@fileoverview Game Controller. Contains all the logic and states of the game.
+*@name GameController.js
+*@author Gustavo Sanches
+*/
+
+//GLOBALS
 var playerController = new PlayerController();//Instance of the PlayerController
 var view = new View();//Instance of the View
 var gameController = new GameController();//Instance of the GameController
@@ -46,20 +51,31 @@ document.addEventListener("click", click, false);
 view.update();
 
 
-
-function GameController() 
-//Public
+/** Game Controller takes care of all the game logic
+*@property {string} gameState Current state of the game
+*@property {int} iMinionSelection Which minion box is selected
+*@property {string} playerToInvite Player to invite to a game
+*@property {Object} activeMatch Current match
+*@property {bool} bCanMakeTurn If the player can send his choice
+*@property {bool} bShowTurn If the game can show his minions choice
+*@property {Object} leaderboard The leaderboard
+*@property {int} _iturnNum Number of turns so far
+*@property {float} _fLobbyTimer Timer to update the lobby
+*@property {float} _timerCounter Timer for the game animations
+*/
+function GameController()
 {
-    this.gameState = "menu";//Current state of the game
-    this.iMinionSelection = -1;//Which minion box is selected
-    this.playerToInvite = null;//Player to invite to a game
-    this.activeMatch = null;//Current match
-    this.bCanMakeTurn = false;//If the player can send his choice
-    this.bShowTurn = false;//If the game can show his minions choice
-    this.leaderboard = null;//The leaderboard
+    //PUBLIC
+    this.gameState = "menu";
+    this.iMinionSelection = -1;
+    this.playerToInvite = null;
+    this.activeMatch = null;
+    this.bCanMakeTurn = false;
+    this.bShowTurn = false;
+    this.leaderboard = null;
     
     //PRIVATE
-    this._iTurnNum = 1;//Number of turns so far
+    this._iTurnNum = 1;
     this._fLobbyTimer = 0;
     this._timerCounter = null;
     
@@ -126,19 +142,20 @@ function GameController()
     
     /** Checks for winners of the game and reset the win counter if necessary. Returns true if the local player won and false if the remote player won.
     *@function
+    *@return {bool}
     */
     this._checkWinner = function()
     {
         if(playerController._left.getWins() == 2)
         {
             //Local player wins
-            console.log("Local player won");
+            //console.log("Local player won");
             return true;
         }
         else if(playerController._right.getWins() == 2)
         {
             //Remote player wins
-            console.log("Remote player won");
+            //console.log("Remote player won");
             return false;
         }
         
@@ -150,6 +167,9 @@ function GameController()
         return null;
     }
     
+    /** Sets the dead minions to null so that they don't show on screen
+    *@function
+    */
     this._clearDeadMinions = function()
     {
         for(var i = 0; i &lt; platoonLength; i++)
@@ -268,6 +288,7 @@ function GameController()
     }
     /** Cancels a timer
     *@function
+    *@param {float} timer Timer to be canceled
     */
     this._timer_Timeout = function(timer)
     {
@@ -281,62 +302,18 @@ function GameController()
         timer = setInterval(this._timer_RefreshList, interval);
     }
     
-    this._firstTurn = function()
-    {
-        if(gameController._iTurnNum == 10)
-        {
-            gameController._iTurnNum = 0;
-            gameController._newSpawn();
-            clearInterval(gameController._fFirstTimer);
-            gameController._timer();
-        }
-        gameController._iTurnNum++;
-    }
-    
-    this.startGame = function()
-    {
-        minion.loadMinions();
-        gameController._timer_Timeout(gameController._fLobbyTimer);
-        this.gameState = "game";
-        for(i = 0; i &lt; platoonLength; i++)
-        {
-            leftPlatoon[i] = null;
-            rightPlatoon[i] = null; 
-        }
-        playerController._left = new Player();
-        playerController._left.createPlayer(10,10,"Local_Player", 0);
-        playerController._right = new Player();
-        playerController._right.createPlayer(10,10,"Remote_Player", 1);
-        
-        //gameController._timer();
-        //gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
-        
-    }
-    
-    this._joinGame = function(game)
-    {
-        if(game.userMatchStatus == "USER_TURN")
-        {
-            this.startGame();
-        }
-        else
-        {
-            //get the player platoon choice and show on screen
-        }
-    }
-    
     /** Populate all the match variables based on the data received from the other player.
     *@function
     */
     this.populateMatch = function()
     {
-        playerController._left.createPlayer(10, 10, localPlayer.displayName, 0);//Print the local players's name
+        playerController._left.createPlayer(localPlayer.displayName, 0);//Print the local players's name
         for(var i = 0; i &lt; 2; i++)
         {
             var player = gameController.activeMatch.participants[i].player;
             if(player.playerId != localPlayer.playerId)
             {
-                playerController._right.createPlayer(10, 10, player.displayName, 1);//Print the remote players's name
+                playerController._right.createPlayer(player.displayName, 1);//Print the remote players's name
             }
         }
         console.log(this.activeMatch.userMatchStatus);
@@ -499,6 +476,7 @@ function GameController()
 
 /** Key events for debugging purposes.
 *@function
+*@param {Event} e
 */
 function keyDownHandler(e)
 {
@@ -531,6 +509,7 @@ function keyDownHandler(e)
 
 /** Checks all the clicks on screen and interactions.
 *@fuction
+*@param {Event} e
 */
 function click(e)
 {
@@ -592,9 +571,7 @@ function click(e)
                 }
                 else if(rect.g.userMatchStatus == "USER_AWAITING_TURN")
                 {
-//                    gameController.bCanMakeTurn = false;
-//                    getGame(rect.g.matchId);
-//                    gameController.gameState = "game";
+                    
                 }
                 else if(rect.g.userMatchStatus == "USER_TURN")
                 {
@@ -679,11 +656,6 @@ function click(e)
                     takeTurn(chosenTurn, playerController._left.getWins(), playerController._right.getWins());
                 }
             }
-            else if(rect.t == "refresh")
-            {
-                gameController.bCanMakeTurn = false;
-                getGame(gameController.activeMatch.matchId);
-            }
         }
     }
     else if(gameController.gameState == "leaderboards")
@@ -718,13 +690,13 @@ function click(e)
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_clearDeadMinions">_clearDeadMinions</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#GameController">GameController</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 19:15:13 GMT+0000 (GMT Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 22:41:09 GMT+0000 (GMT Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

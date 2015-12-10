@@ -88,13 +88,13 @@
 
         <tr>
             
-                <td class="name"><code>_Minion</code></td>
+                <td class="name"><code>_rectsMenu</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Draw</span>
+<span class="param-type">Object</span>
 
 
             
@@ -104,20 +104,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Position and size of the buttons for the menu screen</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>_UI</code></td>
+                <td class="name"><code>_rectsMinionsLocal</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Draw</span>
+<span class="param-type">Object</span>
 
 
             
@@ -127,20 +127,20 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Position, size and type of the minions selected for the game screen</td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>_Background</code></td>
+                <td class="name"><code>_rectsMinionsSelection</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">Draw</span>
+<span class="param-type">Object</span>
 
 
             
@@ -150,7 +150,168 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">Position, size and type of the minions for selection for the game screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_rectsLobby</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position and size of the buttons for the lobby screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_rectsGame</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position and size of the buttons for the game screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_rectsLeaderboards</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position and size of the buttons for the leaderboards screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_rectsFriendsList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position, size and information of the friend of the friends list for the lobby screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_rectsGamesList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position, size and information of the game of the games list for the lobby screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_rectsLeaderboardsList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position, size and information of the stats of the players for the leaderboards screen</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_bHasGames</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">bool</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">If the player has any games active</td>
         </tr>
 
     
@@ -189,7 +350,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="View.js.html">View.js</a>, <a href="View.js.html#line15">line 15</a>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line22">line 22</a>
     </li></ul></dd>
     
 
@@ -231,6 +392,1979 @@
     
 
     
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="_collides"><span class="type-signature"></span>_collides<span class="signature">(rects, x, y)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Checks for collision when the player clicks
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rects</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Rects to check for the collision</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">X position of the click</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Y position of the click</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line374">line 374</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_collides2"><span class="type-signature"></span>_collides2<span class="signature">(rects1, rects2, x, y)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Checks for collision when the player clicks with 2 rects
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rects1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Rects to check for the collision</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rects2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Rects to check for the collision</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">X position of the click</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Y position of the click</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line395">line 395</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_collides3"><span class="type-signature"></span>_collides3<span class="signature">(rects1, rects2, rects3, x, y)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Checks for collision when the player clicks with 3 rects
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rects1</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Rects to check for the collision</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rects2</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Rects to check for the collision</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rects3</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Rects to check for the collision</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">X position of the click</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Y position of the click</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line428">line 428</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawBackground"><span class="type-signature"></span>_drawBackground<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the background
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawFriendsList"><span class="type-signature"></span>_drawFriendsList<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the games list
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line235">line 235</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawGamesList"><span class="type-signature"></span>_drawGamesList<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line259">line 259</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawLeaderboards"><span class="type-signature"></span>_drawLeaderboards<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the leaderboards buttons
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line311">line 311</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawLeaderboardsList"><span class="type-signature"></span>_drawLeaderboardsList<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the leaderboards items
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line329">line 329</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawLobby"><span class="type-signature"></span>_drawLobby<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the lobby buttons
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line291">line 291</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawMenuScreen"><span class="type-signature"></span>_drawMenuScreen<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the menu buttons and the title of the game
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line206">line 206</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawPlayerWin"><span class="type-signature"></span>_drawPlayerWin<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the winning message
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line358">line 358</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_drawUI"><span class="type-signature"></span>_drawUI<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the UI of the game
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line113">line 113</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="_newDrawMinions"><span class="type-signature"></span>_newDrawMinions<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Draws the minions
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line185">line 185</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createRectsFriends"><span class="type-signature"></span>createRectsFriends<span class="signature">(Quantity)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Populates the rects of the friends
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Quantity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">lenght</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">of friends</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line47">line 47</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createRectsGames"><span class="type-signature"></span>createRectsGames<span class="signature">(lenght)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Populates the rects of the games
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lenght</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Quantity of games</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line70">line 70</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="createRectsLeaderboards"><span class="type-signature"></span>createRectsLeaderboards<span class="signature">(lenght)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>lenght</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line87">line 87</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="resetRectsFriendsColor"><span class="type-signature"></span>resetRectsFriendsColor<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Resets of the color of the friends list name
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Update fuction called every frame to draw on screen
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="View.js.html">View.js</a>, <a href="View.js.html#line469">line 469</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
 
     
 
@@ -245,13 +2379,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_clearDeadMinions">_clearDeadMinions</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#GameController">GameController</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 19:15:13 GMT+0000 (GMT Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 22:41:09 GMT+0000 (GMT Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

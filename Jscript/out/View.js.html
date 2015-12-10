@@ -31,20 +31,27 @@
 *@author Gustavo Sanches
 */
 
-var canvas = document.getElementById("Placeholder");
-var canvasContext = canvas.getContext("2d");
+var canvas = document.getElementById("Placeholder");//Reference to the canvas
+var canvasContext = canvas.getContext("2d");//Reference to the context of the canvas
 
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
-*@property {Draw} _Minion
-*@property {Draw} _UI
-*@property {Draw} _Background
+*@property {Object} _rectsMenu Position and size of the buttons for the menu screen
+*@property {Object} _rectsMinionsLocal Position, size and type of the minions selected for the game screen
+*@property {Object} _rectsMinionsSelection Position, size and type of the minions for selection for the game screen
+*@property {Object} _rectsLobby Position and size of the buttons for the lobby screen
+*@property {Object} _rectsGame Position and size of the buttons for the game screen
+*@property {Object} _rectsLeaderboards Position and size of the buttons for the leaderboards screen
+*@property {Object} _rectsFriendsList Position, size and information of the friend of the friends list for the lobby screen
+*@property {Object} _rectsGamesList Position, size and information of the game of the games list for the lobby screen
+*@property {Object} _rectsLeaderboardsList Position, size and information of the stats of the players for the leaderboards screen
+*@property {bool} _bHasGames If the player has any games active 
 */
 function View()
 {
-    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play", s: "Lobby"},//Play game
-                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google", s: "Sign In"},//Google play
-                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards", s: "Leaderboards"}];//Leaderboards
+    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play", s: "Lobby"},
+                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google", s: "Sign In"},
+                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards", s: "Leaderboards"}];
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
@@ -54,8 +61,7 @@ function View()
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create", s: "Create game"},
                        {x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
-                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"},
-                      {x: 0, y: 0, w: 150, h: 50, t: "refresh", c: "white"}];
+                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
     this._rectsLeaderboards = [{x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];    
     this._rectsFriendsList;
     this._rectsGamesList;
@@ -63,6 +69,9 @@ function View()
     
     this._bHasGames = false;
     
+    /** Populates the rects of the friends
+    *@param {lenght} Quantity of friends
+    */
     this.createRectsFriends = function(lenght)
     {
         view._rectsFriendsList = new Array(lenght);
@@ -72,6 +81,9 @@ function View()
         }
     }
     
+    /** Resets of the color of the friends list name
+    *@function
+    */
     this.resetRectsFriendsColor = function()
     {
         for(var i = 0; i &lt; view._rectsFriendsList.length; i++)
@@ -80,6 +92,9 @@ function View()
         }
     }
     
+    /** Populates the rects of the games
+    *@param {int} lenght Quantity of games
+    */
     this.createRectsGames = function(lenght)
     {
         this._bHasGames = false;
@@ -94,6 +109,9 @@ function View()
         }
     }
     
+    /**
+    *@param {int} lenght
+    */
     this.createRectsLeaderboards = function(lenght)
     {
         view._rectsLeaderboardsList = new Array(lenght);
@@ -104,7 +122,9 @@ function View()
         }
     }
     
-    //Background of a match is drawn   
+    /** Draws the background
+    *@function
+    */
     this._drawBackground = function()
     {
         gameController.loadBackground();
@@ -115,6 +135,9 @@ function View()
         }
     }
 
+    /** Draws the UI of the game
+    *@function
+    */
     this._drawUI = function()
     {
         //Player names
@@ -182,15 +205,11 @@ function View()
                 canvasContext.fillStyle = "gray";
             canvasContext.fillText(rect.t, rect.x + 75, rect.y + 30);
         }
-        
-        //Player names
-//        canvasContext.font = "20px Arial";
-//        canvasContext.textAlign = "center";
-//        canvasContext.fillStyle = "black";
-//        canvasContext.fillText(playerController._left.getName(), 100, 180);
-//        canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
     }
     
+    /** Draws the minions
+    *@function
+    */
     this._newDrawMinions = function()
     {
         for(var i = 0; i &lt; 3; ++i)
@@ -198,23 +217,20 @@ function View()
             if(leftPlatoon[i] != null)
             {
                 leftPlatoon[i].loadMinions();
-//                if(bIsReadyToDraw)
-//                {
-                    canvasContext.drawImage(minionViews[leftPlatoon[i].getViewIndex()], leftPlatoon[i].getPosX(), leftPlatoon[i].getPosY()); 
-//                }
+                canvasContext.drawImage(minionViews[leftPlatoon[i].getViewIndex()], leftPlatoon[i].getPosX(), leftPlatoon[i].getPosY()); 
             }
             
             if(rightPlatoon[i] != null)
             {
                 rightPlatoon[i].loadMinions();
-//                if(bIsReadyToDraw)
-//                {
-                    canvasContext.drawImage(minionViews[rightPlatoon[i].getViewIndex()], rightPlatoon[i].getPosX(), rightPlatoon[i].getPosY());
-//                }
+                canvasContext.drawImage(minionViews[rightPlatoon[i].getViewIndex()], rightPlatoon[i].getPosX(), rightPlatoon[i].getPosY());
             }
         }
     }
     
+    /** Draws the menu buttons and the title of the game
+    *@function
+    */
     this._drawMenuScreen = function()
     {
         //Buttons
@@ -232,15 +248,6 @@ function View()
             canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
         }
         
-//        canvasContext.font = "20px Arial";
-//        canvasContext.textAlign = "center";
-//        canvasContext.fillStyle = "white";
-//        canvasContext.fillText("Sign In", canvas.width/2, canvas.height/2 + 230, 150);
-//        canvasContext.fillText("Leaderboards", canvas.width/2 + 125, canvas.height/2 + 130, 150);
-//        if(!bIsLogged)
-//            canvasContext.fillStyle = "gray";
-//        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
-        
         
         //Title
         canvasContext.font = "50px Arial";
@@ -250,6 +257,9 @@ function View()
         canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
     }
     
+    /** Draws the games list
+    *@function
+    */
     this._drawFriendsList = function()
     {
         canvasContext.fillStyle = "black";
@@ -271,33 +281,41 @@ function View()
         }
     }
     
+    /**
+    *@function
+    */
     this._drawGamesList = function()
     {
         canvasContext.fillText("Games", this._rectsGamesList[0].x + 75, this._rectsGamesList[0].y - 10, 150);
         for(var i = 0; i &lt; allGames.length; i++)
         {
             var rect = this._rectsGamesList[i];
-            
-            canvasContext.fillStyle = "white";
-            canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
-            canvasContext.fillStyle = "black";
-            canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
-            
-            canvasContext.font = "20px Arial";
-            canvasContext.textAlign = "center";
-            canvasContext.fillStyle = "black";
-            if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
+            if(rect.g.userMatchStatus != "USER_MATCH_COMPLETED")
             {
-                canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 85, rect.y + 25, 150);
+                canvasContext.fillStyle = "white";
+                canvasContext.fillRect(rect.x, rect.y, rect.w, rect.h);
+                canvasContext.fillStyle = "black";
+                canvasContext.strokeRect(rect.x, rect.y, rect.w, rect.h);
+
+                canvasContext.font = "20px Arial";
+                canvasContext.textAlign = "center";
+                canvasContext.fillStyle = "black";
+                if(localPlayer.playerId == allGames[i].participants[0].player.playerId)
+                {
+                    canvasContext.fillText(allGames[i].participants[1].player.displayName, rect.x + 85, rect.y + 25, 150);
+                }
+                else
+                {
+                    canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 85, rect.y + 25, 150);
+                }
+                canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 85, rect.y + 55, 150);
             }
-            else
-            {
-                canvasContext.fillText(allGames[i].participants[0].player.displayName, rect.x + 85, rect.y + 25, 150);
-            }
-            canvasContext.fillText(allGames[i].userMatchStatus, rect.x + 85, rect.y + 55, 150);
         }
     }
     
+    /** Draws the lobby buttons
+    *@function
+    */
     this._drawLobby = function()
     {
         for(var i = 0; i &lt; this._rectsLobby.length; i++)
@@ -313,16 +331,11 @@ function View()
                 canvasContext.fillStyle = "gray";
             canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
         }
-//        var rect = this._rectsLobby[0];
-//        
-//        canvasContext.font = "20px Arial";
-//        canvasContext.textAlign = "center";
-//        canvasContext.fillStyle = "white";
-//        if(gameController.playerToInvite == null)
-//            canvasContext.fillStyle = "gray";
-//        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
     }
     
+    /** Draws the leaderboards buttons
+    *@function
+    */
     this._drawLeaderboards = function()
     {
         for(var i = 0; i &lt; this._rectsLeaderboards.length; i++)
@@ -338,6 +351,9 @@ function View()
         }
     }
     
+    /** Draws the leaderboards items
+    *@function
+    */
     this._drawLeaderboardsList = function()
     {
         canvasContext.font = "20px Arial";
@@ -364,6 +380,9 @@ function View()
         }
     }
     
+    /** Draws the winning message
+    *@function
+    */
     this._drawPlayerWin = function()
     {
         canvasContext.font = "20px Arial";
@@ -375,6 +394,11 @@ function View()
             canvasContext.fillText("The opponent won!", canvas.width/2, canvas.height/2, 150);
     }
     
+    /** Checks for collision when the player clicks
+    *@param {Object} rects Rects to check for the collision
+    *@param {int} x X position of the click
+    *@param {int} y Y position of the click
+    */
     this._collides = function(rects, x, y)
     {
         var isCollision = false;
@@ -390,6 +414,12 @@ function View()
         }
         return isCollision;
     }
+    /** Checks for collision when the player clicks with 2 rects
+    *@param {Object} rects1 Rects to check for the collision
+    *@param {Object} rects2 Rects to check for the collision
+    *@param {int} x X position of the click
+    *@param {int} y Y position of the click
+    */
     this._collides2 = function(rects1, rects2, x, y)
     {
         var isCollision = false;
@@ -416,6 +446,13 @@ function View()
         }
         return isCollision;
     }
+    /** Checks for collision when the player clicks with 3 rects
+    *@param {Object} rects1 Rects to check for the collision
+    *@param {Object} rects2 Rects to check for the collision
+    *@param {Object} rects3 Rects to check for the collision
+    *@param {int} x X position of the click
+    *@param {int} y Y position of the click
+    */
     this._collides3 = function(rects1, rects2, rects3, x, y)
     {
         var isCollision = false;
@@ -454,6 +491,9 @@ function View()
         return isCollision;
     }
     
+    /** Update fuction called every frame to draw on screen
+    *@function
+    */
     this.update = function()
     {
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
@@ -506,13 +546,13 @@ function View()
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_clearDeadMinions">_clearDeadMinions</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#GameController">GameController</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 19:15:13 GMT+0000 (GMT Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 22:41:09 GMT+0000 (GMT Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
