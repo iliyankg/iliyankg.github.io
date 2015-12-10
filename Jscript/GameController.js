@@ -654,7 +654,7 @@ function click(e)
             else if(rect.t == "refresh")
             {
                 gameController.bCanMakeTurn = false;
-                getGame(rect.g.matchId);
+                getGame(gameController.activeMatch.matchId);
             }
         }
     }
