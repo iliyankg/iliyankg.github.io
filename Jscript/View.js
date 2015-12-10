@@ -42,7 +42,7 @@ function View()
     this._bHasGames = false;
     
     /** Populates the rects of the friends
-    *@param {lenght} Quantity of friends
+    *@param {int} lenght Quantity of friends
     */
     this.createRectsFriends = function(lenght)
     {
@@ -81,8 +81,8 @@ function View()
         }
     }
     
-    /**
-    *@param {int} lenght
+    /** Populates the rects of the scores
+    *@param {int} lenght Quantity of scores
     */
     this.createRectsLeaderboards = function(lenght)
     {
