@@ -313,8 +313,8 @@ function GameController()
         }
         console.log(this.activeMatch.userMatchStatus);
         
-        if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")//player can make a turn
-        {
+        //if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")//player can make a turn
+        //{
             if(gameController.activeMatch.matchVersion != 1)//not first turn
             {
                 var sData = atob(gameController.activeMatch.data.data).split("_");
@@ -356,11 +356,11 @@ function GameController()
                     playerController._left._iWins = parseInt(char);
                 }
             }
-        }
-        else
-        {
-            gameController.showYourUnits();
-        }
+//        }
+//        else
+//        {
+//            gameController.showYourUnits();
+//        }
     }
     
     /** Resets the state of the game to be able to show other games.
