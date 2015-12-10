@@ -409,8 +409,8 @@ function GameController()
         }
         gameController._newBattle();
         gameController.bShowTurn = true;
-        //gameController._timerCounter = setInterval(this._timer_ChangeTime, 1000);
-        gameController._timer(gameController._timerCounter, 1000);
+        gameController._timerCounter = setInterval(this._timer_ChangeTime, 1000);
+        //gameController._timer(gameController._timerCounter, 1000);
         if(gameController.activeMatch.participants[0].player.playerId == localPlayer.playerId)//If it is the first player, check for the win
         {
             var bWon = gameController._checkWinner();
