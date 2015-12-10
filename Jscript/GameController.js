@@ -104,13 +104,13 @@ function GameController()
         if(playerController._left.getWins() == 2)
         {
             //Local player wins
-            console.log("Local player won");
+            //console.log("Local player won");
             return true;
         }
         else if(playerController._right.getWins() == 2)
         {
             //Remote player wins
-            console.log("Remote player won");
+            //console.log("Remote player won");
             return false;
         }
         

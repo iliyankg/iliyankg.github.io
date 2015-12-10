@@ -104,9 +104,9 @@ createJoinGame = function()
 listActiveGames = function()
 {
     var request = gapi.client.games.turnBasedMatches.list(
-    /*{
+    {/*
         "maxCompletedMatches" : 0
-    }*/);
+    */});
     
     request.execute(function(resp)
     {
