@@ -564,9 +564,9 @@ function click(e)
                 }
                 else if(rect.g.userMatchStatus == "USER_AWAITING_TURN")
                 {
-                    gameController.bCanMakeTurn = false;
-                    getGame(rect.g.matchId);
-                    gameController.gameState = "game";
+//                    gameController.bCanMakeTurn = false;
+//                    getGame(rect.g.matchId);
+//                    gameController.gameState = "game";
                 }
                 else if(rect.g.userMatchStatus == "USER_TURN")
                 {
