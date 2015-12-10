@@ -98,9 +98,9 @@ createJoinGame = function()
 listActiveGames = function()
 {
     var request = gapi.client.games.turnBasedMatches.list(
-    {
+    /*{
         "maxCompletedMatches" : 0
-    });
+    }*/);
     
     request.execute(function(resp)
     {
@@ -211,6 +211,9 @@ declineGame = function(index)
     });
 }
 
+/** Gets the data from the match.
+*@function
+*/
 getGame = function(_matchId)
 {   
     var request = gapi.client.games.turnBasedMatches.get
@@ -236,6 +239,9 @@ dismissGame = function(index)
     });
 }
 
+/** Ends the game, setting the win/loss
+*@function
+*/
 finishGame = function(_matchId, bWon, data, creatorWon, creatorLost)
 {
     var sResult1 = "MATCH_RESULT_LOSS";

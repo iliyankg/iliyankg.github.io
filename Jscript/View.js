@@ -21,8 +21,9 @@ function View()
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create", s: "Create game"},
                        {x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
-                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
-    this._rectsLeaderboards = [{x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];
+                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"},
+                      {x: 0, y: 0, w: 150, h: 50, t: "refresh", c: "white"}];
+    this._rectsLeaderboards = [{x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];    
     this._rectsFriendsList;
     this._rectsGamesList;
     this._rectsLeaderboardsList;
