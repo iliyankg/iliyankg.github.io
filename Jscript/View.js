@@ -1,3 +1,8 @@
+/**@fileoverview Class that handles all drawing to the canvas.
+*@name View.js
+*@author Gustavo Sanches
+*/
+
 var canvas = document.getElementById("Placeholder");
 var canvasContext = canvas.getContext("2d");
 

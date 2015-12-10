@@ -27,16 +27,19 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>//PUBLIC
-var battlefield = new Array(20);//Array to be filled with minions; Can change the size;
 var playerController = new PlayerController();//Instance of the PlayerController
-var view = new View();
-var gameController = new GameController();
-var minion = new Minion();
+var view = new View();//Instance of the View
+var gameController = new GameController();//Instance of the GameController
+var minion = new Minion();//Instance of the Minion
+var backgorundImage;//Background image
+var winChartImage;//Types chart image
+var bBackDraw = false;//If the game can draw the background
+var localPlayer = null;//Local players data
 
-var leftPlatoon = new Array(3);
-var rightPlatoon = new Array(3);
-var platoonLength = 3;
-var bIsLogged = false;
+var leftPlatoon = new Array(3);//Local players's platoon
+var rightPlatoon = new Array(3);//Remote players's platoon
+var platoonLength = 3;//Size of the platoons
+var bIsLogged = false;//If the player is logged on his Google account
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("click", click, false);
@@ -47,59 +50,37 @@ view.update();
 function GameController() 
 //Public
 {
-    this.gameState = "menu";
-    this.iMinionSelection = 0;
-    this.playerToInvite = null;
+    this.gameState = "menu";//Current state of the game
+    this.iMinionSelection = -1;//Which minion box is selected
+    this.playerToInvite = null;//Player to invite to a game
+    this.activeMatch = null;//Current match
+    this.bCanMakeTurn = false;//If the player can send his choice
+    this.bShowTurn = false;//If the game can show his minions choice
+    this.leaderboard = null;//The leaderboard
     
     //PRIVATE
-    this._iSpawnNum;//Number of spawns so far
     this._iTurnNum = 1;//Number of turns so far
-    this._iBlueFirst = 0;
-    this._fFirstTimer = 0;
+    this._fLobbyTimer = 0;
+    this._timerCounter = null;
     
-    /*this._turn = function(leftType, rightType)
-    {
-        // 5 turns per side 
-        int this._turnNum(i = 0; i &lt; 5; i++);  
-        {
-            this._leftType = this._advanceRight();
-        }
-        int this._turnNum(j = 0; j &lt; 5; j++);
-        {
-            this._rightType = this.advanceLeft();
-        }
-    }
-    */
-    
-    /** Facilitates the combat between the frontmost minions.
+    /** Loads the background image and the types chart 
     *@function
     */
-    this._battle = function()
+    this.loadBackground = function()
     {
-        console.log(this._iBlueFirst);
-        if(battlefield[this._iBlueFirst + 1] != null)
+        backgorundImage = new Image();
+        backgorundImage.onload = function() 
         {
-            battlefield[this._iBlueFirst].damage(battlefield[this._iBlueFirst + 1].getAttack(), battlefield[this._iBlueFirst + 1].getType());
-            battlefield[this._iBlueFirst + 1].damage(battlefield[this._iBlueFirst].getAttack(), battlefield[this._iBlueFirst].getType()); 
-            
-            if(battlefield[this._iBlueFirst].getHealth() &lt;= 0)
-            {
-                //battlefield[this._iBlueFirst] = battlefield[this._iBlueFirst + 1];
-                battlefield[this._iBlueFirst] = null;
-            }
-            if(battlefield[this._iBlueFirst + 1].getHealth() &lt;= 0)
-            {
-                //battlefield[this._iBlueFirst + 1] = battlefield[this._iBlueFirst];
-                battlefield[this._iBlueFirst + 1] = null;
-            }
-        }
-        else
-        {
-            this._iBlueFirst = 0;
-        }
+                bBackDraw = true;
+        };
+        backgorundImage.src = "Assets/Background.png";
+        
+        winChartImage = new Image();
+        winChartImage.src = "Assets/Win_Loss.png";
+        
     }
     
-    /** Facilitates the combat between the frontmost minions.
+    /** Makes the minions deal each other damage, killing the opponent if his type has an advantage.
     *@function
     */
     this._newBattle = function()
@@ -108,7 +89,71 @@ function GameController()
         {
             leftPlatoon[i].damage(rightPlatoon[i].getType());
             rightPlatoon[i].damage(leftPlatoon[i].getType());
-            
+        }
+    }
+    
+    /** Checks the minions to see which player won the round
+    *@function
+    */
+    this.countWinners = function()
+    {
+        //Check how many minions each side has left
+        var leftMinions = 0;//Number of minions on the left side that survived
+        var rightMinions = 0;//Number of minions on the right side that survived
+        
+        for(var i = 0; i &lt; platoonLength; i++)
+        {
+            if(!leftPlatoon[i].isDead())
+            {
+                leftMinions++;
+            }
+
+            if(!rightPlatoon[i].isDead())
+            {
+                rightMinions++;
+            } 
+        }
+        
+        if(leftMinions > rightMinions)
+        {
+            playerController._left.won();
+        }
+        else if(rightMinions > leftMinions)
+        {
+            playerController._right.won();
+        }
+    }
+    
+    /** Checks for winners of the game and reset the win counter if necessary. Returns true if the local player won and false if the remote player won.
+    *@function
+    */
+    this._checkWinner = function()
+    {
+        if(playerController._left.getWins() == 2)
+        {
+            //Local player wins
+            console.log("Local player won");
+            return true;
+        }
+        else if(playerController._right.getWins() == 2)
+        {
+            //Remote player wins
+            console.log("Remote player won");
+            return false;
+        }
+        
+        if(playerController._left.getWins() == playerController._right.getWins())
+        {
+            playerController._left.resetWins();
+            playerController._right.resetWins();
+        }
+        return null;
+    }
+    
+    this._clearDeadMinions = function()
+    {
+        for(var i = 0; i &lt; platoonLength; i++)
+        {
             if(leftPlatoon[i].isDead())
             {
                 leftPlatoon[i] = null;
@@ -119,138 +164,9 @@ function GameController()
                 rightPlatoon[i] = null;
             }
         }
-        
-        //Check how many minions each side has left
-        var leftMinions = 0;//Number of minions on the left side that survived
-        var rightMinions = 0;//Number of minions on the right side that survived
-        
-        for(var i = 0; i &lt; platoonLength; i++)
-        {
-            if(leftPlatoon[i] != null)
-            {
-                leftMinions++;
-            }
-            
-            if(rightPlatoon[i] != null)
-            {
-                rightMinions++;
-            }
-        }
-        
-        
-        if(leftMinions > rightMinions)
-        {
-            playerController._left.won();
-        }
-        else if(rightMinions > leftMinions)
-        {
-            playerController._right.won();
-        }
-        
-        this._checkWinner();
-        
-        this._clearPlatoons();
     }
     
-    /** Checks for winners and reset the win counter if necessary
-    *@function
-    */
-    this._checkWinner = function()
-    {
-        if(playerController._left.getWins() == 2)
-        {
-            //Local player wins
-            console.log("Local player won");
-        }
-        else if(playerController._right.getWins() == 2)
-        {
-            //Remote player wins
-            console.log("Remote player won");
-        }
-        
-        if(playerController._left.getWins() == playerController._right.getWins())
-        {
-            playerController._left.resetWins();
-            playerController._right.resetWins();
-        }
-    }
-    
-    this._clearPlatoons = function()
-    {
-        for(var i = 0; i &lt; 3; i++)
-        {
-            view._rectsMinionsLocal[i].m = null;
-            view._rectsMinionsRemote[i].m = null;
-        }
-        this.iMinionSelection = 0;
-    }
-    
-    /** Runs through the battlefield array for minions and makes them advance or battle
-    *@function
-    */
-    this._advance = function()
-    {
-        var tempBattlefield = [];
-        this._iTurnNum++;
-        for(i = 0; i &lt; battlefield.length; ++i)
-        {
-            tempBattlefield[i] = battlefield[i];
-        }
-        for(var i = 0; i &lt; tempBattlefield.length; i++)
-        {
-            //Verify is there is a Minion in the "i" position of the array
-            if(tempBattlefield[i] != null)
-            {
-                //Verify the team of the Minion
-                if(tempBattlefield[i]._bTeam)
-                {
-                    //Verify if the Minion is at the edge of the array/map
-                    if(this._isTheEdge(i, tempBattlefield[i]))
-                    {
-                        //this._gameOver(true);
-                        break;
-                    }
-                    else
-                    {
-                        //Verify if the next space is empty
-                        if(battlefield[i + 1] == null)
-                        {
-                            battlefield[i] = null;
-                            battlefield[i + 1] = tempBattlefield[i];
-                            battlefield[i + 1].setPosX(battlefield[i + 1].getPosX() + 35);   
-                            
-                            if(this._iBlueFirst &lt; i + 1)
-                            {
-                                this._iBlueFirst = i + 1;
-                            }
-                        }                            
-                    }
-                }
-                else
-                {
-                    //Verify if the Minion is at the edge of the array/map
-                    if(this._isTheEdge(i, tempBattlefield[i]))
-                    {
-                        //_gameOver(false);
-                        break;
-                    }
-                    else
-                    {
-                        console.log(battlefield[i-i]);
-                        //Verify if the previous space is empty
-                        if(battlefield[i - 1] == null)
-                        {
-                            battlefield[i] = null;
-                            battlefield[i - 1] = tempBattlefield[i];
-                            battlefield[i - 1].setPosX(battlefield[i - 1].getPosX() - 35);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    /** Runs through the battlefield array for minions and makes them advance or battle
+    /** Used in the new combat model system to send the minions to battle.
     *@function
     */
     this._newAdvance = function()
@@ -281,34 +197,7 @@ function GameController()
         }
     }
     
-    /** Verify if the index is at the edge of the array
-    *@returns {Bool}
-    */
-    this._isTheEdge = function(index, minion)
-    {
-        if(index == battlefield.length - 1 &amp;&amp; minion._bTeam)
-            return true;
-        
-        if(index == 0 &amp;&amp; !minion._bTeam)
-            return true;
-        
-        return false;
-    }
-    
-    /**Spawns the minions.
-    *@function
-    */
-    this._spawn = function()
-    {
-        battlefield[0] = new Minion();
-        battlefield[0].createMinion(1, true, 100, 240);
-        
-        battlefield[battlefield.length - 1] = new Minion()
-        battlefield[battlefield.length - 1].createMinion(2, false, canvasContext.canvas.width - 135, 240);
-        console.log(battlefield[0]);
-    }
-    
-    /**Spawns the minions according to the new combat system.
+    /**Spawns the minions randomly according to the new combat system.
     *@function
     */
     this._newSpawn = function()
@@ -337,38 +226,27 @@ function GameController()
         }
     }
     
-    /*this._gameOver(int leftFortress, int rightFortress)
-    {
-        if(this._rightMinion = this._leftFortress);
-        {
-            this._gameOver;
-            bool this.rightTeamWin;
-        }
-        else
-        {
-            if(this._leftMinion = this._rightFortress);
-            this._gameOver;
-            bool this.LeftTeamWin;
-        }
-    }
+    /** Timer function for the game animation.
+    *@function
     */
-    
     this._timer_ChangeTime = function()
     {        
-        if(gameController._iTurnNum == 10)
+        if(gameController._iTurnNum == 9)
         {
-            gameController._iTurnNum = 0;
+            gameController._timer_Timeout(gameController._timerCounter);
         }
         
         if(gameController._iTurnNum == 0)
         {
             
             //gameController._timer();
-            gameController._newSpawn();    
+            //gameController._newSpawn();    
         }
         else if(gameController._iTurnNum == 5)
         {
-            gameController._newBattle();
+            //gameController._newBattle();
+            //remove dead units
+            gameController._clearDeadMinions();
         }
         else if(gameController._iTurnNum > 5)
         {
@@ -379,18 +257,28 @@ function GameController()
             gameController._newAdvance();
         }
         
-        //gameController._advance();
         gameController._iTurnNum++;
     }
-    this._timer_TimeoutAdvance = function(timer)
+    /** Timer function for refreshing the games list.
+    *@function
+    */
+    this._timer_RefreshList = function()
+    {        
+        listActiveGames();
+    }
+    /** Cancels a timer
+    *@function
+    */
+    this._timer_Timeout = function(timer)
     {
         clearInterval(timer);
-        gameController._newSpawn();
     }
-    
-    this._timer = function()
+    /** Starts a timer given a variable to be stored and an interval.
+    *@function
+    */
+    this._timer = function(timer, interval)
     {
-        var timerInt = setInterval(this._timer_ChangeTime, 1000);
+        timer = setInterval(this._timer_RefreshList, interval);
     }
     
     this._firstTurn = function()
@@ -408,6 +296,7 @@ function GameController()
     this.startGame = function()
     {
         minion.loadMinions();
+        gameController._timer_Timeout(gameController._fLobbyTimer);
         this.gameState = "game";
         for(i = 0; i &lt; platoonLength; i++)
         {
@@ -420,21 +309,202 @@ function GameController()
         playerController._right.createPlayer(10,10,"Remote_Player", 1);
         
         //gameController._timer();
-        gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
+        //gameController._fFirstTimer = setInterval(this._firstTurn, 1000);
         
     }
     
+    this._joinGame = function(game)
+    {
+        if(game.userMatchStatus == "USER_TURN")
+        {
+            this.startGame();
+        }
+        else
+        {
+            //get the player platoon choice and show on screen
+        }
+    }
+    
+    /** Populate all the match variables based on the data received from the other player.
+    *@function
+    */
+    this.populateMatch = function()
+    {
+        playerController._left.createPlayer(10, 10, localPlayer.displayName, 0);//Print the local players's name
+        for(var i = 0; i &lt; 2; i++)
+        {
+            var player = gameController.activeMatch.participants[i].player;
+            if(player.playerId != localPlayer.playerId)
+            {
+                playerController._right.createPlayer(10, 10, player.displayName, 1);//Print the remote players's name
+            }
+        }
+        console.log(this.activeMatch.userMatchStatus);
+        
+        //if(this.activeMatch.userMatchStatus != "USER_AWAITING_TURN")//player can make a turn
+        //{
+            if(gameController.activeMatch.matchVersion != 1)//not first turn
+            {
+                var sData = atob(gameController.activeMatch.data.data).split("_");
+                
+                if(gameController.activeMatch.participants[0].player.playerId == localPlayer.playerId)//which player is making the turn (this is player 1)
+                {
+                    console.log("your move");
+                    
+                    for(var i = 0; i &lt; platoonLength; i++)//populate the enemy minions
+                    {
+                        var char = sData[1].charAt(2-i);
+                        rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
+                        
+                        var char = sData[0].charAt(2-i);
+                        leftPlatoon[i] = minion.createMinion(parseInt(char), true, 170 - i * 35, canvas.height/2 + 100);
+                    }
+                    
+                    //populate the wins of each player
+                    var char = sData[2].charAt(0);
+                    playerController._left._iWins = parseInt(char);
+                    
+                    char = sData[2].charAt(1);
+                    playerController._right._iWins = parseInt(char);
+                    this.executeTurn();
+                }
+                else//this is player 2
+                {
+                    for(var i = 0; i &lt; platoonLength; i++)//populate the enemy minions
+                    {
+                        var char = sData[0].charAt(2-i);
+                        rightPlatoon[i] = minion.createMinion(parseInt(char), false, canvasContext.canvas.width - 205 + i * 35, canvas.height/2 + 100);
+                    }
+                    
+                    //populate the wins of each player
+                    var char = sData[2].charAt(0);
+                    playerController._right._iWins = parseInt(char);
+                    
+                    char = sData[2].charAt(1);
+                    playerController._left._iWins = parseInt(char);
+                }
+            }
+//        }
+//        else
+//        {
+//            gameController.showYourUnits();
+//        }
+    }
+    
+    /** Resets the state of the game to be able to show other games.
+    *@function
+    */
+    this.resetGameState = function()
+    {
+        gameController.iMinionSelection = -1;
+        for(var i = 0; i &lt; 3; i++)
+        {
+            view._rectsMinionsLocal[i].m = null;
+        }
+        playerController._left.setName(null);
+        playerController._right.setName(null);
+        this._iTurnNum = 1;
+        this.bShowTurn = false;
+        gameController._timer(gameController._fLobbyTimer, 10000);
+    }
+    
+    /** Checks if the player made all the choices for the minions. Returns true if all units are selectes.
+    *@function
+    */
+    this.checkUnits = function()
+    {
+        for(var i = 0; i &lt; platoonLength; i++)
+        {
+            if(view._rectsMinionsLocal[i].m == null)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /** Populates the local players's platoon and makes the minions battle each other, storing if the unit died or not.
+    *@function
+    */
+    this.executeTurn = function()
+    {
+        if(gameController.activeMatch.participants[1].player.playerId == localPlayer.playerId)//If it is the second player, put the minion choices in the leftPlatoon.
+        {
+            for(var i = 0; i &lt; platoonLength; i++)
+            {
+                leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            }
+        }
+        gameController._newBattle();
+        gameController.bShowTurn = true;
+        gameController._timerCounter = setInterval(this._timer_ChangeTime, 1000);
+        //gameController._timer(gameController._timerCounter, 1000);
+        if(gameController.activeMatch.participants[0].player.playerId == localPlayer.playerId)//If it is the first player, check for the win
+        {
+            var bWon = gameController._checkWinner();
+            if(bWon != null)
+            {
+                finishCreatorsGame(gameController.activeMatch.matchId);
+            }
+        }
+    }
+    
+    /** Populates the platoon variables to show them on screen later.
+    *@function
+    */
+    this.showYourUnits = function()
+    {
+        for(var i = 0; i &lt; platoonLength; i++)
+        {
+            leftPlatoon[2-i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
+            rightPlatoon[i] = null;
+        }
+        gameController._iTurnNum = 1;
+        gameController._timer_Timeout(gameController._timerCounter);
+        gameController.bShowTurn = true;
+    }
+    
+    /** Changes the state of the game to lobby, resets all variables related to matchmaking, starts the timer to refresh the games list, loads the minions assets and makes the call to get the games list that a player has.
+    *@function
+    */
     this.goToLobby = function()
     {
+        this.resetGameState();
         this.gameState = "lobby";
+        this.activeMatch = null;
+        this.playerToInvite = null;
+        this._timer_Timeout(this._timerCounter);
+        view.resetRectsFriendsColor();
+        listActiveGames();
+        minion.loadMinions();
+    }
+    
+    /** Changes the state of the game to menu.
+    *@function
+    */
+    this.goToMenu = function()
+    {
+        this.gameState = "menu";
+    }
+    
+    /** Changes the state of the game to leaderboard and makes the call to update it.
+    *@function
+    */
+    this.goToLeaderboards = function()
+    {
+        fetchLeaderBoard();
+        this.gameState = "leaderboards";
     }
 }
 
+/** Key events for debugging purposes.
+*@function
+*/
 function keyDownHandler(e)
 {
     if(e.keyCode == 39)//right arrow
     {
-        listActiveGames();
+        initiateData();
     }
     
     if(e.keyCode == 37)//left arrow
@@ -444,19 +514,28 @@ function keyDownHandler(e)
     
     if(e.keyCode == 38)//up arrow
     {
-
+        //takeTurn(0);
+        fetchLeaderBoard(0);
     }
     if(e.keyCode == 40) //down arrow
     {
-            
+        //joinGame(0);
+        listActiveGames();
+    }
+    if(e.keyCode == 32) //spacebar
+    {
+        getGame(gameController.activeMatch.matchId);
     }
 }
 
+
+/** Checks all the clicks on screen and interactions.
+*@fuction
+*/
 function click(e)
 {
     if(gameController.gameState == "menu")
     {
-        
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
         var rect = view._collides(view._rectsMenu, e.offsetX, e.offsetY);
         if (rect) 
@@ -469,25 +548,61 @@ function click(e)
             {
                gapi.auth.signIn();
             }
+            else if(rect.t == "leaderboards")
+            {
+                gameController.goToLeaderboards();
+            }
             console.log('collision: ' + rect.x + '/' + rect.y);
         }
     }
     else if(gameController.gameState == "lobby")
     {
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
-        var rect = view._collides(view._rectsFriendsList, e.offsetX, e.offsetY);
+        var rect = view._collides3(view._rectsFriendsList, view._rectsLobby, view._rectsGamesList, e.offsetX, e.offsetY);
         if (rect) 
         {
             if(rect.t == "create" &amp;&amp; gameController.playerToInvite != null)
             {
+                gameController.bCanMakeTurn = true;
                 createJoinGame();
                 console.log("Player ID: " + gameController.playerToInvite);
+                gameController.gameState = "game";
                 //gameController.startGame();
+            }
+            else if(rect.t == "menu")
+            {
+                gameController.goToMenu();
             }
             else if(rect.t == "friend")
             {
                 console.log(rect.f.displayName);
+                console.log(rect.f.id);
+                view.resetRectsFriendsColor();
+                rect.c = "green";
                 gameController.playerToInvite = rect.f.id;
+            }
+            else if(rect.t == "games")
+            {
+                console.log(rect.g);
+                if(rect.g.userMatchStatus == "USER_INVITED")
+                {
+                    gameController.bCanMakeTurn = true;
+                    joinGame(rect.g.matchId);
+                    gameController.gameState = "game";
+                }
+                else if(rect.g.userMatchStatus == "USER_AWAITING_TURN")
+                {
+//                    gameController.bCanMakeTurn = false;
+//                    getGame(rect.g.matchId);
+//                    gameController.gameState = "game";
+                }
+                else if(rect.g.userMatchStatus == "USER_TURN")
+                {
+                    gameController.bCanMakeTurn = true;
+                    getGame(rect.g.matchId);
+                    gameController.gameState = "game";
+                    view._rectsGame[1].c = "white";
+                }
             }
             console.log('collision: ' + rect.x + '/' + rect.y + ' type: ' + rect.t);
         }
@@ -497,8 +612,9 @@ function click(e)
         console.log('click: ' + e.offsetX + '/' + e.offsetY);
         var rectM = view._collides(view._rectsMinionSelection, e.offsetX, e.offsetY);
         var rectL = view._collides(view._rectsMinionsLocal, e.offsetX, e.offsetY);
+        var rect = view._collides(view._rectsGame, e.offsetX, e.offsetY);
         
-        if(rectM &amp;&amp; gameController.iMinionSelection &lt; 3)
+        if(rectM &amp;&amp; gameController.iMinionSelection != -1)
         {
             if(rectM.t == "firstM")
             {
@@ -512,43 +628,72 @@ function click(e)
             {
                 view._rectsMinionsLocal[gameController.iMinionSelection].m = 2;
             }
-            do
-            {
-                if(gameController.iMinionSelection &lt; 2)
-                    gameController.iMinionSelection++;
-            }while(view._rectsMinionsLocal[gameController.iMinionSelection].m != null &amp;&amp; gameController.iMinionSelection != 2)
+            gameController.iMinionSelection = -1;
         }
-        else if(rectL)
+        else if(rectL &amp;&amp; gameController.bCanMakeTurn)
         {
             if(rectL.t == "firstLS")
             {
-                if(view._rectsMinionsLocal[0].m != null)
-                {
-                    gameController.iMinionSelection = 0;
-                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
-                }
+                gameController.iMinionSelection = 0;
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
             }
             else if(rectL.t == "secondLS")
-            {
-                if(view._rectsMinionsLocal[1].m != null)
-                {
-                    gameController.iMinionSelection = 1;
-                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
-                }
+            {   
+                gameController.iMinionSelection = 1;
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
             }
             else if(rectL.t == "thirdLS")
             {
-                if(view._rectsMinionsLocal[2].m != null)
+                gameController.iMinionSelection = 2;
+                view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
+            }
+        }
+        else if(rect)
+        {
+            if(rect.t == "lobby")
+            {
+                gameController.goToLobby();
+                //Do something to "cancel" the game
+            }
+            else if(rect.t == "send" &amp;&amp; playerController._left.getName() != null &amp;&amp; gameController.checkUnits() &amp;&amp; gameController.bCanMakeTurn)
+            {
+                rect.c = "blue";
+                var chosenTurn = view._rectsMinionsLocal[0].m.toString() + view._rectsMinionsLocal[1].m.toString() + view._rectsMinionsLocal[2].m.toString();
+                if(gameController.activeMatch.participants[1].player.playerId == localPlayer.playerId)//If player 2
                 {
-                    gameController.iMinionSelection = 2;
-                    view._rectsMinionsLocal[gameController.iMinionSelection].m = null;
+                    gameController.executeTurn();
+                    gameController.countWinners();
+                    var bWon = gameController._checkWinner();
+                    if(bWon != null)
+                    {
+                        finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                    }
+                    else
+                    {
+                        takeTurn(chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                    }
+                }
+                else
+                {
+                    gameController.showYourUnits();
+                    takeTurn(chosenTurn, playerController._left.getWins(), playerController._right.getWins());
                 }
             }
-            
-            for(var i = gameController.iMinionSelection; i > 0; i--)
+            else if(rect.t == "refresh")
             {
-                if(view._rectsMinionsLocal[gameController.iMinionSelection - 1].m == null)
-                    gameController.iMinionSelection--;
+                gameController.bCanMakeTurn = false;
+                getGame(gameController.activeMatch.matchId);
+            }
+        }
+    }
+    else if(gameController.gameState == "leaderboards")
+    {
+        var rect = view._collides(view._rectsLeaderboards, e.offsetX, e.offsetY);
+        if(rect)
+        {
+            if(rect.t == "menu")
+            {
+                gameController.goToMenu();
             }
         }
     }
@@ -573,13 +718,13 @@ function click(e)
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="bIsReadyToDraw.html">bIsReadyToDraw</a></li><li><a href="canvas.html">canvas</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_advance">_advance</a></li><li><a href="global.html#_battle">_battle</a></li><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_isTheEdge">_isTheEdge</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_spawn">_spawn</a></li><li><a href="global.html#damage">damage</a></li><li><a href="global.html#isDead">isDead</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Minion.html">Minion</a></li><li><a href="Player.html">Player</a></li><li><a href="PlayerController.html">PlayerController</a></li><li><a href="View.html">View</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_checkWinner">_checkWinner</a></li><li><a href="global.html#_newAdvance">_newAdvance</a></li><li><a href="global.html#_newBattle">_newBattle</a></li><li><a href="global.html#_newRetreat">_newRetreat</a></li><li><a href="global.html#_newSpawn">_newSpawn</a></li><li><a href="global.html#_timer">_timer</a></li><li><a href="global.html#_timer_ChangeTime">_timer_ChangeTime</a></li><li><a href="global.html#_timer_RefreshList">_timer_RefreshList</a></li><li><a href="global.html#_timer_Timeout">_timer_Timeout</a></li><li><a href="global.html#cancelGame">cancelGame</a></li><li><a href="global.html#checkUnits">checkUnits</a></li><li><a href="global.html#click">click</a></li><li><a href="global.html#countWinners">countWinners</a></li><li><a href="global.html#createJoinGame">createJoinGame</a></li><li><a href="global.html#declineGame">declineGame</a></li><li><a href="global.html#dismissGame">dismissGame</a></li><li><a href="global.html#executeTurn">executeTurn</a></li><li><a href="global.html#fetchLeaderBoard">fetchLeaderBoard</a></li><li><a href="global.html#finishCreatorsGame">finishCreatorsGame</a></li><li><a href="global.html#finishGame">finishGame</a></li><li><a href="global.html#getGame">getGame</a></li><li><a href="global.html#getLocalPlayer">getLocalPlayer</a></li><li><a href="global.html#goToLeaderboards">goToLeaderboards</a></li><li><a href="global.html#goToLobby">goToLobby</a></li><li><a href="global.html#goToMenu">goToMenu</a></li><li><a href="global.html#handleAuthResult">handleAuthResult</a></li><li><a href="global.html#joinGame">joinGame</a></li><li><a href="global.html#keyDownHandler">keyDownHandler</a></li><li><a href="global.html#listActiveGames">listActiveGames</a></li><li><a href="global.html#loadBackground">loadBackground</a></li><li><a href="global.html#populateMatch">populateMatch</a></li><li><a href="global.html#resetGameState">resetGameState</a></li><li><a href="global.html#showYourUnits">showYourUnits</a></li><li><a href="global.html#submitScore">submitScore</a></li><li><a href="global.html#takeTurn">takeTurn</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Nov 30 2015 14:56:01 GMT+0000 (GMT Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Thu Dec 10 2015 19:15:13 GMT+0000 (GMT Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,3 +1,9 @@
+/**@fileoverview Controller for the Player model.
+*@name PlayerController.js
+*@author Iliyan Georgiev
+*/
+
+
 /** PlayerController resposible for communication beteen all aspects of the View and the Model.
 *@constructor
 *@property {Player} _left Local player
