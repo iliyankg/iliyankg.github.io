@@ -24,6 +24,7 @@ view.update();
 
 
 /** Game Controller takes care of all the game logic
+*@constructor
 *@property {string} gameState Current state of the game
 *@property {int} iMinionSelection Which minion box is selected
 *@property {string} playerToInvite Player to invite to a game
