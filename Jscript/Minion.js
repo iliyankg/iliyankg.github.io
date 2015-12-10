@@ -13,8 +13,6 @@ var loadedSoFar = 0;
 *@property {double} _dPosX position X of the minion
 *@property {double} _dPosY position Y of the minion
 *@property {int} _iType minion type
-*@property {int} _iHealth health value of the minion
-*@property {int} _iAttack attack value of the minion
 *@property {int} _iHeight height of the minion sprite
 *@property {int} _iWidth width of the minion sprite
 *@property {bool} _bTeam if the minion belongs to the local or remote player
@@ -26,8 +24,6 @@ function Minion()
     this._dPosX;
     this._dPoxY;
     this._iType;
-    this._iHealth = 20;
-    this._iAttack = 10;
     this._iHeight = 35;
     this._iWidth = 35;
     this._bTeam;
@@ -157,24 +153,8 @@ function Minion()
     {
         return this._iType;
     }
-    /**DEPRECIATED::Gets the minion attack.
-    *@function
-    *@return {int}
-    */
-    this.getAttack = function()
-    {
-        return this._iAttack;
-    }
     
-    /**DEPRECIATED::Gets the minion health.
-    *@function
-    *@return {int}
-    */
-    this.getHealth = function()
-    {
-        return this._iHealth;
-    }
-    /**DEPRECIATED Damages the minion taking into account the type attacking it
+    /** Damages the minion taking into account the type attacking it
     *@function
     *@param {int} type
     */

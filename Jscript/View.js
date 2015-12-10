@@ -8,9 +8,16 @@ var canvasContext = canvas.getContext("2d");//Reference to the context of the ca
 
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
-*@property {Draw} _Minion
-*@property {Draw} _UI
-*@property {Draw} _Background
+*@property {Object} _rectsMenu Position and size of the buttons for the menu screen
+*@property {Object} _rectsMinionsLocal Position, size and type of the minions selected for the game screen
+*@property {Object} _rectsMinionsSelection Position, size and type of the minions for selection for the game screen
+*@property {Object} _rectsLobby Position and size of the buttons for the lobby screen
+*@property {Object} _rectsGame Position and size of the buttons for the game screen
+*@property {Object} _rectsLeaderboards Position and size of the buttons for the leaderboards screen
+*@property {Object} _rectsFriendsList Position, size and information of the friend of the friends list for the lobby screen
+*@property {Object} _rectsGamesList Position, size and information of the game of the games list for the lobby screen
+*@property {Object} _rectsLeaderboardsList Position, size and information of the stats of the players for the leaderboards screen
+*@property {bool} _bHasGames If the player has any games active 
 */
 function View()
 {
@@ -26,8 +33,7 @@ function View()
     this._rectsLobby = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "create", s: "Create game"},
                        {x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];
     this._rectsGame = [{x: canvas.width - 150, y: 0, w: 150, h: 50, t: "lobby", c: "white"},
-                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"},
-                      {x: 0, y: 0, w: 150, h: 50, t: "refresh", c: "white"}];
+                      {x: canvas.width/2 - 75, y: canvas.height - 70, w: 150, h: 50, t: "send", c: "white"}];
     this._rectsLeaderboards = [{x: 10, y: canvas.height - 60, w: 150, h: 50, t: "menu", s: "Menu"}];    
     this._rectsFriendsList;
     this._rectsGamesList;
@@ -35,6 +41,9 @@ function View()
     
     this._bHasGames = false;
     
+    /**
+    *
+    */
     this.createRectsFriends = function(lenght)
     {
         view._rectsFriendsList = new Array(lenght);
@@ -44,6 +53,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this.resetRectsFriendsColor = function()
     {
         for(var i = 0; i < view._rectsFriendsList.length; i++)
@@ -52,6 +64,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this.createRectsGames = function(lenght)
     {
         this._bHasGames = false;
@@ -66,6 +81,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this.createRectsLeaderboards = function(lenght)
     {
         view._rectsLeaderboardsList = new Array(lenght);
@@ -76,7 +94,9 @@ function View()
         }
     }
     
-    //Background is drawn   
+    /**
+    *
+    */
     this._drawBackground = function()
     {
         gameController.loadBackground();
@@ -87,6 +107,9 @@ function View()
         }
     }
 
+    /**
+    *
+    */
     this._drawUI = function()
     {
         //Player names
@@ -154,15 +177,11 @@ function View()
                 canvasContext.fillStyle = "gray";
             canvasContext.fillText(rect.t, rect.x + 75, rect.y + 30);
         }
-        
-        //Player names
-//        canvasContext.font = "20px Arial";
-//        canvasContext.textAlign = "center";
-//        canvasContext.fillStyle = "black";
-//        canvasContext.fillText(playerController._left.getName(), 100, 180);
-//        canvasContext.fillText(playerController._right.getName(), canvas.width - 100, 180);
     }
     
+    /**
+    *
+    */
     this._newDrawMinions = function()
     {
         for(var i = 0; i < 3; ++i)
@@ -170,23 +189,20 @@ function View()
             if(leftPlatoon[i] != null)
             {
                 leftPlatoon[i].loadMinions();
-//                if(bIsReadyToDraw)
-//                {
-                    canvasContext.drawImage(minionViews[leftPlatoon[i].getViewIndex()], leftPlatoon[i].getPosX(), leftPlatoon[i].getPosY()); 
-//                }
+                canvasContext.drawImage(minionViews[leftPlatoon[i].getViewIndex()], leftPlatoon[i].getPosX(), leftPlatoon[i].getPosY()); 
             }
             
             if(rightPlatoon[i] != null)
             {
                 rightPlatoon[i].loadMinions();
-//                if(bIsReadyToDraw)
-//                {
-                    canvasContext.drawImage(minionViews[rightPlatoon[i].getViewIndex()], rightPlatoon[i].getPosX(), rightPlatoon[i].getPosY());
-//                }
+                canvasContext.drawImage(minionViews[rightPlatoon[i].getViewIndex()], rightPlatoon[i].getPosX(), rightPlatoon[i].getPosY());
             }
         }
     }
     
+    /**
+    *
+    */
     this._drawMenuScreen = function()
     {
         //Buttons
@@ -204,15 +220,6 @@ function View()
             canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
         }
         
-//        canvasContext.font = "20px Arial";
-//        canvasContext.textAlign = "center";
-//        canvasContext.fillStyle = "white";
-//        canvasContext.fillText("Sign In", canvas.width/2, canvas.height/2 + 230, 150);
-//        canvasContext.fillText("Leaderboards", canvas.width/2 + 125, canvas.height/2 + 130, 150);
-//        if(!bIsLogged)
-//            canvasContext.fillStyle = "gray";
-//        canvasContext.fillText("Play game", canvas.width/2 - 125, canvas.height/2 + 130, 150);
-        
         
         //Title
         canvasContext.font = "50px Arial";
@@ -222,6 +229,9 @@ function View()
         canvasContext.fillText("Wars", canvas.width/2 + 80, canvas.height/2 - 130, 150);
     }
     
+    /**
+    *
+    */
     this._drawFriendsList = function()
     {
         canvasContext.fillStyle = "black";
@@ -243,6 +253,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this._drawGamesList = function()
     {
         canvasContext.fillText("Games", this._rectsGamesList[0].x + 75, this._rectsGamesList[0].y - 10, 150);
@@ -272,6 +285,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this._drawLobby = function()
     {
         for(var i = 0; i < this._rectsLobby.length; i++)
@@ -287,16 +303,11 @@ function View()
                 canvasContext.fillStyle = "gray";
             canvasContext.fillText(rect.s, rect.x + 75, rect.y + 30, rect.w);
         }
-//        var rect = this._rectsLobby[0];
-//        
-//        canvasContext.font = "20px Arial";
-//        canvasContext.textAlign = "center";
-//        canvasContext.fillStyle = "white";
-//        if(gameController.playerToInvite == null)
-//            canvasContext.fillStyle = "gray";
-//        canvasContext.fillText("Create game", rect.x + 75, rect.y + 30, 150);
     }
     
+    /**
+    *
+    */
     this._drawLeaderboards = function()
     {
         for(var i = 0; i < this._rectsLeaderboards.length; i++)
@@ -312,6 +323,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this._drawLeaderboardsList = function()
     {
         canvasContext.font = "20px Arial";
@@ -338,6 +352,9 @@ function View()
         }
     }
     
+    /**
+    *
+    */
     this._drawPlayerWin = function()
     {
         canvasContext.font = "20px Arial";
@@ -349,6 +366,9 @@ function View()
             canvasContext.fillText("The opponent won!", canvas.width/2, canvas.height/2, 150);
     }
     
+    /**
+    *
+    */
     this._collides = function(rects, x, y)
     {
         var isCollision = false;
@@ -364,6 +384,9 @@ function View()
         }
         return isCollision;
     }
+    /**
+    *
+    */
     this._collides2 = function(rects1, rects2, x, y)
     {
         var isCollision = false;
@@ -390,6 +413,9 @@ function View()
         }
         return isCollision;
     }
+    /**
+    *
+    */
     this._collides3 = function(rects1, rects2, rects3, x, y)
     {
         var isCollision = false;
@@ -428,6 +454,9 @@ function View()
         return isCollision;
     }
     
+    /**
+    *
+    */
     this.update = function()
     {
         canvasContext.clearRect(0, 0, canvas.width, canvas.height);
