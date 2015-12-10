@@ -456,7 +456,6 @@ function View()
                 view.createRectsLeaderboards(gameController.leaderboard.length);
                 view._drawLeaderboardsList();
             }
-            view._drawBackToMenu();
         }
         
         requestAnimationFrame(view.update);
