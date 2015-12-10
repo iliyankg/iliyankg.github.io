@@ -1,5 +1,10 @@
-var canvas = document.getElementById("Placeholder");
-var canvasContext = canvas.getContext("2d");
+/**@fileoverview Class that handles all drawing to the canvas.
+*@name View.js
+*@author Gustavo Sanches
+*/
+
+var canvas = document.getElementById("Placeholder");//Reference to the canvas
+var canvasContext = canvas.getContext("2d");//Reference to the context of the canvas
 
 /** View is responsible for the visual aspects of the game and the interactivity within it.
 *@constructor
@@ -9,9 +14,9 @@ var canvasContext = canvas.getContext("2d");
 */
 function View()
 {
-    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play", s: "Lobby"},//Play game
-                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google", s: "Sign In"},//Google play
-                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards", s: "Leaderboards"}];//Leaderboards
+    this._rectsMenu = [{x: canvas.width/2 - 200, y: canvas.height/2 + 100, w: 150, h: 50, t: "play", s: "Lobby"},
+                      {x: canvas.width/2 - 75, y: canvas.height/2 + 200, w: 150, h: 50, t: "google", s: "Sign In"},
+                      {x: canvas.width/2 + 50, y: canvas.height/2 + 100, w: 150, h: 50, t: "leaderboards", s: "Leaderboards"}];
     this._rectsMinionsLocal = [{x: canvas.width/2 - 75, y: canvas.height - 125, w: 50, h: 50, t: "firstLS", m: null},
                               {x: canvas.width/2 - 25, y: canvas.height - 125, w: 50, h: 50, t: "secondLS", m: null},
                               {x: canvas.width/2 + 25, y: canvas.height - 125, w: 50, h: 50, t: "thirdLS", m: null}];
@@ -71,7 +76,7 @@ function View()
         }
     }
     
-    //Background of a match is drawn   
+    //Background is drawn   
     this._drawBackground = function()
     {
         gameController.loadBackground();
