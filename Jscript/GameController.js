@@ -387,7 +387,7 @@ function GameController()
                 leftPlatoon[i] = minion.createMinion(view._rectsMinionsLocal[2-i].m, true, 170 - i * 35, canvas.height/2 + 100);
             }
         }
-        gameController._newBattle();
+        gameController._newBattle();    
         gameController.bShowTurn = true;
         gameController._timerCounter = setInterval(this._timer_ChangeTime, 1000);
         if(gameController.activeMatch.participants[0].player.playerId == localPlayer.playerId)//If it is the first player, check for the win
@@ -404,6 +404,9 @@ function GameController()
         }
     }
     
+    /** Makes the call to fetch the player score and submit the updated one
+    *@function
+    */
     this.submitScore = function()
     {
         fetchUserLeaderBoard();
@@ -477,7 +480,7 @@ function keyDownHandler(e)
     {
         //takeTurn(0);
         //fetchLeaderBoard(0);
-        gameController.submitScore();
+        //gameController.submitScore();
     }
     if(e.keyCode == 40) //down arrow
     {
@@ -628,6 +631,10 @@ function click(e)
                     if(bWon != null)
                     {
                         finishGame(gameController.activeMatch.matchId, bWon, chosenTurn, playerController._right.getWins(), playerController._left.getWins());
+                        if(bWon)
+                        {
+                            gameController.submitScore();
+                        }
                     }
                     else
                     {
