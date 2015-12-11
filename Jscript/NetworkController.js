@@ -400,9 +400,13 @@ fetchUserLeaderBoard = function()
         "maxResults" : 1
 	});
 	
-	return request.execute(function(resp)
+	request.execute(function(resp)
 	{
 		console.log(resp);
-        return resp;
+        if(resp != null)
+        {
+            var iScore = parseInt(resp.items[0].formattedScore);
+            submitScore(iScore + 1);
+        }
 	});
 }

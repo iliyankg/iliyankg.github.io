@@ -35,6 +35,7 @@ view.update();
 *@property {int} _iturnNum Number of turns so far
 *@property {float} _fLobbyTimer Timer to update the lobby
 *@property {float} _timerCounter Timer for the game animations
+*@property {int} iUserScore Score of the player on the leaderboard
 */
 function GameController()
 {
@@ -46,6 +47,7 @@ function GameController()
     this.bCanMakeTurn = false;
     this.bShowTurn = false;
     this.leaderboard = null;
+    this.iUserScore = null;
     
     //PRIVATE
     this._iTurnNum = 1;
@@ -404,8 +406,7 @@ function GameController()
     
     this.submitScore = function()
     {
-        var iScore = fetchUserLeaderBoard();
-        console.log(iScore);
+        fetchUserLeaderBoard();
     }
     
     /** Populates the platoon variables to show them on screen later.
