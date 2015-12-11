@@ -371,16 +371,14 @@ submitScore = function(scr)
 	});
 }
 /**Gets the all time public leaderboard.
-*@param {string} id ID of the leaderboard to be fetched.
 *@function
 */
-fetchLeaderBoard = function(id)
+fetchLeaderBoard = function()
 {
 	var request = gapi.client.games.scores.listWindow({
 		"leaderboardId" : "CgkI6uySlpsHEAIQAw",
 		"collection" : "PUBLIC",
-		"timeSpan" : "ALL_TIME",
-        "maxResults" : 1
+		"timeSpan" : "ALL_TIME"
 	});
 	
 	request.execute(function(resp)
@@ -388,5 +386,23 @@ fetchLeaderBoard = function(id)
 		console.log(resp);
         gameController.leaderboard = resp.items;
         view.createRectsLeaderboards(resp.items.lenght);
+	});
+}
+/**Gets the player's leaderboard score.
+*@function
+*/
+fetchUserLeaderBoard = function()
+{
+    var request = gapi.client.games.scores.listWindow({
+		"leaderboardId" : "CgkI6uySlpsHEAIQAw",
+		"collection" : "PUBLIC",
+		"timeSpan" : "ALL_TIME",
+        "maxResults" : 1
+	});
+	
+	return request.execute(function(resp)
+	{
+		console.log(resp);
+        return resp;
 	});
 }

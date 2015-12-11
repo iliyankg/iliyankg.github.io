@@ -394,8 +394,18 @@ function GameController()
             if(bWon != null)
             {
                 finishCreatorsGame(gameController.activeMatch.matchId);
+                if(bWon)
+                {
+                    this.submitScore();
+                }
             }
         }
+    }
+    
+    this.submitScore = function()
+    {
+        var iScore = fetchUserLeaderBoard();
+        console.log(iScore);
     }
     
     /** Populates the platoon variables to show them on screen later.
@@ -465,7 +475,8 @@ function keyDownHandler(e)
     if(e.keyCode == 38)//up arrow
     {
         //takeTurn(0);
-        fetchLeaderBoard(0);
+        //fetchLeaderBoard(0);
+        gameController.submitScore();
     }
     if(e.keyCode == 40) //down arrow
     {
