@@ -362,7 +362,7 @@ submitScore = function(scr)
 	{
 		"leaderboardId" : "CgkI6uySlpsHEAIQAw",
 		"timeSpan" : "ALL_TIME",
-		"score" : score
+		"score" : scr
 	});
 	
 	request.execute(function(resp)
@@ -379,7 +379,8 @@ fetchLeaderBoard = function(id)
 	var request = gapi.client.games.scores.listWindow({
 		"leaderboardId" : "CgkI6uySlpsHEAIQAw",
 		"collection" : "PUBLIC",
-		"timeSpan" : "ALL_TIME"
+		"timeSpan" : "ALL_TIME",
+        "maxResults" : 1
 	});
 	
 	request.execute(function(resp)
