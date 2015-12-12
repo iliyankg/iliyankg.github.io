@@ -408,5 +408,9 @@ fetchUserLeaderBoard = function()
             var iScore = parseInt(resp.items[0].formattedScore);
             submitScore(iScore + 1);
         }
+        else
+        {
+            submitScore(1);
+        }
 	});
 }
