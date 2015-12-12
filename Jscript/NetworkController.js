@@ -403,7 +403,7 @@ fetchUserLeaderBoard = function()
 	request.execute(function(resp)
 	{
 		console.log(resp);
-        if(resp != null)
+        if(resp.items[0].player.playerId == localPlayer.playerId)
         {
             var iScore = parseInt(resp.items[0].formattedScore);
             submitScore(iScore + 1);
